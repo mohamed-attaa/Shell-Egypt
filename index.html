@@ -1,0 +1,2102 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title data-translate-key="pageTitle">التحقق من المنتج</title>
+
+    <style>
+        /* ===== جميع الأنماط مع إضافة تنسيقات زر الترجمة في الهيدر ===== */
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            color: #222;
+            font-family: Arial, "Tahoma", sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: direction 0.2s;
+        }
+
+        .header {
+            width: 100%;
+            height: 80px;
+            border-bottom: 2px solid #f0c900;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            position: relative;
+            background: #fff;
+            z-index: 900;
+        }
+
+        .header-content {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 16px;
+        }
+
+        .header-title {
+            font-size: 17px;
+            color: #333;
+            white-space: nowrap;
+            background: transparent;
+            border: 0;
+            padding: 0;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .header-title:hover {
+            text-decoration: underline;
+        }
+
+        .shell-logo {
+            width: 50px;
+            height: 59px;
+            border: 2px solid #222;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #fff;
+            flex-shrink: 0;
+        }
+
+        .shell-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* زر الترجمة في الهيدر */
+        .header-translation-btn {
+            background: transparent;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            padding: 6px 12px;
+            font-family: inherit;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: border-color 0.2s;
+            white-space: nowrap;
+            margin-left: 4px;
+        }
+
+        .header-translation-btn:hover {
+            border-color: #ed1c24;
+            color: #ed1c24;
+        }
+
+        .header-translation-btn .globe-icon {
+            font-size: 18px;
+        }
+
+        /* قائمة الترجمة المنسدلة في الهيدر */
+        .header-translation-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .header-translation-dropdown .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .10);
+            min-width: 120px;
+            z-index: 950;
+            padding: 4px 0;
+        }
+
+        .header-translation-dropdown.open .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu button {
+            display: block;
+            width: 100%;
+            border: 0;
+            background: transparent;
+            padding: 10px 16px;
+            font-family: inherit;
+            font-size: 14px;
+            text-align: right;
+            color: #222;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .dropdown-menu button:hover {
+            background: #f5f5f5;
+            color: #ed1c24;
+        }
+
+        .dropdown-menu button.active-lang {
+            color: #ed1c24;
+            font-weight: 700;
+        }
+
+        .mobile-menu-button {
+            display: none;
+        }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        .mobile-menu.open {
+            display: block;
+        }
+
+        .mobile-menu-inner {
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+            padding: 10px 20px 18px;
+        }
+
+        .mobile-menu-link {
+            width: 100%;
+            min-height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 0;
+            border-bottom: 1px solid #eee;
+            background: #fff;
+            color: #222;
+            font-family: inherit;
+            font-size: 15px;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+
+        .mobile-menu-link:last-child {
+            border-bottom: 0;
+        }
+
+        .mobile-menu-link:hover {
+            color: #ed1c24;
+        }
+
+        .mobile-menu-arrow {
+            font-size: 20px;
+            color: #777;
+        }
+
+        .translation-wrapper {
+            width: 100%;
+            border-bottom: 1px solid #eee;
+        }
+
+        .translation-button {
+            width: 100%;
+            min-height: 52px;
+            border: 0;
+            background: #fff;
+            color: #222;
+            font-family: inherit;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+
+        .translation-button:hover {
+            color: #ed1c24;
+        }
+
+        .translation-arrow {
+            font-size: 20px;
+            transition: transform .2s ease;
+        }
+
+        .translation-wrapper.open .translation-arrow {
+            transform: rotate(180deg);
+        }
+
+        .translation-list {
+            display: none;
+            padding: 0 10px 8px;
+        }
+
+        .translation-wrapper.open .translation-list {
+            display: block;
+        }
+
+        .translation-list button {
+            width: 100%;
+            min-height: 44px;
+            border: 0;
+            border-bottom: 1px solid #f1f1f1;
+            background: #fafafa;
+            text-align: right;
+            padding: 0 15px;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            color: #444;
+        }
+
+        .translation-list button:hover {
+            background: #f5f5f5;
+            color: #ed1c24;
+        }
+
+        .translation-list button.active {
+            color: #ed1c24;
+            font-weight: 700;
+        }
+
+        .container {
+            width: calc(100% - 184px);
+            max-width: 1168px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            min-height: 52px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            color: #555;
+            font-size: 13px;
+            gap: 0;
+        }
+
+        .breadcrumb span {
+            color: #666;
+        }
+
+        .breadcrumb .separator {
+            margin: 0 9px;
+            color: #777;
+        }
+
+        .main {
+            width: 100%;
+            text-align: center;
+            padding-top: 86px;
+            min-height: 540px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(32px, 4vw, 46px);
+            line-height: 1.25;
+            font-weight: 700;
+            color: #171717;
+            word-break: break-word;
+        }
+
+        .red-line {
+            width: min(480px, 80%);
+            height: 4px;
+            background: #ed1c24;
+            border-radius: 2px;
+            margin: 15px auto 71px;
+        }
+
+        .check-circle {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 35px;
+            border-radius: 50%;
+            background: #008d3f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 25px rgba(0, 110, 55, 0.18);
+        }
+
+        .check {
+            width: 72px;
+            height: 40px;
+            border-left: 10px solid white;
+            border-bottom: 10px solid white;
+            transform: rotate(-45deg) translate(5px, -5px);
+            border-radius: 5px;
+        }
+
+        .message {
+            font-size: clamp(18px, 2vw, 23px);
+            line-height: 1.8;
+            font-weight: 600;
+            color: #202020;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .message div {
+            margin: 0;
+        }
+
+        .site-footer {
+            width: calc(100% - 184px);
+            max-width: 1168px;
+            margin: 70px auto 0;
+            padding-bottom: 150px;
+        }
+
+        .footer-accordion {
+            border-top: 1px solid #ddd;
+        }
+
+        .footer-item {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .footer-toggle {
+            width: 100%;
+            min-height: 67px;
+            border: 0;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            cursor: pointer;
+            color: #111;
+            font-family: inherit;
+            font-size: 15px;
+            text-align: right;
+        }
+
+        .footer-toggle .footer-arrow {
+            font-size: 27px;
+            font-weight: 300;
+            line-height: 1;
+            color: #222;
+            transform: rotate(0deg);
+            transition: transform .2s ease;
+        }
+
+        .footer-item.open .footer-arrow {
+            transform: rotate(180deg);
+        }
+
+        .footer-content {
+            display: none;
+            background: #f7f7f7;
+            padding: 10px 0 18px;
+        }
+
+        .footer-item.open .footer-content {
+            display: block;
+        }
+
+        .footer-content a {
+            display: block;
+            padding: 10px 0;
+            color: #111;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-content a:hover {
+            text-decoration: underline;
+        }
+
+        .legal-inline {
+            display: none;
+            width: 100%;
+            min-height: 560px;
+            margin: 0 auto 70px;
+            text-align: right;
+        }
+
+        .legal-inline.active {
+            display: block;
+        }
+
+        .legal-back {
+            display: inline-block;
+            border: 0;
+            background: transparent;
+            padding: 0;
+            margin: 0 0 24px;
+            font-family: inherit;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .legal-title {
+            font-size: clamp(27px, 3vw, 34px);
+            line-height: 1.4;
+            margin: 0 0 12px;
+            color: #111;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .legal-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 34px 42px 45px;
+            border-top: 4px solid #ed1c24;
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .06);
+            border-radius: 3px;
+            text-align: right;
+        }
+
+        .legal-content h3 {
+            font-size: 21px;
+            margin: 28px 0 10px;
+            color: #111;
+            padding-right: 14px;
+            border-right: 4px solid #ed1c24;
+            line-height: 1.5;
+        }
+
+        .legal-content p,
+        .legal-content li {
+            font-size: 16px;
+            line-height: 2.05;
+            color: #444;
+            margin: 0 0 15px;
+        }
+
+        .legal-intro {
+            font-size: 16px !important;
+            line-height: 2.1 !important;
+            color: #555 !important;
+            margin-bottom: 25px !important;
+        }
+
+        .legal-date {
+            display: block;
+            margin-top: 30px;
+            padding-top: 18px;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #777;
+            text-align: left;
+        }
+
+        .cookie-preferences-intro {
+            font-size: 16px !important;
+            line-height: 2.1 !important;
+            color: #555 !important;
+            margin-bottom: 30px !important;
+        }
+
+        .cookie-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            padding: 25px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cookie-option:first-of-type {
+            border-top: 1px solid #ddd;
+        }
+
+        .cookie-option-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .cookie-option-text h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        .cookie-option-text p {
+            margin-bottom: 10px !important;
+        }
+
+        .always-active {
+            display: inline-block;
+            font-size: 14px;
+            color: #008d3f;
+            margin-top: 5px;
+        }
+
+        .cookie-switch {
+            position: relative;
+            display: inline-block;
+            width: 58px;
+            height: 32px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .cookie-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            position: absolute;
+        }
+
+        .cookie-slider {
+            position: absolute;
+            inset: 0;
+            background: #aaa;
+            border-radius: 34px;
+            transition: .25s ease;
+        }
+
+        .cookie-slider::before {
+            content: "";
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            right: 4px;
+            top: 4px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+            transition: .25s ease;
+        }
+
+        .cookie-switch input:checked+.cookie-slider {
+            background: #ed1c24;
+        }
+
+        .cookie-switch input:checked+.cookie-slider::before {
+            transform: translateX(-26px);
+        }
+
+        .cookie-switch.disabled {
+            cursor: not-allowed;
+            opacity: .75;
+        }
+
+        .cookie-switch.disabled .cookie-slider {
+            background: #008d3f;
+        }
+
+        .cookie-save-wrapper {
+            text-align: center;
+            padding-top: 35px;
+        }
+
+        .cookie-save-button {
+            border: 0;
+            background: #ed1c24;
+            color: #fff;
+            padding: 14px 42px;
+            min-width: 190px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background .2s ease, transform .15s ease;
+        }
+
+        .cookie-save-button:hover {
+            background: #c90000;
+        }
+
+        .cookie-save-button:active {
+            transform: scale(.97);
+        }
+
+        .cookie-save-message {
+            display: none;
+            margin-top: 15px;
+            font-size: 15px;
+            color: #008d3f;
+            font-weight: 600;
+        }
+
+        .cookie-save-message.show {
+            display: block;
+        }
+
+        .verify-form {
+            display: none;
+            width: 100%;
+            margin: 0 auto 70px;
+            text-align: center;
+        }
+
+        .verify-form.active {
+            display: block;
+        }
+
+        .verify-form .red-line {
+            margin-bottom: 34px;
+        }
+
+        .verify-required {
+            text-align: right;
+            font-size: 13px;
+            color: #888;
+            max-width: 900px;
+            margin: 0 auto 26px;
+        }
+
+        .verify-body {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 60px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: right;
+        }
+
+        .verify-field-col,
+        .verify-help-col {
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        .verify-label-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .verify-label {
+            font-size: 15px;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .verify-help-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1.5px solid #999;
+            color: #999;
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .verify-input {
+            width: 100%;
+            height: 52px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 0 16px;
+            font-family: inherit;
+            font-size: 15px;
+            color: #222;
+            margin-bottom: 18px;
+        }
+
+        .verify-input:focus {
+            outline: none;
+            border-color: #ed1c24;
+        }
+
+        .verify-btn {
+            display: block;
+            width: 100%;
+            min-height: 52px;
+            border: 0;
+            border-radius: 3px;
+            background: #ed1c24;
+            color: #fff;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: background .2s ease, transform .15s ease;
+        }
+
+        .verify-btn:hover {
+            background: #c90000;
+        }
+
+        .verify-btn:active {
+            transform: scale(.98);
+        }
+
+        .verify-help-col {
+            padding-top: 4px;
+        }
+
+        .verify-help-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #222;
+            margin: 0 0 20px;
+            line-height: 1.6;
+        }
+
+        .top-button {
+            position: fixed;
+            left: 24px;
+            bottom: 22px;
+            width: 70px;
+            height: 70px;
+            border: 1px solid #ddd;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .10);
+            color: #444;
+            font-size: 25px;
+            cursor: pointer;
+            z-index: 998;
+        }
+
+        .top-button:hover {
+            background: #f8f8f8;
+        }
+
+        .notification {
+            position: fixed;
+            right: 20px;
+            bottom: 18px;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #ed1c24;
+            border: 1px solid #c90000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            z-index: 1001;
+            cursor: pointer;
+            transition: transform .15s ease;
+        }
+
+        .notification:active {
+            transform: scale(.94);
+        }
+
+        .notification-panel {
+            position: fixed;
+            right: 4px;
+            bottom: 70px;
+            width: min(320px, calc(100vw - 16px));
+            height: 220px;
+            background: #fff;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, .12);
+            z-index: 1000;
+            display: none;
+            overflow: hidden;
+        }
+
+        .notification-panel.open {
+            display: block;
+        }
+
+        .notification-panel-header {
+            height: 70px;
+            border-bottom: 2px solid #f0c900;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px 0 22px;
+        }
+
+        .notification-panel-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #111;
+        }
+
+        .notification-close {
+            border: 0;
+            background: transparent;
+            color: #999;
+            font-size: 26px;
+            line-height: 1;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .notification-empty {
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .notification-empty svg {
+            width: 55px;
+            height: 55px;
+            opacity: .48;
+        }
+
+        .notification-empty-text {
+            font-size: 14px;
+            color: #aaa;
+            text-align: center;
+            padding: 0 15px;
+        }
+
+        /* ===== التجاوب ===== */
+        @media (max-width: 1024px) {
+            .header {
+                padding: 0 35px;
+            }
+            .container,
+            .site-footer {
+                width: calc(100% - 70px);
+            }
+            .main {
+                padding-top: 65px;
+            }
+            .verify-body {
+                gap: 35px;
+            }
+            .legal-content {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                height: 72px;
+                padding: 0 18px;
+            }
+            .header-content {
+                justify-content: space-between;
+                flex-direction: row-reverse;
+                gap: 12px;
+            }
+            .header-title {
+                display: none;
+            }
+            .shell-logo {
+                width: 43px;
+                height: 51px;
+            }
+
+            /* زر الترجمة في الهيدر يظهر في الموبايل */
+            .header-translation-btn {
+                padding: 4px 10px;
+                font-size: 13px;
+            }
+            .header-translation-btn .globe-icon {
+                font-size: 16px;
+            }
+
+            .mobile-menu-button {
+                width: 44px;
+                height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid #ddd;
+                border-radius: 3px;
+                background: #fff;
+                color: #222;
+                font-size: 25px;
+                cursor: pointer;
+                padding: 0;
+            }
+            .mobile-menu-button:hover {
+                border-color: #ed1c24;
+                color: #ed1c24;
+            }
+            .mobile-menu-button .menu-icon {
+                display: block;
+                line-height: 1;
+            }
+            .mobile-menu-button .close-icon {
+                display: none;
+                font-size: 27px;
+            }
+            .mobile-menu-button.open .menu-icon {
+                display: none;
+            }
+            .mobile-menu-button.open .close-icon {
+                display: block;
+            }
+
+            .container,
+            .site-footer {
+                width: calc(100% - 30px);
+            }
+            .breadcrumb {
+                min-height: 48px;
+                font-size: 11px;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+            .main {
+                padding-top: 55px;
+                min-height: 470px;
+            }
+            h1 {
+                font-size: clamp(27px, 8vw, 35px);
+            }
+            .red-line {
+                width: min(360px, 78%);
+                height: 3px;
+                margin-top: 13px;
+                margin-bottom: 50px;
+            }
+            .check-circle {
+                width: min(180px, 55vw);
+                height: min(180px, 55vw);
+                margin-bottom: 30px;
+            }
+            .check {
+                width: 60px;
+                height: 34px;
+                border-left-width: 8px;
+                border-bottom-width: 8px;
+            }
+            .message {
+                font-size: 18px;
+                line-height: 1.8;
+            }
+            .verify-form {
+                margin-bottom: 50px;
+            }
+            .verify-required {
+                max-width: 100%;
+                margin-bottom: 22px;
+                font-size: 12px;
+            }
+            .verify-body {
+                flex-direction: column;
+                gap: 32px;
+                max-width: 100%;
+            }
+            .verify-field-col,
+            .verify-help-col {
+                width: 100%;
+                flex: none;
+            }
+            .verify-label {
+                font-size: 14px;
+            }
+            .verify-input,
+            .verify-btn {
+                height: 50px;
+            }
+            .verify-help-title {
+                font-size: 16px;
+                margin-bottom: 16px;
+            }
+            .site-footer {
+                margin-top: 40px;
+                padding-bottom: 120px;
+            }
+            .footer-toggle {
+                min-height: 60px;
+                font-size: 14px;
+                padding: 0 5px;
+            }
+            .footer-content {
+                padding: 8px 5px 14px;
+            }
+            .footer-content a {
+                font-size: 13px;
+                padding: 9px 0;
+            }
+            .legal-inline {
+                min-height: auto;
+                margin-bottom: 45px;
+            }
+            .legal-back {
+                font-size: 13px;
+                margin-bottom: 20px;
+            }
+            .legal-content {
+                padding: 24px 17px 28px;
+                box-shadow: none;
+                border-top-width: 3px;
+            }
+            .legal-title {
+                font-size: 26px;
+                margin-bottom: 5px;
+            }
+            .legal-content h3 {
+                font-size: 18px;
+                padding-right: 10px;
+                border-right-width: 3px;
+                margin-top: 24px;
+                margin-bottom: 9px;
+            }
+            .legal-content p,
+            .legal-content li {
+                font-size: 14px;
+                line-height: 1.9;
+            }
+            .legal-date {
+                font-size: 12px;
+                margin-top: 25px;
+            }
+            .cookie-option {
+                align-items: flex-start;
+                gap: 12px;
+                padding: 20px 0;
+            }
+            .cookie-option-text {
+                min-width: 0;
+            }
+            .cookie-option-text h3 {
+                font-size: 17px;
+            }
+            .cookie-option-text p {
+                font-size: 13px !important;
+                line-height: 1.8 !important;
+            }
+            .cookie-switch {
+                width: 52px;
+                height: 29px;
+                margin-top: 3px;
+            }
+            .cookie-slider::before {
+                width: 21px;
+                height: 21px;
+            }
+            .cookie-switch input:checked+.cookie-slider::before {
+                transform: translateX(-23px);
+            }
+            .cookie-save-button {
+                width: 100%;
+                min-width: 0;
+            }
+            .top-button {
+                width: 52px;
+                height: 52px;
+                left: 12px;
+                bottom: 12px;
+                font-size: 21px;
+            }
+            .notification {
+                right: 12px;
+                bottom: 12px;
+                width: 50px;
+                height: 50px;
+                font-size: 22px;
+            }
+            .notification-panel {
+                right: 8px;
+                bottom: 70px;
+                width: calc(100vw - 16px);
+                max-width: 320px;
+            }
+
+            /* تعديل موضع القائمة المنسدلة في الهيدر للعرض على اليمين في RTL */
+            .header-translation-dropdown .dropdown-menu {
+                left: auto;
+                right: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 0 14px;
+            }
+            .mobile-menu-button {
+                width: 42px;
+                height: 42px;
+            }
+            .shell-logo {
+                width: 40px;
+                height: 48px;
+            }
+            .container,
+            .site-footer {
+                width: calc(100% - 24px);
+            }
+            .breadcrumb {
+                font-size: 10px;
+            }
+            .main {
+                padding-top: 48px;
+            }
+            .red-line {
+                margin-bottom: 42px;
+            }
+            .check-circle {
+                width: 155px;
+                height: 155px;
+            }
+            .check {
+                width: 52px;
+                height: 30px;
+                border-left-width: 7px;
+                border-bottom-width: 7px;
+            }
+            .message {
+                font-size: 16px;
+            }
+            .verify-label-row {
+                gap: 6px;
+            }
+            .verify-input,
+            .verify-btn {
+                height: 48px;
+            }
+            .legal-content {
+                padding: 20px 14px 24px;
+            }
+            .legal-title {
+                font-size: 24px;
+            }
+            .legal-content h3 {
+                font-size: 17px;
+            }
+            .legal-content p,
+            .legal-content li {
+                font-size: 13.5px;
+            }
+            .cookie-option {
+                gap: 8px;
+            }
+            .cookie-option-text h3 {
+                font-size: 16px;
+            }
+            .cookie-option-text p {
+                font-size: 12.5px !important;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .header {
+                padding: 0 10px;
+            }
+            .container,
+            .site-footer {
+                width: calc(100% - 18px);
+            }
+            .main {
+                padding-top: 42px;
+            }
+            .message {
+                font-size: 15px;
+            }
+            .legal-content {
+                padding: 18px 12px 22px;
+            }
+            .cookie-option-text h3 {
+                font-size: 15px;
+            }
+            .cookie-option-text p {
+                font-size: 12px !important;
+            }
+            .cookie-switch {
+                width: 47px;
+                height: 27px;
+            }
+            .cookie-slider::before {
+                width: 19px;
+                height: 19px;
+                top: 4px;
+                right: 4px;
+            }
+            .cookie-switch input:checked+.cookie-slider::before {
+                transform: translateX(-20px);
+            }
+            .header-translation-btn {
+                padding: 2px 8px;
+                font-size: 12px;
+            }
+            .header-translation-btn .globe-icon {
+                font-size: 14px;
+            }
+        }
+
+        /* تنسيقات إضافية للاتجاه حسب اللغة */
+        html[dir="ltr"] .legal-content,
+        html[dir="ltr"] .verify-body,
+        html[dir="ltr"] .breadcrumb,
+        html[dir="ltr"] .message,
+        html[dir="ltr"] .verify-required,
+        html[dir="ltr"] .verify-label-row,
+        html[dir="ltr"] .verify-help-title,
+        html[dir="ltr"] .footer-toggle,
+        html[dir="ltr"] .footer-content a,
+        html[dir="ltr"] .mobile-menu-link,
+        html[dir="ltr"] .translation-button,
+        html[dir="ltr"] .translation-list button {
+            text-align: left;
+        }
+
+        html[dir="ltr"] .verify-label-row {
+            justify-content: flex-start;
+        }
+
+        html[dir="ltr"] .legal-content h3 {
+            padding-right: 0;
+            padding-left: 14px;
+            border-right: none;
+            border-left: 4px solid #ed1c24;
+        }
+
+        html[dir="ltr"] .breadcrumb .separator {
+            margin: 0 9px;
+        }
+
+        /* في الـ RTL نضبط القائمة المنسدلة للترجمة في الهيدر لتكون على اليمين */
+        html[dir="rtl"] .header-translation-dropdown .dropdown-menu {
+            left: auto;
+            right: 0;
+        }
+        html[dir="ltr"] .header-translation-dropdown .dropdown-menu {
+            left: 0;
+            right: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+    <header class="header">
+
+        <div class="header-content">
+
+            <div class="shell-logo">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA9CAYAAADid0ojAAAHiklEQVR4nO1aT0gcVxz+zEwyM2s2btZkjHuwxeYQiIsJpeTQUqIeQry0NNCql4aQloKgwUNSSIggCEkOgQqFYnKwUJptIdCmEE+up0KFQhQVegjSGtDuuLvZdV13x8wyPYxvM2/em9mduDQm5APBefP+/L73+73v/d6brTNN08RrBJH8Mzc3h1u3bmF6ehqFQuFl2lQ1FEVBR0cHLl++jPb2dgBAnWma5tzcHM6ePfvKEHFCURRMTk5apEzTNPv6+sxQKGT29/ebyWTSfFWQTCbN/v5+MxQKmX19faZpmmadaZpmJBJBoVDA48eP0djY+LIn3BdSqRSOHj0KRVGwsrJirSESarUisz4xBAAwlv+BsfKv9f9KBmIkBDFyBGLLW9jbcgzi2+3Y23pqR2MRmwkH0auyH6xPDKH4xww2Hq66V5otAFgF8KhcJJ9QsP+TM1A+/GzH5IBtUTh48CAA4OnTp7470L5635uED+zvbsbBy7d9E7Pbv+dFB0+PnMNSS2vNyADAxsNVPDndi/WJITxbmnmhPnx7qBAfx9qVmzAS7vuxHNUhqCWIh0sAgHw8AEMT0NCTAwAYawJKmoDivOTah9hUh+affqzKW3b7fa2hQnwcq+dveBIJD2QgqiWqPB8PAAAaenNUeXFBQj6uID8VYPoyEiaenO7FoZGPceD87aptrDrk0iPnXMnIUR0ALK84yBDwyuU2vexF0aVt8vovSI+cq9bM6gitTwwhc/cRU17ftYnInQTCAxkAQEkTuO3FJsO1b2PNahMezCByJ4H6rk2GWObuo6pJVSRUiI8jef0XplwdTaFxO7zIX3FeguFCyg35qQBEtQS5zfJy40AG4UE2bDN3H6EQH6/YnyehZ0sz3DBTR1NlAwikqM7UqwRCvr5zkyqX23Soo0mG1Or5GxXVz5PQ2qUL3HJRZUOovtPaqXWOcglqiRt2huatSTxvu9lE4EpofWIIxVk6+yYzxlMluU23wm5xn+eAdujzVl2n+tnHcHqpOFsop1Y8uBLKfPsr9SyqJUTuJCCqJWRjQe7sSVHdVRjc4KaK2ViQGtNpm1vocQmlR85RGyfpGEB5c+R66fgWVxjEwyUIHMP1xX3M+gGA7L0ggOdry7mejISJ3A+3qie08dss9WwftL5rE3JUL+/+dvgRBmM7U5CiW8y7fNxSPhKKolpiiBf//IvbL0Po2dIMk9Y4Y5zsO04vEfnmCQMPdrkmyE9ZExUezDA22L1UnC1ww44h5HSlHNXZENqeMZ6X6js3GWEQbXmd3XBuuMWCaOjJMUR54IUdQ8jpyuK8xF0vxGtOb0jRLd/CQEAmh6d62XusEPHCjiU0y16UZGNBLqn6zk3kpxWqTG7TYSQq57z64j7G8PRYiOu14oKEbCzIlnPCjiLEi0kim6mxEDNDDb05GAmRISs5wlRoosPN0ASGNClzkjQ0AdrVRohqCepoylXmuYSMv+eol2SRE9nUrh5iSIUHM6yXjm8xoeg0xOmJbCzICAFgeU1USwgPZiC36YySOm2mPbRMxyRpTEiRge2k5DbrMGcvq+9ihcGO/FSAkmtDsw58TiHQrjXCSIhlMjw4bfbM5ezKREjpHJFo6Mlx15gd9rBzynV+KlDeCgiy94JcMk61dMKTEDmr2A1RR5PIxwPl3ZyUA3QySU8GnZjayZE21B6zICEfD3h6xg0Uob0tx6iXPPm1k7ITaOilvSRFt7j5nqEJ5aQUsGTfLgSGJiD9TciVjHOSnTZ7eqg4L3H1n5BKc5SPPMttevl44BQEQsDQBKq9oQlIj7mTyU8F2Ozk7XZ3Qkrnl0wn2ViQa7iolhAeyFDvGnpzrmkPCTv7e6d3srEgDvRscMlo1xqRGgsx5c5bIcZD+7ubmUbFeQna1UPc3C08kKGMpBc/5yDYZcm1oQlUXSsVKjBkigsSVr5o4l55hS6eZMq493Jed28NPTnmIsNaF1LZ2GpQXJDKxluhJzJksveC3AxBbKrD4ZtXyhFlt9/1ovHZ0gzWLl3gpkK8+zdDEyi1q7Sj2+vYyZF36bEQ1yvyCQWRB4tUWVVXwXtbTyHyYBGhiychNtVR74rzEtKOeLYTqESG1DE0gSEDWGvJLcScZJyoeI0Vvn4fh29eYUjVArzzEMBuF2JTHZonvkb4+v2Kffq6215+7x1qXbX8ulKN3b6x/FGEem5dXvKsX5OvDwD/mqnW8BsZvgiJzbKvzl8EO50kf4QiIeq52rsDP3BePsrvHvHV3tfnFDFyBNYnRTK4pVKebVSDSTy9kI/TZytrTB82+qrc8hbs30ezsSAQ824jR3Uc6NlAKSEgP614fuSqBXwRcma21aA4L+2IhPLBGV/1/a0hR2b7f8DvmP481HqKm7y6wVjJMKmTfEJhxKXSmH7g+3cK6ne/+6pfiI8j9/P3AIDgp59zjyi1xI5/p7AbULNMYTfiDaHdjjeEdjveENrteD0JKYqVsqdSqZdqzIuA2Ew47AGAjo4OAMDw8PArRSqVSmF4eBjAcw6v3e+29wBAe3s7Jicn0d3dXXbdqwBFUdDd3f38R+jY9tBLtqum+A9LJ4IbV9RxAwAAAABJRU5ErkJggg==" alt="Shell">
+            </div>
+
+            <a href="#verify" class="header-title" id="verifyLink" data-translate-key="headerVerify">التحقق من أصالة المنتج</a>
+
+            <!-- ===== زر الترجمة في الهيدر (خارج الموبيل منيو) ===== -->
+            <div class="header-translation-dropdown" id="headerTranslationDropdown">
+                <button type="button" class="header-translation-btn" id="headerTranslationBtn">
+                    <span class="globe-icon">🌐</span>
+                    <span id="headerLangLabel">عربي</span>
+                </button>
+                <div class="dropdown-menu" id="headerLangMenu">
+                    <button type="button" data-lang="ar" class="active-lang">العربية</button>
+                    <button type="button" data-lang="en">English</button>
+                </div>
+            </div>
+
+            <!-- زر القائمة (الموبايل) -->
+            <button type="button" class="mobile-menu-button" id="mobileMenuButton" aria-label="فتح القائمة" aria-expanded="false">
+                <span class="menu-icon">☰</span>
+                <span class="close-icon">×</span>
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- =========================
+         MOBILE MENU
+    ========================= -->
+    <div class="mobile-menu" id="mobileMenu">
+
+        <div class="mobile-menu-inner">
+
+            <a href="#verify" class="mobile-menu-link" id="mobileVerifyLink" data-translate-key="headerVerify">
+                <span>التحقق من أصالة المنتج</span>
+                <span class="mobile-menu-arrow">‹</span>
+            </a>
+
+            <!-- ===== الترجمة داخل الموبيل منيو (موجود سابقاً) ===== -->
+            <div class="translation-wrapper" id="translationWrapper">
+
+                <button type="button" class="translation-button" id="translationButton">
+                    <span id="translationLabel">الترجمة</span>
+                    <span class="translation-arrow">⌄</span>
+                </button>
+
+                <div class="translation-list">
+                    <button type="button" class="active" data-lang="ar">العربية</button>
+                    <button type="button" data-lang="en">English</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================
+         MAIN CONTAINER
+    ========================= -->
+    <div class="container">
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <span data-translate-key="breadcrumbShell">شل مصر</span>
+            <span class="separator">|</span>
+            <span data-translate-key="breadcrumbVerify">التحقق من المنتج</span>
+        </div>
+
+        <!-- Main Success Screen -->
+        <main class="main" id="mainView">
+
+            <h1 data-translate-key="pageTitle">التحقق من المنتج</h1>
+            <div class="red-line"></div>
+
+            <div class="check-circle" aria-label="منتج أصلي">
+                <div class="check"></div>
+            </div>
+
+            <div class="message">
+                <div data-translate-key="successTitle">منتج اصلي</div>
+                <div data-translate-key="successMsg">شكرا لشراء منتجات شل الأصلية</div>
+            </div>
+
+        </main>
+
+        <!-- Verify Form -->
+        <div class="verify-form" id="verifyForm">
+
+            <h1 data-translate-key="pageTitle">التحقق من المنتج</h1>
+            <div class="red-line"></div>
+
+            <div class="verify-required" data-translate-key="requiredField">* حقل مطلوب</div>
+
+            <div class="verify-body">
+
+                <div class="verify-field-col">
+
+                    <div class="verify-label-row">
+                        <span class="verify-help-icon" title="أدخل الكود المطبوع على المنتج أو الرمز المرسل عبر SMS">؟</span>
+                        <span class="verify-label" data-translate-key="codeLabel">كود المنتج / رمز SMS *</span>
+                    </div>
+
+                    <input type="text" id="verifyCodeInput" class="verify-input" aria-label="كود المنتج / رمز SMS" autocomplete="off">
+
+                    <button type="button" class="verify-btn" id="verifyClearBtn" data-translate-key="clearBtn">مسح</button>
+                    <button type="button" class="verify-btn" id="verifySubmitBtn" data-translate-key="submitBtn">إرسال</button>
+
+                </div>
+
+                <div class="verify-help-col">
+
+                    <p class="verify-help-title" data-translate-key="helpTitle">هل تحتاج مساعدة في العثور على كود المنتج؟</p>
+
+                    <button type="button" class="verify-btn" id="verifyHelpBtn" data-translate-key="helpBtn">اضغط هنا لمعرفة المزيد</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Legal Pages -->
+        <div class="legal-inline" id="legalInline">
+
+            <button class="legal-back" type="button" id="legalBack" data-translate-key="backToVerify">← العودة إلى صفحة التحقق</button>
+
+            <!-- Terms -->
+            <div id="legalTermsContent" class="legal-content" hidden>
+                <h2 class="legal-title" data-translate-key="termsTitle">الشروط والأحكام</h2>
+
+                <h3 data-translate-key="termsIntroHeading">مقدمة</h3>
+                <p data-translate-key="termsIntroText">مرحباً بك في موقع شل للتحقق من أصالة المنتجات. باستخدامك لهذا الموقع، فإنك توافق على الالتزام بالشروط والأحكام التالية. يرجى قراءة هذه الشروط بعناية قبل استخدام الموقع. إذا كنت لا توافق على أي من هذه الشروط، يرجى عدم استخدام الموقع.</p>
+
+                <h3 data-translate-key="termsUseHeading">استخدام الموقع</h3>
+                <p data-translate-key="termsUseText">هذا الموقع مخصص للتحقق من أصالة منتجات شل فقط. يُمنع استخدام الموقع لأي أغراض غير قانونية أو غير مصرح بها. لا يجوز لك محاولة الوصول غير المصرح به إلى أي جزء من الموقع أو أي أنظمة أو شبكات مرتبطة به.</p>
+
+                <h3 data-translate-key="termsIpHeading">الملكية الفكرية</h3>
+                <p data-translate-key="termsIpText">جميع المحتويات المنشورة على هذا الموقع، بما في ذلك النصوص والرسومات والشعارات والأيقونات والصور والبرامج، هي ملك لشركة شل أو مرخصيها وتخضع لحماية قوانين حقوق الملكية الفكرية المحلية والدولية.</p>
+
+                <h3 data-translate-key="termsLiabilityHeading">حدود المسؤولية</h3>
+                <p data-translate-key="termsLiabilityText">يتم توفير هذا الموقع والمحتوى الموجود عليه 'كما هو' دون أي ضمانات صريحة أو ضمنية. لا تتحمل شل المسؤولية عن أي أضرار مباشرة أو غير مباشرة ناتجة عن استخدام الموقع أو عدم القدرة على استخدامه.</p>
+
+                <h3 data-translate-key="termsPrivacyHeading">الخصوصية وحماية البيانات</h3>
+                <p data-translate-key="termsPrivacyText">نحن نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية. للمزيد من المعلومات حول كيفية جمع واستخدام وحماية معلوماتك الشخصية، يرجى مراجعة سياسة الخصوصية الخاصة بنا.</p>
+
+                <h3 data-translate-key="termsLawHeading">القانون الحاكم</h3>
+                <p data-translate-key="termsLawText">تخضع هذه الشروط والأحكام لقوانين جمهورية مصر العربية وتفسر وفقاً لها. أي نزاع ينشأ عن أو يتعلق بهذه الشروط يخضع للاختصاص القضائي الحصري لمحاكم القاهرة.</p>
+
+                <h3 data-translate-key="termsAmendHeading">التعديلات على الشروط</h3>
+                <p data-translate-key="termsAmendText">تحتفظ شل بالحق في تعديل هذه الشروط والأحكام في أي وقت. سيتم نشر أي تغييرات على هذه الصفحة، ويعتبر استمرارك في استخدام الموقع بعد نشر التعديلات موافقة منك على الشروط المعدلة.</p>
+
+                <span class="legal-date" data-translate-key="lastUpdate">آخر تحديث: August 2024</span>
+            </div>
+
+            <!-- Privacy -->
+            <div id="legalPrivacyContent" class="legal-content" hidden>
+                <h2 class="legal-title" data-translate-key="privacyTitle">سياسة الخصوصية</h2>
+
+                <h3 data-translate-key="privacyIntroHeading">مقدمة</h3>
+                <p data-translate-key="privacyIntroText">مرحباً بك في موقع شل للتحقق من أصالة المنتجات. نحن نلتزم بحماية خصوصيتك وسرية بياناتك الشخصية. توضح هذه السياسة كيفية جمعنا واستخدامنا وحماية معلوماتك عند زيارتك لموقعنا.</p>
+
+                <h3 data-translate-key="privacyCollectHeading">جمع المعلومات</h3>
+                <p data-translate-key="privacyCollectText">قد نجمع معلومات شخصية مثل الاسم والبريد الإلكتروني عند استخدامك لنماذج الاتصال أو الاشتراك في خدماتنا. كما نجمع بيانات غير شخصية مثل عنوان IP ونوع المتصفح وصفحات الزيارة لتحسين أداء الموقع.</p>
+
+                <h3 data-translate-key="privacyUseHeading">استخدام المعلومات</h3>
+                <p data-translate-key="privacyUseText">نستخدم المعلومات التي نجمعها لتقديم الخدمات المطلوبة، وتحسين تجربة المستخدم، وإرسال تحديثات وعروض ترويجية (بموافقتك)، والامتثال للمتطلبات القانونية.</p>
+
+                <h3 data-translate-key="privacyShareHeading">مشاركة المعلومات</h3>
+                <p data-translate-key="privacyShareText">لا نبيع أو نؤجر معلوماتك الشخصية لأطراف خارجية. قد نشاركها مع مقدمي الخدمات الموثوقين الذين يساعدوننا في تشغيل الموقع، مع الالتزام بسرية البيانات.</p>
+
+                <h3 data-translate-key="privacySecurityHeading">أمان البيانات</h3>
+                <p data-translate-key="privacySecurityText">نطبق إجراءات أمنية تقنية وتنظيمية لحماية بياناتك من الوصول غير المصرح به أو التعديل أو الكشف. ومع ذلك، لا يمكن ضمان أمان كامل للبيانات المرسلة عبر الإنترنت.</p>
+
+                <h3 data-translate-key="privacyCookiesHeading">ملفات تعريف الارتباط</h3>
+                <p data-translate-key="privacyCookiesText">نستخدم ملفات تعريف الارتباط لتحسين أداء الموقع وتذكر تفضيلاتك. يمكنك التحكم في إعدادات الكوكيز من خلال متصفحك، راجع سياسة الكوكيز الخاصة بنا للمزيد من التفاصيل.</p>
+
+                <h3 data-translate-key="privacyRightsHeading">حقوقك</h3>
+                <p data-translate-key="privacyRightsText">لديك الحق في طلب الوصول إلى بياناتك الشخصية أو تصحيحها أو حذفها، وكذلك الاعتراض على معالجتها. يمكنك ممارسة هذه الحقوق بالتواصل معنا عبر المعلومات المذكورة في الموقع.</p>
+
+                <span class="legal-date" data-translate-key="lastUpdate">آخر تحديث: August 2024</span>
+            </div>
+
+            <!-- Cookies -->
+            <div id="legalCookiesContent" class="legal-content" hidden>
+                <h2 class="legal-title" data-translate-key="cookiesTitle">سياسة الكوكيز</h2>
+
+                <h3 data-translate-key="cookiesWhatHeading">ما هي ملفات تعريف الارتباط؟</h3>
+                <p data-translate-key="cookiesWhatText">ملفات تعريف الارتباط (الكوكيز) هي ملفات نصية صغيرة يتم تخزينها على جهاز الكمبيوتر أو الجهاز المحمول الخاص بك عند زيارة موقع إلكتروني. تُستخدم هذه الملفات على نطاق واسع لجعل المواقع تعمل بشكل أفضل وأكثر كفاءة، فضلاً عن تقديم معلومات لأصحاب الموقع.</p>
+
+                <h3 data-translate-key="cookiesHowHeading">كيف نستخدم ملفات تعريف الارتباط؟</h3>
+                <p data-translate-key="cookiesHowText">نحن نستخدم ملفات تعريف الارتباط لعدة أغراض، منها: ضمان عمل الموقع بشكل صحيح، تحسين أداء الموقع وتجربة المستخدم، تذكر تفضيلاتك وإعداداتك، وتحليل كيفية استخدام الزوار لموقعنا لتحسين خدماتنا.</p>
+
+                <h3 data-translate-key="cookiesTypesHeading">أنواع ملفات تعريف الارتباط التي نستخدمها</h3>
+
+                <h3 data-translate-key="cookiesEssentialHeading">ملفات كوكيز ضرورية أساسية - نشط دائماً</h3>
+                <p data-translate-key="cookiesEssentialText">هذه الملفات ضرورية لعمل الموقع بشكل صحيح. تمكّنك من التنقل في الموقع واستخدام ميزاته. لا يمكن تعطيل هذه الملفات.</p>
+
+                <h3 data-translate-key="cookiesAnalyticsHeading">ملفات كوكيز تحليلية وأداء</h3>
+                <p data-translate-key="cookiesAnalyticsText">تساعدنا هذه الملفات في فهم كيفية تفاعل الزوار مع الموقع من خلال جمع معلومات مجهولة الهوية. تساعدنا هذه البيانات في تحسين أداء الموقع وتجربة المستخدم.</p>
+
+                <h3 data-translate-key="cookiesMarketingHeading">ملفات كوكيز تسويقية وإعلانات</h3>
+                <p data-translate-key="cookiesMarketingText">تُستخدم هذه الملفات لتقديم إعلانات ذات صلة بك وباهتماماتك. كما تُستخدم لتحديد عدد مرات مشاهدة الإعلان وقياس فعالية الحملات الإعلانية.</p>
+
+                <h3 data-translate-key="cookiesManageHeading">كيفية إدارة ملفات تعريف الارتباط</h3>
+                <p data-translate-key="cookiesManageText">يمكنك التحكم في ملفات تعريف الارتباط وحذفها من خلال إعدادات المتصفح الخاص بك. يرجى ملاحظة أن حذف أو حظر بعض ملفات تعريف الارتباط قد يؤثر على تجربة استخدامك للموقع.</p>
+
+                <span class="legal-date" data-translate-key="lastUpdate">آخر تحديث: August 2024</span>
+            </div>
+
+            <!-- Modify Cookies -->
+            <div id="legalModifyContent" class="legal-content cookie-preferences" hidden>
+                <h2 class="legal-title" data-translate-key="modifyCookiesTitle">تعديل تفضيلات الكوكيز</h2>
+
+                <p class="cookie-preferences-intro" data-translate-key="modifyCookiesIntro">نحن نستخدم ملفات تعريف الارتباط لتحسين تجربة استخدام مواقع شل الإلكترونية. بعض ملفات الكوكيز ضرورية لعمل الموقع، بينما يساعدنا البعض الآخر في تحسين تجربتك وتقديم محتوى مخصص لك.</p>
+
+                <!-- Essential -->
+                <div class="cookie-option">
+                    <div class="cookie-option-text">
+                        <h3 data-translate-key="cookiesEssentialHeading">ملفات كوكيز ضرورية أساسية</h3>
+                        <p data-translate-key="cookiesEssentialText">هذه الملفات ضرورية لعمل الموقع بشكل صحيح. تمكّنك من التنقل في الموقع واستخدام ميزاته. لا يمكن تعطيل هذه الملفات.</p>
+                        <strong class="always-active" data-translate-key="alwaysActive">نشط دائماً</strong>
+                    </div>
+                    <div class="cookie-switch disabled">
+                        <input type="checkbox" checked disabled aria-label="ملفات الكوكيز الضرورية">
+                        <span class="cookie-slider"></span>
+                    </div>
+                </div>
+
+                <!-- Analytics -->
+                <div class="cookie-option">
+                    <div class="cookie-option-text">
+                        <h3 data-translate-key="cookiesAnalyticsHeading">ملفات كوكيز تحليلية وأداء</h3>
+                        <p data-translate-key="cookiesAnalyticsText">تساعدنا هذه الملفات في فهم كيفية تفاعل الزوار مع الموقع من خلال جمع معلومات مجهولة الهوية. تساعدنا هذه البيانات في تحسين أداء الموقع وتجربة المستخدم.</p>
+                    </div>
+                    <label class="cookie-switch">
+                        <input type="checkbox" id="analyticsCookies" aria-label="ملفات كوكيز تحليلية وأداء">
+                        <span class="cookie-slider"></span>
+                    </label>
+                </div>
+
+                <!-- Marketing -->
+                <div class="cookie-option">
+                    <div class="cookie-option-text">
+                        <h3 data-translate-key="cookiesMarketingHeading">ملفات كوكيز تسويقية وإعلانات</h3>
+                        <p data-translate-key="cookiesMarketingText">تُستخدم هذه الملفات لتقديم إعلانات ذات صلة بك وباهتماماتك. كما تُستخدم لتحديد عدد مرات مشاهدة الإعلان وقياس فعالية الحملات الإعلانية.</p>
+                    </div>
+                    <label class="cookie-switch">
+                        <input type="checkbox" id="marketingCookies" aria-label="ملفات كوكيز تسويقية وإعلانات">
+                        <span class="cookie-slider"></span>
+                    </label>
+                </div>
+
+                <!-- Save -->
+                <div class="cookie-save-wrapper">
+                    <button type="button" id="saveCookiePreferences" class="cookie-save-button" data-translate-key="savePreferences">حفظ التفضيلات</button>
+                    <div id="cookieSaveMessage" class="cookie-save-message" aria-live="polite" data-translate-key="preferencesSaved">تم حفظ التفضيلات بنجاح</div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+    <footer class="site-footer">
+
+        <div class="footer-accordion">
+
+            <!-- Connect -->
+            <div class="footer-item">
+                <button class="footer-toggle" type="button" aria-expanded="false">
+                    <span data-translate-key="footerConnect">Connect with us</span>
+                    <span class="footer-arrow">⌃</span>
+                </button>
+                <div class="footer-content">
+                    <a href="https://www.youtube.com/user/Shell" target="_blank" rel="noopener noreferrer">YouTube</a>
+                    <a href="https://x.com/shell" target="_blank" rel="noopener noreferrer">Twitter</a>
+                    <a href="https://www.facebook.com/Shell/?brand_redir=1443772475642172#" target="_blank" rel="noopener noreferrer">Facebook</a>
+                    <a href="https://www.linkedin.com/company/shell" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://www.instagram.com/shell" target="_blank" rel="noopener noreferrer">Instagram</a>
+                </div>
+            </div>
+
+            <!-- Site Information -->
+            <div class="footer-item">
+                <button class="footer-toggle" type="button" aria-expanded="false">
+                    <span data-translate-key="footerSiteInfo">Site information</span>
+                    <span class="footer-arrow">⌃</span>
+                </button>
+                <div class="footer-content">
+                    <a href="#terms" class="legal-link" data-legal="terms" data-translate-key="footerTerms">الشروط والأحكام</a>
+                    <a href="#privacy" class="legal-link" data-legal="privacy" data-translate-key="footerPrivacy">سياسة الخصوصية</a>
+                    <a href="#cookies" class="legal-link" data-legal="cookies" data-translate-key="footerCookies">سياسة الكوكيز</a>
+                    <a href="#modify-cookies" class="legal-link" data-legal="modify-cookies" data-translate-key="footerModify">تعديل تفضيلات الكوكيز</a>
+                </div>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <!-- =========================
+         TOP BUTTON
+    ========================= -->
+    <button class="top-button" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="العودة للأعلى">
+        ↑
+    </button>
+
+    <!-- =========================
+         NOTIFICATION PANEL
+    ========================= -->
+    <div class="notification-panel" id="notificationPanel" aria-hidden="true">
+
+        <div class="notification-panel-header">
+            <button class="notification-close" id="notificationClose" aria-label="إغلاق">×</button>
+            <div class="notification-panel-title" data-translate-key="notificationsTitle">الإشعارات</div>
+        </div>
+
+        <div class="notification-empty">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M20 45h24c-3-4-4-8-4-14v-5c0-7-5-12-12-12S16 19 16 26v5c0 6-1 10-4 14h8" fill="none" stroke="#aaa" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M25 50c1.5 2.5 3.5 3.5 7 3.5s5.5-1 7-3.5" fill="none" stroke="#aaa" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M11 10l42 44" fill="none" stroke="#aaa" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <div class="notification-empty-text" data-translate-key="noNotifications">لا توجد إشعارات جديدة حالياً</div>
+        </div>
+
+    </div>
+
+    <!-- Notification Button -->
+    <button class="notification" id="notificationButton" aria-label="الإشعارات" aria-expanded="false">
+        🔔
+    </button>
+
+    <script>
+        /* =========================
+           TRANSLATIONS
+        ========================= */
+        const translations = {
+            ar: {
+                // عام
+                pageTitle: "التحقق من المنتج",
+                headerVerify: "التحقق من أصالة المنتج",
+                breadcrumbShell: "شل مصر",
+                breadcrumbVerify: "التحقق من المنتج",
+                requiredField: "* حقل مطلوب",
+                codeLabel: "كود المنتج / رمز SMS *",
+                clearBtn: "مسح",
+                submitBtn: "إرسال",
+                helpTitle: "هل تحتاج مساعدة في العثور على كود المنتج؟",
+                helpBtn: "اضغط هنا لمعرفة المزيد",
+                successTitle: "منتج اصلي",
+                successMsg: "شكرا لشراء منتجات شل الأصلية",
+                backToVerify: "← العودة إلى صفحة التحقق",
+                // Legal
+                termsTitle: "الشروط والأحكام",
+                privacyTitle: "سياسة الخصوصية",
+                cookiesTitle: "سياسة الكوكيز",
+                modifyCookiesTitle: "تعديل تفضيلات الكوكيز",
+                // Terms
+                termsIntroHeading: "مقدمة",
+                termsIntroText: "مرحباً بك في موقع شل للتحقق من أصالة المنتجات. باستخدامك لهذا الموقع، فإنك توافق على الالتزام بالشروط والأحكام التالية. يرجى قراءة هذه الشروط بعناية قبل استخدام الموقع. إذا كنت لا توافق على أي من هذه الشروط، يرجى عدم استخدام الموقع.",
+                termsUseHeading: "استخدام الموقع",
+                termsUseText: "هذا الموقع مخصص للتحقق من أصالة منتجات شل فقط. يُمنع استخدام الموقع لأي أغراض غير قانونية أو غير مصرح بها. لا يجوز لك محاولة الوصول غير المصرح به إلى أي جزء من الموقع أو أي أنظمة أو شبكات مرتبطة به.",
+                termsIpHeading: "الملكية الفكرية",
+                termsIpText: "جميع المحتويات المنشورة على هذا الموقع، بما في ذلك النصوص والرسومات والشعارات والأيقونات والصور والبرامج، هي ملك لشركة شل أو مرخصيها وتخضع لحماية قوانين حقوق الملكية الفكرية المحلية والدولية.",
+                termsLiabilityHeading: "حدود المسؤولية",
+                termsLiabilityText: "يتم توفير هذا الموقع والمحتوى الموجود عليه 'كما هو' دون أي ضمانات صريحة أو ضمنية. لا تتحمل شل المسؤولية عن أي أضرار مباشرة أو غير مباشرة ناتجة عن استخدام الموقع أو عدم القدرة على استخدامه.",
+                termsPrivacyHeading: "الخصوصية وحماية البيانات",
+                termsPrivacyText: "نحن نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية. للمزيد من المعلومات حول كيفية جمع واستخدام وحماية معلوماتك الشخصية، يرجى مراجعة سياسة الخصوصية الخاصة بنا.",
+                termsLawHeading: "القانون الحاكم",
+                termsLawText: "تخضع هذه الشروط والأحكام لقوانين جمهورية مصر العربية وتفسر وفقاً لها. أي نزاع ينشأ عن أو يتعلق بهذه الشروط يخضع للاختصاص القضائي الحصري لمحاكم القاهرة.",
+                termsAmendHeading: "التعديلات على الشروط",
+                termsAmendText: "تحتفظ شل بالحق في تعديل هذه الشروط والأحكام في أي وقت. سيتم نشر أي تغييرات على هذه الصفحة، ويعتبر استمرارك في استخدام الموقع بعد نشر التعديلات موافقة منك على الشروط المعدلة.",
+                // Privacy
+                privacyIntroHeading: "مقدمة",
+                privacyIntroText: "مرحباً بك في موقع شل للتحقق من أصالة المنتجات. نحن نلتزم بحماية خصوصيتك وسرية بياناتك الشخصية. توضح هذه السياسة كيفية جمعنا واستخدامنا وحماية معلوماتك عند زيارتك لموقعنا.",
+                privacyCollectHeading: "جمع المعلومات",
+                privacyCollectText: "قد نجمع معلومات شخصية مثل الاسم والبريد الإلكتروني عند استخدامك لنماذج الاتصال أو الاشتراك في خدماتنا. كما نجمع بيانات غير شخصية مثل عنوان IP ونوع المتصفح وصفحات الزيارة لتحسين أداء الموقع.",
+                privacyUseHeading: "استخدام المعلومات",
+                privacyUseText: "نستخدم المعلومات التي نجمعها لتقديم الخدمات المطلوبة، وتحسين تجربة المستخدم، وإرسال تحديثات وعروض ترويجية (بموافقتك)، والامتثال للمتطلبات القانونية.",
+                privacyShareHeading: "مشاركة المعلومات",
+                privacyShareText: "لا نبيع أو نؤجر معلوماتك الشخصية لأطراف خارجية. قد نشاركها مع مقدمي الخدمات الموثوقين الذين يساعدوننا في تشغيل الموقع، مع الالتزام بسرية البيانات.",
+                privacySecurityHeading: "أمان البيانات",
+                privacySecurityText: "نطبق إجراءات أمنية تقنية وتنظيمية لحماية بياناتك من الوصول غير المصرح به أو التعديل أو الكشف. ومع ذلك، لا يمكن ضمان أمان كامل للبيانات المرسلة عبر الإنترنت.",
+                privacyCookiesHeading: "ملفات تعريف الارتباط",
+                privacyCookiesText: "نستخدم ملفات تعريف الارتباط لتحسين أداء الموقع وتذكر تفضيلاتك. يمكنك التحكم في إعدادات الكوكيز من خلال متصفحك، راجع سياسة الكوكيز الخاصة بنا للمزيد من التفاصيل.",
+                privacyRightsHeading: "حقوقك",
+                privacyRightsText: "لديك الحق في طلب الوصول إلى بياناتك الشخصية أو تصحيحها أو حذفها، وكذلك الاعتراض على معالجتها. يمكنك ممارسة هذه الحقوق بالتواصل معنا عبر المعلومات المذكورة في الموقع.",
+                // Cookies
+                cookiesWhatHeading: "ما هي ملفات تعريف الارتباط؟",
+                cookiesWhatText: "ملفات تعريف الارتباط (الكوكيز) هي ملفات نصية صغيرة يتم تخزينها على جهاز الكمبيوتر أو الجهاز المحمول الخاص بك عند زيارة موقع إلكتروني. تُستخدم هذه الملفات على نطاق واسع لجعل المواقع تعمل بشكل أفضل وأكثر كفاءة، فضلاً عن تقديم معلومات لأصحاب الموقع.",
+                cookiesHowHeading: "كيف نستخدم ملفات تعريف الارتباط؟",
+                cookiesHowText: "نحن نستخدم ملفات تعريف الارتباط لعدة أغراض، منها: ضمان عمل الموقع بشكل صحيح، تحسين أداء الموقع وتجربة المستخدم، تذكر تفضيلاتك وإعداداتك، وتحليل كيفية استخدام الزوار لموقعنا لتحسين خدماتنا.",
+                cookiesTypesHeading: "أنواع ملفات تعريف الارتباط التي نستخدمها",
+                cookiesEssentialHeading: "ملفات كوكيز ضرورية أساسية - نشط دائماً",
+                cookiesEssentialText: "هذه الملفات ضرورية لعمل الموقع بشكل صحيح. تمكّنك من التنقل في الموقع واستخدام ميزاته. لا يمكن تعطيل هذه الملفات.",
+                cookiesAnalyticsHeading: "ملفات كوكيز تحليلية وأداء",
+                cookiesAnalyticsText: "تساعدنا هذه الملفات في فهم كيفية تفاعل الزوار مع الموقع من خلال جمع معلومات مجهولة الهوية. تساعدنا هذه البيانات في تحسين أداء الموقع وتجربة المستخدم.",
+                cookiesMarketingHeading: "ملفات كوكيز تسويقية وإعلانات",
+                cookiesMarketingText: "تُستخدم هذه الملفات لتقديم إعلانات ذات صلة بك وباهتماماتك. كما تُستخدم لتحديد عدد مرات مشاهدة الإعلان وقياس فعالية الحملات الإعلانية.",
+                cookiesManageHeading: "كيفية إدارة ملفات تعريف الارتباط",
+                cookiesManageText: "يمكنك التحكم في ملفات تعريف الارتباط وحذفها من خلال إعدادات المتصفح الخاص بك. يرجى ملاحظة أن حذف أو حظر بعض ملفات تعريف الارتباط قد يؤثر على تجربة استخدامك للموقع.",
+                // Modify Cookies
+                modifyCookiesIntro: "نحن نستخدم ملفات تعريف الارتباط لتحسين تجربة استخدام مواقع شل الإلكترونية. بعض ملفات الكوكيز ضرورية لعمل الموقع، بينما يساعدنا البعض الآخر في تحسين تجربتك وتقديم محتوى مخصص لك.",
+                alwaysActive: "نشط دائماً",
+                savePreferences: "حفظ التفضيلات",
+                preferencesSaved: "تم حفظ التفضيلات بنجاح",
+                // Footer
+                footerConnect: "Connect with us",
+                footerSiteInfo: "Site information",
+                footerTerms: "الشروط والأحكام",
+                footerPrivacy: "سياسة الخصوصية",
+                footerCookies: "سياسة الكوكيز",
+                footerModify: "تعديل تفضيلات الكوكيز",
+                // Notifications
+                notificationsTitle: "الإشعارات",
+                noNotifications: "لا توجد إشعارات جديدة حالياً",
+                lastUpdate: "آخر تحديث: August 2024"
+            },
+            en: {
+                pageTitle: "Product Verification",
+                headerVerify: "Verify Product Authenticity",
+                breadcrumbShell: "Shell Egypt",
+                breadcrumbVerify: "Product Verification",
+                requiredField: "* Required field",
+                codeLabel: "Product Code / SMS Code *",
+                clearBtn: "Clear",
+                submitBtn: "Submit",
+                helpTitle: "Need help finding your product code?",
+                helpBtn: "Click here to learn more",
+                successTitle: "Authentic Product",
+                successMsg: "Thank you for purchasing genuine Shell products",
+                backToVerify: "← Back to verification page",
+                // Legal
+                termsTitle: "Terms and Conditions",
+                privacyTitle: "Privacy Policy",
+                cookiesTitle: "Cookie Policy",
+                modifyCookiesTitle: "Modify Cookie Preferences",
+                // Terms
+                termsIntroHeading: "Introduction",
+                termsIntroText: "Welcome to the Shell product authenticity verification website. By using this site, you agree to comply with the following terms and conditions. Please read these terms carefully before using the site. If you do not agree with any of these terms, please do not use the site.",
+                termsUseHeading: "Use of the Site",
+                termsUseText: "This site is intended solely for verifying the authenticity of Shell products. It is prohibited to use the site for any illegal or unauthorized purposes. You may not attempt to gain unauthorized access to any part of the site or any associated systems or networks.",
+                termsIpHeading: "Intellectual Property",
+                termsIpText: "All content published on this site, including text, graphics, logos, icons, images, and software, is the property of Shell or its licensors and is protected by local and international intellectual property laws.",
+                termsLiabilityHeading: "Limitation of Liability",
+                termsLiabilityText: "This site and its content are provided 'as is' without any express or implied warranties. Shell shall not be liable for any direct or indirect damages arising from the use of the site or the inability to use it.",
+                termsPrivacyHeading: "Privacy and Data Protection",
+                termsPrivacyText: "We respect your privacy and are committed to protecting your personal data. For more information about how we collect, use, and protect your personal information, please review our Privacy Policy.",
+                termsLawHeading: "Governing Law",
+                termsLawText: "These terms and conditions are governed by and construed in accordance with the laws of the Arab Republic of Egypt. Any dispute arising out of or in connection with these terms shall be subject to the exclusive jurisdiction of the courts of Cairo.",
+                termsAmendHeading: "Amendments to Terms",
+                termsAmendText: "Shell reserves the right to amend these terms and conditions at any time. Any changes will be posted on this page, and your continued use of the site after such amendments constitutes your acceptance of the revised terms.",
+                // Privacy
+                privacyIntroHeading: "Introduction",
+                privacyIntroText: "Welcome to the Shell product authenticity verification website. We are committed to protecting your privacy and the confidentiality of your personal data. This policy explains how we collect, use, and protect your information when you visit our site.",
+                privacyCollectHeading: "Information Collection",
+                privacyCollectText: "We may collect personal information such as name and email address when you use contact forms or subscribe to our services. We also collect non-personal data such as IP address, browser type, and visited pages to improve site performance.",
+                privacyUseHeading: "Use of Information",
+                privacyUseText: "We use the information we collect to provide requested services, improve user experience, send updates and promotional offers (with your consent), and comply with legal requirements.",
+                privacyShareHeading: "Information Sharing",
+                privacyShareText: "We do not sell or rent your personal information to third parties. We may share it with trusted service providers who assist us in operating the site, subject to confidentiality obligations.",
+                privacySecurityHeading: "Data Security",
+                privacySecurityText: "We implement technical and organizational security measures to protect your data from unauthorized access, modification, or disclosure. However, no data transmission over the internet can be guaranteed to be completely secure.",
+                privacyCookiesHeading: "Cookies",
+                privacyCookiesText: "We use cookies to improve site performance and remember your preferences. You can control cookie settings through your browser; please see our Cookie Policy for more details.",
+                privacyRightsHeading: "Your Rights",
+                privacyRightsText: "You have the right to request access to, correction, or deletion of your personal data, as well as to object to its processing. You can exercise these rights by contacting us using the information provided on the site.",
+                // Cookies
+                cookiesWhatHeading: "What are cookies?",
+                cookiesWhatText: "Cookies are small text files stored on your computer or mobile device when you visit a website. They are widely used to make websites work more efficiently and to provide information to site owners.",
+                cookiesHowHeading: "How do we use cookies?",
+                cookiesHowText: "We use cookies for several purposes, including: ensuring the site functions correctly, improving performance and user experience, remembering your preferences and settings, and analyzing visitor behavior to improve our services.",
+                cookiesTypesHeading: "Types of cookies we use",
+                cookiesEssentialHeading: "Essential cookies – Always active",
+                cookiesEssentialText: "These cookies are necessary for the site to function properly. They enable navigation and use of site features. These cookies cannot be disabled.",
+                cookiesAnalyticsHeading: "Analytics and performance cookies",
+                cookiesAnalyticsText: "These cookies help us understand how visitors interact with the site by collecting anonymous information. This data helps us improve site performance and user experience.",
+                cookiesMarketingHeading: "Marketing and advertising cookies",
+                cookiesMarketingText: "These cookies are used to deliver relevant advertisements to you based on your interests. They also measure ad impressions and campaign effectiveness.",
+                cookiesManageHeading: "How to manage cookies",
+                cookiesManageText: "You can control and delete cookies through your browser settings. Please note that disabling or blocking certain cookies may affect your experience on the site.",
+                // Modify Cookies
+                modifyCookiesIntro: "We use cookies to improve your experience on Shell websites. Some cookies are essential for the site to work, while others help us enhance your experience and deliver personalized content.",
+                alwaysActive: "Always active",
+                savePreferences: "Save preferences",
+                preferencesSaved: "Preferences saved successfully",
+                // Footer
+                footerConnect: "Connect with us",
+                footerSiteInfo: "Site information",
+                footerTerms: "Terms and Conditions",
+                footerPrivacy: "Privacy Policy",
+                footerCookies: "Cookie Policy",
+                footerModify: "Modify Cookie Preferences",
+                // Notifications
+                notificationsTitle: "Notifications",
+                noNotifications: "No new notifications at this time",
+                lastUpdate: "Last updated: August 2024"
+            }
+        };
+
+        /* =========================
+           LANGUAGE & TRANSLATION ENGINE
+        ========================= */
+
+        const translatableElements = document.querySelectorAll('[data-translate-key]');
+
+        function applyTranslations(lang) {
+            const dict = translations[lang];
+            if (!dict) return;
+
+            translatableElements.forEach(el => {
+                const key = el.getAttribute('data-translate-key');
+                if (dict[key] !== undefined) {
+                    const textNodes = [];
+                    const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+                    let node;
+                    while (node = walk.nextNode()) {
+                        textNodes.push(node);
+                    }
+                    if (textNodes.length > 0) {
+                        textNodes[0].textContent = dict[key];
+                        for (let i = 1; i < textNodes.length; i++) {
+                            textNodes[i].remove();
+                        }
+                    } else {
+                        el.textContent = dict[key];
+                    }
+                }
+            });
+
+            const titleEl = document.querySelector('title[data-translate-key]');
+            if (titleEl && dict.pageTitle) {
+                titleEl.textContent = dict.pageTitle;
+            }
+
+            const transLabel = document.getElementById('translationLabel');
+            if (transLabel) {
+                transLabel.textContent = lang === 'ar' ? 'الترجمة' : 'Translation';
+            }
+
+            // تحديث تسمية زر الترجمة في الهيدر
+            const headerLangLabel = document.getElementById('headerLangLabel');
+            if (headerLangLabel) {
+                headerLangLabel.textContent = lang === 'ar' ? 'عربي' : 'English';
+            }
+
+            // تحديث الحالة النشطة في قائمة الهيدر
+            document.querySelectorAll('#headerLangMenu button').forEach(btn => {
+                btn.classList.toggle('active-lang', btn.dataset.lang === lang);
+            });
+            // تحديث الحالة النشطة في قائمة الموبايل
+            document.querySelectorAll('.translation-list button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            const htmlEl = document.documentElement;
+            if (lang === 'ar') {
+                htmlEl.setAttribute('dir', 'rtl');
+                htmlEl.setAttribute('lang', 'ar');
+            } else {
+                htmlEl.setAttribute('dir', 'ltr');
+                htmlEl.setAttribute('lang', 'en');
+            }
+
+            localStorage.setItem('selectedLanguage', lang);
+        }
+
+        function setLanguage(lang) {
+            if (!translations[lang]) return;
+            applyTranslations(lang);
+        }
+
+        // =========================
+        // تهيئة اللغة
+        // =========================
+        const savedLang = localStorage.getItem('selectedLanguage') || 'ar';
+        setLanguage(savedLang);
+
+        // =========================
+        // أحداث أزرار الترجمة (في الهيدر)
+        // =========================
+        const headerTranslationBtn = document.getElementById('headerTranslationBtn');
+        const headerTranslationDropdown = document.getElementById('headerTranslationDropdown');
+        const headerLangMenu = document.getElementById('headerLangMenu');
+
+        headerTranslationBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            headerTranslationDropdown.classList.toggle('open');
+        });
+
+        // اختيار لغة من قائمة الهيدر
+        headerLangMenu.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const lang = this.dataset.lang;
+                setLanguage(lang);
+                headerTranslationDropdown.classList.remove('open');
+            });
+        });
+
+        // إغلاق القائمة عند النقر خارجها
+        document.addEventListener('click', function(e) {
+            if (!headerTranslationDropdown.contains(e.target)) {
+                headerTranslationDropdown.classList.remove('open');
+            }
+        });
+
+        // =========================
+        // أحداث أزرار الترجمة (في الموبايل)
+        // =========================
+        document.querySelectorAll('.translation-list button').forEach(button => {
+            button.addEventListener('click', function() {
+                const lang = this.dataset.lang;
+                setLanguage(lang);
+                document.getElementById('translationWrapper').classList.remove('open');
+            });
+        });
+
+        document.getElementById('translationButton').addEventListener('click', function() {
+            document.getElementById('translationWrapper').classList.toggle('open');
+        });
+
+        // =========================
+        // باقي الكود (القوائم، الإشعارات، النماذج، إلخ)
+        // =========================
+
+        /* Mobile Menu */
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileVerifyLink = document.getElementById('mobileVerifyLink');
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+            mobileMenuButton.classList.remove('open');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+        }
+
+        mobileMenuButton.addEventListener('click', function() {
+            const isOpen = mobileMenu.classList.toggle('open');
+            mobileMenuButton.classList.toggle('open', isOpen);
+            mobileMenuButton.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        mobileVerifyLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            showVerifyForm();
+            closeMobileMenu();
+        });
+
+        /* Notifications */
+        const notificationButton = document.getElementById('notificationButton');
+        const notificationPanel = document.getElementById('notificationPanel');
+        const notificationClose = document.getElementById('notificationClose');
+
+        function toggleNotifications() {
+            const isOpen = notificationPanel.classList.toggle('open');
+            notificationPanel.setAttribute('aria-hidden', String(!isOpen));
+            notificationButton.setAttribute('aria-expanded', String(isOpen));
+        }
+
+        notificationButton.addEventListener('click', toggleNotifications);
+        notificationClose.addEventListener('click', function() {
+            notificationPanel.classList.remove('open');
+            notificationPanel.setAttribute('aria-hidden', 'true');
+            notificationButton.setAttribute('aria-expanded', 'false');
+        });
+
+        document.addEventListener('click', function(event) {
+            if (notificationPanel.classList.contains('open') &&
+                !notificationPanel.contains(event.target) &&
+                !notificationButton.contains(event.target)) {
+                notificationPanel.classList.remove('open');
+                notificationPanel.setAttribute('aria-hidden', 'true');
+                notificationButton.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        /* Footer Accordion */
+        document.querySelectorAll('.footer-toggle').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const item = button.closest('.footer-item');
+                const isOpen = item.classList.toggle('open');
+                button.setAttribute('aria-expanded', String(isOpen));
+            });
+        });
+
+        /* View Switching */
+        const mainView = document.getElementById('mainView');
+        const verifyForm = document.getElementById('verifyForm');
+        const legalInline = document.getElementById('legalInline');
+
+        const legalContents = {
+            terms: document.getElementById('legalTermsContent'),
+            privacy: document.getElementById('legalPrivacyContent'),
+            cookies: document.getElementById('legalCookiesContent'),
+            'modify-cookies': document.getElementById('legalModifyContent')
+        };
+
+        function hideAllViews() {
+            mainView.style.display = 'none';
+            verifyForm.classList.remove('active');
+            legalInline.classList.remove('active');
+            Object.values(legalContents).forEach(function(content) {
+                content.hidden = true;
+            });
+        }
+
+        function showMainView() {
+            hideAllViews();
+            mainView.style.display = 'block';
+            window.scrollTo({ top: mainView.offsetTop - 20, behavior: 'smooth' });
+        }
+
+        function showVerifyForm() {
+            hideAllViews();
+            verifyForm.classList.add('active');
+            window.scrollTo({ top: verifyForm.offsetTop - 20, behavior: 'smooth' });
+        }
+
+        function showLegalContent(key) {
+            const content = legalContents[key];
+            if (!content) return;
+            hideAllViews();
+            content.hidden = false;
+            legalInline.classList.add('active');
+            window.scrollTo({ top: legalInline.offsetTop - 20, behavior: 'smooth' });
+        }
+
+        document.getElementById('verifyLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            showVerifyForm();
+        });
+
+        document.querySelectorAll('.legal-link').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                showLegalContent(link.dataset.legal);
+            });
+        });
+
+        document.getElementById('legalBack').addEventListener('click', showMainView);
+
+        /* Verify Form */
+        const verifyCodeInput = document.getElementById('verifyCodeInput');
+        document.getElementById('verifyClearBtn').addEventListener('click', function() {
+            verifyCodeInput.value = '';
+            verifyCodeInput.focus();
+        });
+        document.getElementById('verifySubmitBtn').addEventListener('click', function() {
+            showMainView();
+        });
+        document.getElementById('verifyHelpBtn').addEventListener('click', function() {
+            alert('يرجى مراجعة العبوة أو التواصل مع خدمة العملاء للحصول على مساعدة في إيجاد كود المنتج.');
+        });
+
+        /* Cookie Preferences */
+        const analyticsCookies = document.getElementById('analyticsCookies');
+        const marketingCookies = document.getElementById('marketingCookies');
+        const saveCookiePreferences = document.getElementById('saveCookiePreferences');
+        const cookieSaveMessage = document.getElementById('cookieSaveMessage');
+
+        const savedAnalytics = localStorage.getItem('analyticsCookies');
+        const savedMarketing = localStorage.getItem('marketingCookies');
+
+        if (savedAnalytics !== null) {
+            analyticsCookies.checked = savedAnalytics === 'true';
+        }
+        if (savedMarketing !== null) {
+            marketingCookies.checked = savedMarketing === 'true';
+        }
+
+        saveCookiePreferences.addEventListener('click', function() {
+            localStorage.setItem('analyticsCookies', analyticsCookies.checked);
+            localStorage.setItem('marketingCookies', marketingCookies.checked);
+            cookieSaveMessage.classList.add('show');
+            setTimeout(function() {
+                cookieSaveMessage.classList.remove('show');
+            }, 4000);
+        });
+
+        /* Close mobile menu when clicking outside */
+        document.addEventListener('click', function(event) {
+            if (mobileMenu.classList.contains('open') &&
+                !mobileMenu.contains(event.target) &&
+                !mobileMenuButton.contains(event.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeMobileMenu();
+            }
+        });
+
+        // إعادة تطبيق الترجمة عند تحميل الصفحة
+        window.addEventListener('load', function() {
+            const currentLang = localStorage.getItem('selectedLanguage') || 'ar';
+            setLanguage(currentLang);
+        });
+    </script>
+
+</body>
+
+</html>

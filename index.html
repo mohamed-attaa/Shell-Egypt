@@ -1,2102 +1,2613 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-    <title data-translate-key="pageTitle">التحقق من المنتج</title>
-
-    <style>
-        /* ===== جميع الأنماط مع إضافة تنسيقات زر الترجمة في الهيدر ===== */
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            margin: 0;
-            padding: 0;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            background: #fff;
-            color: #222;
-            font-family: Arial, "Tahoma", sans-serif;
-            min-height: 100vh;
-            overflow-x: hidden;
-            transition: direction 0.2s;
-        }
-
-        .header {
-            width: 100%;
-            height: 80px;
-            border-bottom: 2px solid #f0c900;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 6%;
-            position: relative;
-            background: #fff;
-            z-index: 900;
-        }
-
-        .header-content {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 16px;
-        }
-
-        .header-title {
-            font-size: 17px;
-            color: #333;
-            white-space: nowrap;
-            background: transparent;
-            border: 0;
-            padding: 0;
-            font-family: inherit;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .header-title:hover {
-            text-decoration: underline;
-        }
-
-        .shell-logo {
-            width: 50px;
-            height: 59px;
-            border: 2px solid #222;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: #fff;
-            flex-shrink: 0;
-        }
-
-        .shell-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        /* زر الترجمة في الهيدر */
-        .header-translation-btn {
-            background: transparent;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            padding: 6px 12px;
-            font-family: inherit;
-            font-size: 14px;
-            color: #333;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: border-color 0.2s;
-            white-space: nowrap;
-            margin-left: 4px;
-        }
-
-        .header-translation-btn:hover {
-            border-color: #ed1c24;
-            color: #ed1c24;
-        }
-
-        .header-translation-btn .globe-icon {
-            font-size: 18px;
-        }
-
-        /* قائمة الترجمة المنسدلة في الهيدر */
-        .header-translation-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .header-translation-dropdown .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: calc(100% + 8px);
-            left: 0;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, .10);
-            min-width: 120px;
-            z-index: 950;
-            padding: 4px 0;
-        }
-
-        .header-translation-dropdown.open .dropdown-menu {
-            display: block;
-        }
-
-        .dropdown-menu button {
-            display: block;
-            width: 100%;
-            border: 0;
-            background: transparent;
-            padding: 10px 16px;
-            font-family: inherit;
-            font-size: 14px;
-            text-align: right;
-            color: #222;
-            cursor: pointer;
-            transition: background 0.15s;
-        }
-
-        .dropdown-menu button:hover {
-            background: #f5f5f5;
-            color: #ed1c24;
-        }
-
-        .dropdown-menu button.active-lang {
-            color: #ed1c24;
-            font-weight: 700;
-        }
-
-        .mobile-menu-button {
-            display: none;
-        }
-
-        .mobile-menu {
-            display: none;
-        }
-
-        .mobile-menu.open {
-            display: block;
-        }
-
-        .mobile-menu-inner {
-            background: #fff;
-            border-bottom: 1px solid #ddd;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
-            padding: 10px 20px 18px;
-        }
-
-        .mobile-menu-link {
-            width: 100%;
-            min-height: 52px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 0;
-            border-bottom: 1px solid #eee;
-            background: #fff;
-            color: #222;
-            font-family: inherit;
-            font-size: 15px;
-            text-decoration: none;
-            cursor: pointer;
-            padding: 0 5px;
-        }
-
-        .mobile-menu-link:last-child {
-            border-bottom: 0;
-        }
-
-        .mobile-menu-link:hover {
-            color: #ed1c24;
-        }
-
-        .mobile-menu-arrow {
-            font-size: 20px;
-            color: #777;
-        }
-
-        .translation-wrapper {
-            width: 100%;
-            border-bottom: 1px solid #eee;
-        }
-
-        .translation-button {
-            width: 100%;
-            min-height: 52px;
-            border: 0;
-            background: #fff;
-            color: #222;
-            font-family: inherit;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            padding: 0 5px;
-        }
-
-        .translation-button:hover {
-            color: #ed1c24;
-        }
-
-        .translation-arrow {
-            font-size: 20px;
-            transition: transform .2s ease;
-        }
-
-        .translation-wrapper.open .translation-arrow {
-            transform: rotate(180deg);
-        }
-
-        .translation-list {
-            display: none;
-            padding: 0 10px 8px;
-        }
-
-        .translation-wrapper.open .translation-list {
-            display: block;
-        }
-
-        .translation-list button {
-            width: 100%;
-            min-height: 44px;
-            border: 0;
-            border-bottom: 1px solid #f1f1f1;
-            background: #fafafa;
-            text-align: right;
-            padding: 0 15px;
-            font-family: inherit;
-            font-size: 14px;
-            cursor: pointer;
-            color: #444;
-        }
-
-        .translation-list button:hover {
-            background: #f5f5f5;
-            color: #ed1c24;
-        }
-
-        .translation-list button.active {
-            color: #ed1c24;
-            font-weight: 700;
-        }
-
-        .container {
-            width: calc(100% - 184px);
-            max-width: 1168px;
-            margin: 0 auto;
-        }
-
-        .breadcrumb {
-            min-height: 52px;
-            border-bottom: 1px solid #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            color: #555;
-            font-size: 13px;
-            gap: 0;
-        }
-
-        .breadcrumb span {
-            color: #666;
-        }
-
-        .breadcrumb .separator {
-            margin: 0 9px;
-            color: #777;
-        }
-
-        .main {
-            width: 100%;
-            text-align: center;
-            padding-top: 86px;
-            min-height: 540px;
-        }
-
-        h1 {
-            margin: 0;
-            font-size: clamp(32px, 4vw, 46px);
-            line-height: 1.25;
-            font-weight: 700;
-            color: #171717;
-            word-break: break-word;
-        }
-
-        .red-line {
-            width: min(480px, 80%);
-            height: 4px;
-            background: #ed1c24;
-            border-radius: 2px;
-            margin: 15px auto 71px;
-        }
-
-        .check-circle {
-            width: 220px;
-            height: 220px;
-            margin: 0 auto 35px;
-            border-radius: 50%;
-            background: #008d3f;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 12px 25px rgba(0, 110, 55, 0.18);
-        }
-
-        .check {
-            width: 72px;
-            height: 40px;
-            border-left: 10px solid white;
-            border-bottom: 10px solid white;
-            transform: rotate(-45deg) translate(5px, -5px);
-            border-radius: 5px;
-        }
-
-        .message {
-            font-size: clamp(18px, 2vw, 23px);
-            line-height: 1.8;
-            font-weight: 600;
-            color: #202020;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        .message div {
-            margin: 0;
-        }
-
-        .site-footer {
-            width: calc(100% - 184px);
-            max-width: 1168px;
-            margin: 70px auto 0;
-            padding-bottom: 150px;
-        }
-
-        .footer-accordion {
-            border-top: 1px solid #ddd;
-        }
-
-        .footer-item {
-            border-bottom: 1px solid #ddd;
-        }
-
-        .footer-toggle {
-            width: 100%;
-            min-height: 67px;
-            border: 0;
-            background: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 10px;
-            cursor: pointer;
-            color: #111;
-            font-family: inherit;
-            font-size: 15px;
-            text-align: right;
-        }
-
-        .footer-toggle .footer-arrow {
-            font-size: 27px;
-            font-weight: 300;
-            line-height: 1;
-            color: #222;
-            transform: rotate(0deg);
-            transition: transform .2s ease;
-        }
-
-        .footer-item.open .footer-arrow {
-            transform: rotate(180deg);
-        }
-
-        .footer-content {
-            display: none;
-            background: #f7f7f7;
-            padding: 10px 0 18px;
-        }
-
-        .footer-item.open .footer-content {
-            display: block;
-        }
-
-        .footer-content a {
-            display: block;
-            padding: 10px 0;
-            color: #111;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .footer-content a:hover {
-            text-decoration: underline;
-        }
-
-        .legal-inline {
-            display: none;
-            width: 100%;
-            min-height: 560px;
-            margin: 0 auto 70px;
-            text-align: right;
-        }
-
-        .legal-inline.active {
-            display: block;
-        }
-
-        .legal-back {
-            display: inline-block;
-            border: 0;
-            background: transparent;
-            padding: 0;
-            margin: 0 0 24px;
-            font-family: inherit;
-            font-size: 14px;
-            color: #333;
-            cursor: pointer;
-        }
-
-        .legal-title {
-            font-size: clamp(27px, 3vw, 34px);
-            line-height: 1.4;
-            margin: 0 0 12px;
-            color: #111;
-            text-align: center;
-            font-weight: 700;
-        }
-
-        .legal-content {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 34px 42px 45px;
-            border-top: 4px solid #ed1c24;
-            background: #fff;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, .06);
-            border-radius: 3px;
-            text-align: right;
-        }
-
-        .legal-content h3 {
-            font-size: 21px;
-            margin: 28px 0 10px;
-            color: #111;
-            padding-right: 14px;
-            border-right: 4px solid #ed1c24;
-            line-height: 1.5;
-        }
-
-        .legal-content p,
-        .legal-content li {
-            font-size: 16px;
-            line-height: 2.05;
-            color: #444;
-            margin: 0 0 15px;
-        }
-
-        .legal-intro {
-            font-size: 16px !important;
-            line-height: 2.1 !important;
-            color: #555 !important;
-            margin-bottom: 25px !important;
-        }
-
-        .legal-date {
-            display: block;
-            margin-top: 30px;
-            padding-top: 18px;
-            border-top: 1px solid #ddd;
-            font-size: 14px;
-            color: #777;
-            text-align: left;
-        }
-
-        .cookie-preferences-intro {
-            font-size: 16px !important;
-            line-height: 2.1 !important;
-            color: #555 !important;
-            margin-bottom: 30px !important;
-        }
-
-        .cookie-option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 30px;
-            padding: 25px 0;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .cookie-option:first-of-type {
-            border-top: 1px solid #ddd;
-        }
-
-        .cookie-option-text {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .cookie-option-text h3 {
-            margin-top: 0;
-            margin-bottom: 12px;
-        }
-
-        .cookie-option-text p {
-            margin-bottom: 10px !important;
-        }
-
-        .always-active {
-            display: inline-block;
-            font-size: 14px;
-            color: #008d3f;
-            margin-top: 5px;
-        }
-
-        .cookie-switch {
-            position: relative;
-            display: inline-block;
-            width: 58px;
-            height: 32px;
-            flex-shrink: 0;
-            cursor: pointer;
-        }
-
-        .cookie-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-            position: absolute;
-        }
-
-        .cookie-slider {
-            position: absolute;
-            inset: 0;
-            background: #aaa;
-            border-radius: 34px;
-            transition: .25s ease;
-        }
-
-        .cookie-slider::before {
-            content: "";
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            right: 4px;
-            top: 4px;
-            background: #fff;
-            border-radius: 50%;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
-            transition: .25s ease;
-        }
-
-        .cookie-switch input:checked+.cookie-slider {
-            background: #ed1c24;
-        }
-
-        .cookie-switch input:checked+.cookie-slider::before {
-            transform: translateX(-26px);
-        }
-
-        .cookie-switch.disabled {
-            cursor: not-allowed;
-            opacity: .75;
-        }
-
-        .cookie-switch.disabled .cookie-slider {
-            background: #008d3f;
-        }
-
-        .cookie-save-wrapper {
-            text-align: center;
-            padding-top: 35px;
-        }
-
-        .cookie-save-button {
-            border: 0;
-            background: #ed1c24;
-            color: #fff;
-            padding: 14px 42px;
-            min-width: 190px;
-            font-family: inherit;
-            font-size: 16px;
-            font-weight: 700;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: background .2s ease, transform .15s ease;
-        }
-
-        .cookie-save-button:hover {
-            background: #c90000;
-        }
-
-        .cookie-save-button:active {
-            transform: scale(.97);
-        }
-
-        .cookie-save-message {
-            display: none;
-            margin-top: 15px;
-            font-size: 15px;
-            color: #008d3f;
-            font-weight: 600;
-        }
-
-        .cookie-save-message.show {
-            display: block;
-        }
-
-        .verify-form {
-            display: none;
-            width: 100%;
-            margin: 0 auto 70px;
-            text-align: center;
-        }
-
-        .verify-form.active {
-            display: block;
-        }
-
-        .verify-form .red-line {
-            margin-bottom: 34px;
-        }
-
-        .verify-required {
-            text-align: right;
-            font-size: 13px;
-            color: #888;
-            max-width: 900px;
-            margin: 0 auto 26px;
-        }
-
-        .verify-body {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 60px;
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: right;
-        }
-
-        .verify-field-col,
-        .verify-help-col {
-            flex: 1 1 0;
-            min-width: 0;
-        }
-
-        .verify-label-row {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .verify-label {
-            font-size: 15px;
-            font-weight: 700;
-            color: #222;
-        }
-
-        .verify-help-icon {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            border: 1.5px solid #999;
-            color: #999;
-            font-size: 12px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .verify-input {
-            width: 100%;
-            height: 52px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            padding: 0 16px;
-            font-family: inherit;
-            font-size: 15px;
-            color: #222;
-            margin-bottom: 18px;
-        }
-
-        .verify-input:focus {
-            outline: none;
-            border-color: #ed1c24;
-        }
-
-        .verify-btn {
-            display: block;
-            width: 100%;
-            min-height: 52px;
-            border: 0;
-            border-radius: 3px;
-            background: #ed1c24;
-            color: #fff;
-            font-family: inherit;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-bottom: 16px;
-            transition: background .2s ease, transform .15s ease;
-        }
-
-        .verify-btn:hover {
-            background: #c90000;
-        }
-
-        .verify-btn:active {
-            transform: scale(.98);
-        }
-
-        .verify-help-col {
-            padding-top: 4px;
-        }
-
-        .verify-help-title {
-            font-size: 17px;
-            font-weight: 700;
-            color: #222;
-            margin: 0 0 20px;
-            line-height: 1.6;
-        }
-
-        .top-button {
-            position: fixed;
-            left: 24px;
-            bottom: 22px;
-            width: 70px;
-            height: 70px;
-            border: 1px solid #ddd;
-            background: #fff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, .10);
-            color: #444;
-            font-size: 25px;
-            cursor: pointer;
-            z-index: 998;
-        }
-
-        .top-button:hover {
-            background: #f8f8f8;
-        }
-
-        .notification {
-            position: fixed;
-            right: 20px;
-            bottom: 18px;
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: #ed1c24;
-            border: 1px solid #c90000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, .25);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 25px;
-            z-index: 1001;
-            cursor: pointer;
-            transition: transform .15s ease;
-        }
-
-        .notification:active {
-            transform: scale(.94);
-        }
-
-        .notification-panel {
-            position: fixed;
-            right: 4px;
-            bottom: 70px;
-            width: min(320px, calc(100vw - 16px));
-            height: 220px;
-            background: #fff;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 8px 28px rgba(0, 0, 0, .12);
-            z-index: 1000;
-            display: none;
-            overflow: hidden;
-        }
-
-        .notification-panel.open {
-            display: block;
-        }
-
-        .notification-panel-header {
-            height: 70px;
-            border-bottom: 2px solid #f0c900;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px 0 22px;
-        }
-
-        .notification-panel-title {
-            font-size: 17px;
-            font-weight: 700;
-            color: #111;
-        }
-
-        .notification-close {
-            border: 0;
-            background: transparent;
-            color: #999;
-            font-size: 26px;
-            line-height: 1;
-            padding: 0;
-            cursor: pointer;
-        }
-
-        .notification-empty {
-            height: 150px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .notification-empty svg {
-            width: 55px;
-            height: 55px;
-            opacity: .48;
-        }
-
-        .notification-empty-text {
-            font-size: 14px;
-            color: #aaa;
-            text-align: center;
-            padding: 0 15px;
-        }
-
-        /* ===== التجاوب ===== */
-        @media (max-width: 1024px) {
-            .header {
-                padding: 0 35px;
-            }
-            .container,
-            .site-footer {
-                width: calc(100% - 70px);
-            }
-            .main {
-                padding-top: 65px;
-            }
-            .verify-body {
-                gap: 35px;
-            }
-            .legal-content {
-                padding: 30px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                height: 72px;
-                padding: 0 18px;
-            }
-            .header-content {
-                justify-content: space-between;
-                flex-direction: row-reverse;
-                gap: 12px;
-            }
-            .header-title {
-                display: none;
-            }
-            .shell-logo {
-                width: 43px;
-                height: 51px;
-            }
-
-            /* زر الترجمة في الهيدر يظهر في الموبايل */
-            .header-translation-btn {
-                padding: 4px 10px;
-                font-size: 13px;
-            }
-            .header-translation-btn .globe-icon {
-                font-size: 16px;
-            }
-
-            .mobile-menu-button {
-                width: 44px;
-                height: 44px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border: 1px solid #ddd;
-                border-radius: 3px;
-                background: #fff;
-                color: #222;
-                font-size: 25px;
-                cursor: pointer;
-                padding: 0;
-            }
-            .mobile-menu-button:hover {
-                border-color: #ed1c24;
-                color: #ed1c24;
-            }
-            .mobile-menu-button .menu-icon {
-                display: block;
-                line-height: 1;
-            }
-            .mobile-menu-button .close-icon {
-                display: none;
-                font-size: 27px;
-            }
-            .mobile-menu-button.open .menu-icon {
-                display: none;
-            }
-            .mobile-menu-button.open .close-icon {
-                display: block;
-            }
-
-            .container,
-            .site-footer {
-                width: calc(100% - 30px);
-            }
-            .breadcrumb {
-                min-height: 48px;
-                font-size: 11px;
-                white-space: nowrap;
-                overflow: hidden;
-            }
-            .main {
-                padding-top: 55px;
-                min-height: 470px;
-            }
-            h1 {
-                font-size: clamp(27px, 8vw, 35px);
-            }
-            .red-line {
-                width: min(360px, 78%);
-                height: 3px;
-                margin-top: 13px;
-                margin-bottom: 50px;
-            }
-            .check-circle {
-                width: min(180px, 55vw);
-                height: min(180px, 55vw);
-                margin-bottom: 30px;
-            }
-            .check {
-                width: 60px;
-                height: 34px;
-                border-left-width: 8px;
-                border-bottom-width: 8px;
-            }
-            .message {
-                font-size: 18px;
-                line-height: 1.8;
-            }
-            .verify-form {
-                margin-bottom: 50px;
-            }
-            .verify-required {
-                max-width: 100%;
-                margin-bottom: 22px;
-                font-size: 12px;
-            }
-            .verify-body {
-                flex-direction: column;
-                gap: 32px;
-                max-width: 100%;
-            }
-            .verify-field-col,
-            .verify-help-col {
-                width: 100%;
-                flex: none;
-            }
-            .verify-label {
-                font-size: 14px;
-            }
-            .verify-input,
-            .verify-btn {
-                height: 50px;
-            }
-            .verify-help-title {
-                font-size: 16px;
-                margin-bottom: 16px;
-            }
-            .site-footer {
-                margin-top: 40px;
-                padding-bottom: 120px;
-            }
-            .footer-toggle {
-                min-height: 60px;
-                font-size: 14px;
-                padding: 0 5px;
-            }
-            .footer-content {
-                padding: 8px 5px 14px;
-            }
-            .footer-content a {
-                font-size: 13px;
-                padding: 9px 0;
-            }
-            .legal-inline {
-                min-height: auto;
-                margin-bottom: 45px;
-            }
-            .legal-back {
-                font-size: 13px;
-                margin-bottom: 20px;
-            }
-            .legal-content {
-                padding: 24px 17px 28px;
-                box-shadow: none;
-                border-top-width: 3px;
-            }
-            .legal-title {
-                font-size: 26px;
-                margin-bottom: 5px;
-            }
-            .legal-content h3 {
-                font-size: 18px;
-                padding-right: 10px;
-                border-right-width: 3px;
-                margin-top: 24px;
-                margin-bottom: 9px;
-            }
-            .legal-content p,
-            .legal-content li {
-                font-size: 14px;
-                line-height: 1.9;
-            }
-            .legal-date {
-                font-size: 12px;
-                margin-top: 25px;
-            }
-            .cookie-option {
-                align-items: flex-start;
-                gap: 12px;
-                padding: 20px 0;
-            }
-            .cookie-option-text {
-                min-width: 0;
-            }
-            .cookie-option-text h3 {
-                font-size: 17px;
-            }
-            .cookie-option-text p {
-                font-size: 13px !important;
-                line-height: 1.8 !important;
-            }
-            .cookie-switch {
-                width: 52px;
-                height: 29px;
-                margin-top: 3px;
-            }
-            .cookie-slider::before {
-                width: 21px;
-                height: 21px;
-            }
-            .cookie-switch input:checked+.cookie-slider::before {
-                transform: translateX(-23px);
-            }
-            .cookie-save-button {
-                width: 100%;
-                min-width: 0;
-            }
-            .top-button {
-                width: 52px;
-                height: 52px;
-                left: 12px;
-                bottom: 12px;
-                font-size: 21px;
-            }
-            .notification {
-                right: 12px;
-                bottom: 12px;
-                width: 50px;
-                height: 50px;
-                font-size: 22px;
-            }
-            .notification-panel {
-                right: 8px;
-                bottom: 70px;
-                width: calc(100vw - 16px);
-                max-width: 320px;
-            }
-
-            /* تعديل موضع القائمة المنسدلة في الهيدر للعرض على اليمين في RTL */
-            .header-translation-dropdown .dropdown-menu {
-                left: auto;
-                right: 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header {
-                padding: 0 14px;
-            }
-            .mobile-menu-button {
-                width: 42px;
-                height: 42px;
-            }
-            .shell-logo {
-                width: 40px;
-                height: 48px;
-            }
-            .container,
-            .site-footer {
-                width: calc(100% - 24px);
-            }
-            .breadcrumb {
-                font-size: 10px;
-            }
-            .main {
-                padding-top: 48px;
-            }
-            .red-line {
-                margin-bottom: 42px;
-            }
-            .check-circle {
-                width: 155px;
-                height: 155px;
-            }
-            .check {
-                width: 52px;
-                height: 30px;
-                border-left-width: 7px;
-                border-bottom-width: 7px;
-            }
-            .message {
-                font-size: 16px;
-            }
-            .verify-label-row {
-                gap: 6px;
-            }
-            .verify-input,
-            .verify-btn {
-                height: 48px;
-            }
-            .legal-content {
-                padding: 20px 14px 24px;
-            }
-            .legal-title {
-                font-size: 24px;
-            }
-            .legal-content h3 {
-                font-size: 17px;
-            }
-            .legal-content p,
-            .legal-content li {
-                font-size: 13.5px;
-            }
-            .cookie-option {
-                gap: 8px;
-            }
-            .cookie-option-text h3 {
-                font-size: 16px;
-            }
-            .cookie-option-text p {
-                font-size: 12.5px !important;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .header {
-                padding: 0 10px;
-            }
-            .container,
-            .site-footer {
-                width: calc(100% - 18px);
-            }
-            .main {
-                padding-top: 42px;
-            }
-            .message {
-                font-size: 15px;
-            }
-            .legal-content {
-                padding: 18px 12px 22px;
-            }
-            .cookie-option-text h3 {
-                font-size: 15px;
-            }
-            .cookie-option-text p {
-                font-size: 12px !important;
-            }
-            .cookie-switch {
-                width: 47px;
-                height: 27px;
-            }
-            .cookie-slider::before {
-                width: 19px;
-                height: 19px;
-                top: 4px;
-                right: 4px;
-            }
-            .cookie-switch input:checked+.cookie-slider::before {
-                transform: translateX(-20px);
-            }
-            .header-translation-btn {
-                padding: 2px 8px;
-                font-size: 12px;
-            }
-            .header-translation-btn .globe-icon {
-                font-size: 14px;
-            }
-        }
-
-        /* تنسيقات إضافية للاتجاه حسب اللغة */
-        html[dir="ltr"] .legal-content,
-        html[dir="ltr"] .verify-body,
-        html[dir="ltr"] .breadcrumb,
-        html[dir="ltr"] .message,
-        html[dir="ltr"] .verify-required,
-        html[dir="ltr"] .verify-label-row,
-        html[dir="ltr"] .verify-help-title,
-        html[dir="ltr"] .footer-toggle,
-        html[dir="ltr"] .footer-content a,
-        html[dir="ltr"] .mobile-menu-link,
-        html[dir="ltr"] .translation-button,
-        html[dir="ltr"] .translation-list button {
-            text-align: left;
-        }
-
-        html[dir="ltr"] .verify-label-row {
-            justify-content: flex-start;
-        }
-
-        html[dir="ltr"] .legal-content h3 {
-            padding-right: 0;
-            padding-left: 14px;
-            border-right: none;
-            border-left: 4px solid #ed1c24;
-        }
-
-        html[dir="ltr"] .breadcrumb .separator {
-            margin: 0 9px;
-        }
-
-        /* في الـ RTL نضبط القائمة المنسدلة للترجمة في الهيدر لتكون على اليمين */
-        html[dir="rtl"] .header-translation-dropdown .dropdown-menu {
-            left: auto;
-            right: 0;
-        }
-        html[dir="ltr"] .header-translation-dropdown .dropdown-menu {
-            left: 0;
-            right: auto;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check Product Authenticity - Shell</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+  border-bottom: 1px solid #e2e2e2;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 100;
+}
+
+.topbar-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.logo img {
+  display: block;
+  object-fit: contain;
+  width: 60px;
+  height: 60px;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1a1a1a;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 14px;
+  }
+}
+
+/* ---------- Right side ---------- */
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lang-switch-btn {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.lang-switch-btn:hover {
+  background: #ddd;
+}
+
+/* ---------- Burger ---------- */
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.burger-menu:hover {
+  background: #f0f0f0;
+}
+
+.burger-menu span {
+  display: block;
+  width: 24px;
+  height: 2.5px;
+  background: #1a1a1a;
+  border-radius: 4px;
+  transition: 0.3s;
+  transform-origin: center;
+}
+
+.burger-menu.active span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.burger-menu.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-menu.active span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ---------- Mobile Drawer ---------- */
+.drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 300px;
+  max-width: 85%;
+  height: 100%;
+  background: #ffffff;
+  z-index: 300;
+  padding: 30px 24px;
+  box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+  transition: right 0.35s cubic-bezier(.4,0,.2,1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+.drawer.open {
+  right: 0;
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e2e2e2;
+  padding-bottom: 16px;
+}
+
+.drawer-header .drawer-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+.drawer-header .drawer-title:hover {
+  color: #003b5c;
+}
+
+.drawer-close {
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: #666;
+  padding: 0 8px;
+}
+
+.drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.drawer-nav li a {
+  display: block;
+  padding: 14px 12px;
+  font-size: 15px;
+  color: #1a1a1a;
+  border-radius: 8px;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+.drawer-nav li a:hover {
+  background: #f5f5f5;
+}
+
+.drawer-nav li a i {
+  margin-left: 10px;
+  opacity: 0.6;
+}
+
+.drawer-lang-section {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #e2e2e2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawer-lang-label {
+  font-size: 13px;
+  color: #666;
+}
+
+.drawer-lang-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.drawer-lang-buttons button {
+  padding: 6px 18px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.drawer-lang-buttons button.active-lang {
+  background: #003b5c;
+  color: #fff;
+  border-color: #003b5c;
+}
+
+.drawer-lang-buttons button:hover:not(.active-lang) {
+  background: #f0f0f0;
+}
+
+/* ---------- Title bar ---------- */
+.title-bar {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.title-bar-inner {
+  padding: 14px 0 10px;
+}
+
+.title-bar h1 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+  transform: translate(-10px, -5px);
+}
+
+.title-underline {
+  display: flex;
+  width: 100vw;
+  height: 4px;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.underline-yellow {
+  width: 15%;
+  background: #ffd900;
+}
+
+.underline-dark {
+  flex: 1;
+  background: #3a3a3a;
+}
+
+.policy-mode .underline-yellow,
+.cookie-mode .underline-yellow,
+.terms-mode .underline-yellow {
+  background: #3a3a3a;
+}
+
+.policy-mode .underline-dark,
+.cookie-mode .underline-dark,
+.terms-mode .underline-dark {
+  background: #3a3a3a;
+}
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb {
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.breadcrumb-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 45px 24px 14px;
+  font-size: 13px;
+  color: #003b5c;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb-inner .shell-brand {
+  color: #003b5c;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.breadcrumb-inner .shell-brand:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-inner .chevron {
+  color: #999;
+}
+
+.breadcrumb-inner .current {
+  color: #444;
+}
+
+/* ---------- Main ---------- */
+.content {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 60px 24px 90px;
+  text-align: center;
+}
+
+.verification-content.hidden,
+.policy-content,
+.cookie-content,
+.terms-content {
+  display: none;
+}
+
+.policy-content.active,
+.cookie-content.active,
+.terms-content.active {
+  display: block;
+}
+
+/* ---------- Verification ---------- */
+.page-heading {
+  display: inline-block;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  color: #1a1a1a;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #DD1D21;
+  margin-bottom: 60px;
+}
+
+.status-icon {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: #ffe600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+}
+
+.status-icon svg {
+  width: 32px;
+  height: 74px;
+}
+
+.result-message {
+  font-family: Tahoma, 'Segoe UI', Arial, sans-serif;
+  font-size: 16px;
+  color: #1a1a1a;
+  direction: rtl;
+}
+
+/* ---------- Privacy Policy ---------- */
+.policy-content {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 20px 30px 80px;
+  text-align: center;
+}
+
+.policy-title,
+.cookie-title,
+.terms-title {
+  color: #000;
+  font-size: 30px;
+  line-height: 1.4;
+  font-weight: 700;
+  margin: 0 auto 14px;
+}
+
+.policy-red-line,
+.cookie-red-line,
+.terms-red-line {
+  width: 100%;
+  max-width: 1150px;
+  height: 5px;
+  background: #dd1d21;
+  margin: 0 auto 28px;
+}
+
+.policy-text {
+  max-width: 1120px;
+  margin: 0 auto;
+  color: #003b5c;
+  font-size: 15px;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.policy-text p {
+  margin: 0 0 20px;
+}
+
+.policy-text h3 {
+  color: #000;
+  font-size: 22px;
+  line-height: 1.5;
+  font-weight: 700;
+  margin: 30px 0 16px;
+}
+
+.policy-text h4 {
+  color: #000;
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 700;
+  margin: 28px 0 14px;
+}
+
+.policy-text .special-notice {
+  color: #dd1d21;
+  font-weight: 700;
+}
+
+.policy-text a {
+  color: #1565c0;
+  text-decoration: underline;
+}
+
+.policy-text ul {
+  max-width: 1000px;
+  margin: 0 auto 22px;
+  padding-left: 35px;
+  text-align: left;
+}
+
+.policy-text li {
+  margin-bottom: 12px;
+  line-height: 1.8;
+}
+
+.policy-back {
+  display: inline-block;
+  margin-top: 30px;
+  color: #003b5c;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.policy-back:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Cookie Policy ---------- */
+.cookie-content {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 20px 30px 80px;
+  text-align: center;
+}
+
+.cookie-title {
+  margin-top: 80px;
+  margin-bottom: 14px;
+}
+
+.cookie-red-line {
+  height: 6px;
+  margin-bottom: 0;
+}
+
+/* ---------- Terms ---------- */
+.terms-content {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 20px 30px 80px;
+  text-align: center;
+}
+
+.terms-title {
+  margin-top: 40px;
+  margin-bottom: 14px;
+}
+
+.terms-text {
+  max-width: 1120px;
+  margin: 0 auto;
+  color: #003b5c;
+  font-size: 15px;
+  line-height: 1.8;
+  text-align: left;
+  direction: ltr;
+}
+
+.terms-text h1 {
+  color: #000;
+  font-size: 26px;
+  line-height: 1.5;
+  margin: 0 0 25px;
+  font-weight: 700;
+}
+
+.terms-text h2 {
+  color: #000;
+  font-size: 23px;
+  line-height: 1.5;
+  margin: 25px 0 18px;
+  font-weight: 700;
+}
+
+.terms-text p {
+  margin: 0 0 18px;
+}
+
+.terms-text ol {
+  margin: 0 0 25px;
+  padding-left: 30px;
+}
+
+.terms-text ol li {
+  margin-bottom: 15px;
+  padding-left: 5px;
+}
+
+.terms-text a {
+  color: #1565c0;
+  text-decoration: underline;
+}
+
+.terms-back {
+  display: inline-block;
+  margin-top: 30px;
+  color: #003b5c;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.terms-back:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Bottom line ---------- */
+.bottom-line {
+  height: 3px;
+  background: #FFC72C;
+  max-width: 1300px;
+  margin: 10px auto 0;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  margin-top: 0;
+}
+
+.footer-top {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  height: 111px;
+  display: flex;
+  align-items: center;
+  gap: 95px;
+  border-bottom: 1px solid #e2e2e2;
+  padding-left: 110px;
+}
+
+.connect-label {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.social-icons {
+  display: flex;
+}
+
+.social-icons a {
+  width: 69px;
+  height: 69px;
+  border: 1px solid #d9d9d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1a1a;
+}
+
+.social-icons a + a {
+  border-left: none;
+}
+
+.social-icons svg {
+  width: 20px;
+  height: 20px;
+}
+
+.footer-bottom {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 50px 30px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  transform: translateY(-10px);
+}
+
+.footer-bottom a {
+  font-size: 13px;
+  color: #003b5c;
+  cursor: pointer;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+
+  .topbar-inner {
+    padding: 8px 15px;
+  }
+
+  .logo img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .logo-text {
+    font-size: 16px;
+  }
+
+  .burger-menu {
+    display: flex;
+  }
+
+  .breadcrumb-inner {
+    padding: 30px 15px 14px;
+    font-size: 12px;
+  }
+
+  .content {
+    padding: 45px 15px 70px;
+  }
+
+  .policy-content,
+  .cookie-content,
+  .terms-content {
+    padding: 20px 10px 60px;
+  }
+
+  .policy-title,
+  .cookie-title,
+  .terms-title {
+    font-size: 22px;
+  }
+
+  .policy-red-line,
+  .cookie-red-line,
+  .terms-red-line {
+    height: 4px;
+  }
+
+  .policy-text {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .policy-text h3 {
+    font-size: 19px;
+  }
+
+  .policy-text h4 {
+    font-size: 17px;
+  }
+
+  .policy-text ul {
+    padding-left: 25px;
+  }
+
+  .cookie-title {
+    margin-top: 50px;
+  }
+
+  .terms-text {
+    font-size: 14px;
+    text-align: left;
+  }
+
+  .terms-text h1 {
+    font-size: 21px;
+  }
+
+  .terms-text h2 {
+    font-size: 19px;
+  }
+
+  .terms-text ol {
+    padding-left: 24px;
+  }
+
+  .footer-top {
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 20px;
+    height: auto;
+    min-height: 111px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .social-icons a {
+    width: 55px;
+    height: 55px;
+  }
+
+  .footer-bottom {
+    padding: 35px 20px;
+    gap: 25px;
+    justify-content: center;
+  }
+
+  .title-bar h1 {
+    font-size: 12px;
+    transform: none;
+  }
+
+  .page-heading {
+    font-size: 18px;
+  }
+
+  .status-icon {
+    width: 130px;
+    height: 130px;
+  }
+
+  .status-icon svg {
+    width: 24px;
+    height: 56px;
+  }
+
+  .result-message {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .logo-text {
+    font-size: 13px;
+  }
+
+  .lang-switch-btn {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  .drawer {
+    width: 280px;
+    padding: 20px 16px;
+  }
+
+  .drawer-header .drawer-title {
+    font-size: 16px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-    <!-- =========================
-         HEADER
-    ========================= -->
-    <header class="header">
+<!-- =========================================================
+     HEADER
+========================================================= -->
 
-        <div class="header-content">
+<header class="topbar">
 
-            <div class="shell-logo">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA9CAYAAADid0ojAAAHiklEQVR4nO1aT0gcVxz+zEwyM2s2btZkjHuwxeYQiIsJpeTQUqIeQry0NNCql4aQloKgwUNSSIggCEkOgQqFYnKwUJptIdCmEE+up0KFQhQVegjSGtDuuLvZdV13x8wyPYxvM2/em9mduDQm5APBefP+/L73+73v/d6brTNN08RrBJH8Mzc3h1u3bmF6ehqFQuFl2lQ1FEVBR0cHLl++jPb2dgBAnWma5tzcHM6ePfvKEHFCURRMTk5apEzTNPv6+sxQKGT29/ebyWTSfFWQTCbN/v5+MxQKmX19faZpmmadaZpmJBJBoVDA48eP0djY+LIn3BdSqRSOHj0KRVGwsrJirSESarUisz4xBAAwlv+BsfKv9f9KBmIkBDFyBGLLW9jbcgzi2+3Y23pqR2MRmwkH0auyH6xPDKH4xww2Hq66V5otAFgF8KhcJJ9QsP+TM1A+/GzH5IBtUTh48CAA4OnTp7470L5635uED+zvbsbBy7d9E7Pbv+dFB0+PnMNSS2vNyADAxsNVPDndi/WJITxbmnmhPnx7qBAfx9qVmzAS7vuxHNUhqCWIh0sAgHw8AEMT0NCTAwAYawJKmoDivOTah9hUh+affqzKW3b7fa2hQnwcq+dveBIJD2QgqiWqPB8PAAAaenNUeXFBQj6uID8VYPoyEiaenO7FoZGPceD87aptrDrk0iPnXMnIUR0ALK84yBDwyuU2vexF0aVt8vovSI+cq9bM6gitTwwhc/cRU17ftYnInQTCAxkAQEkTuO3FJsO1b2PNahMezCByJ4H6rk2GWObuo6pJVSRUiI8jef0XplwdTaFxO7zIX3FeguFCyg35qQBEtQS5zfJy40AG4UE2bDN3H6EQH6/YnyehZ0sz3DBTR1NlAwikqM7UqwRCvr5zkyqX23Soo0mG1Or5GxXVz5PQ2qUL3HJRZUOovtPaqXWOcglqiRt2huatSTxvu9lE4EpofWIIxVk6+yYzxlMluU23wm5xn+eAdujzVl2n+tnHcHqpOFsop1Y8uBLKfPsr9SyqJUTuJCCqJWRjQe7sSVHdVRjc4KaK2ViQGtNpm1vocQmlR85RGyfpGEB5c+R66fgWVxjEwyUIHMP1xX3M+gGA7L0ggOdry7mejISJ3A+3qie08dss9WwftL5rE3JUL+/+dvgRBmM7U5CiW8y7fNxSPhKKolpiiBf//IvbL0Po2dIMk9Y4Y5zsO04vEfnmCQMPdrkmyE9ZExUezDA22L1UnC1ww44h5HSlHNXZENqeMZ6X6js3GWEQbXmd3XBuuMWCaOjJMUR54IUdQ8jpyuK8xF0vxGtOb0jRLd/CQEAmh6d62XusEPHCjiU0y16UZGNBLqn6zk3kpxWqTG7TYSQq57z64j7G8PRYiOu14oKEbCzIlnPCjiLEi0kim6mxEDNDDb05GAmRISs5wlRoosPN0ASGNClzkjQ0AdrVRohqCepoylXmuYSMv+eol2SRE9nUrh5iSIUHM6yXjm8xoeg0xOmJbCzICAFgeU1USwgPZiC36YySOm2mPbRMxyRpTEiRge2k5DbrMGcvq+9ihcGO/FSAkmtDsw58TiHQrjXCSIhlMjw4bfbM5ezKREjpHJFo6Mlx15gd9rBzynV+KlDeCgiy94JcMk61dMKTEDmr2A1RR5PIxwPl3ZyUA3QySU8GnZjayZE21B6zICEfD3h6xg0Uob0tx6iXPPm1k7ITaOilvSRFt7j5nqEJ5aQUsGTfLgSGJiD9TciVjHOSnTZ7eqg4L3H1n5BKc5SPPMttevl44BQEQsDQBKq9oQlIj7mTyU8F2Ozk7XZ3Qkrnl0wn2ViQa7iolhAeyFDvGnpzrmkPCTv7e6d3srEgDvRscMlo1xqRGgsx5c5bIcZD+7ubmUbFeQna1UPc3C08kKGMpBc/5yDYZcm1oQlUXSsVKjBkigsSVr5o4l55hS6eZMq493Jed28NPTnmIsNaF1LZ2GpQXJDKxluhJzJksveC3AxBbKrD4ZtXyhFlt9/1ovHZ0gzWLl3gpkK8+zdDEyi1q7Sj2+vYyZF36bEQ1yvyCQWRB4tUWVVXwXtbTyHyYBGhiychNtVR74rzEtKOeLYTqESG1DE0gSEDWGvJLcScZJyoeI0Vvn4fh29eYUjVArzzEMBuF2JTHZonvkb4+v2Kffq6215+7x1qXbX8ulKN3b6x/FGEem5dXvKsX5OvDwD/mqnW8BsZvgiJzbKvzl8EO50kf4QiIeq52rsDP3BePsrvHvHV3tfnFDFyBNYnRTK4pVKebVSDSTy9kI/TZytrTB82+qrc8hbs30ezsSAQ824jR3Uc6NlAKSEgP614fuSqBXwRcma21aA4L+2IhPLBGV/1/a0hR2b7f8DvmP481HqKm7y6wVjJMKmTfEJhxKXSmH7g+3cK6ne/+6pfiI8j9/P3AIDgp59zjyi1xI5/p7AbULNMYTfiDaHdjjeEdjveENrteD0JKYqVsqdSqZdqzIuA2Ew47AGAjo4OAMDw8PArRSqVSmF4eBjAcw6v3e+29wBAe3s7Jicn0d3dXXbdqwBFUdDd3f38R+jY9tBLtqum+A9LJ4IbV9RxAwAAAABJRU5ErkJggg==" alt="Shell">
-            </div>
+  <div class="topbar-inner">
 
-            <a href="#verify" class="header-title" id="verifyLink" data-translate-key="headerVerify">التحقق من أصالة المنتج</a>
+    <a href="verification.html" class="logo">
+      <img src="./img/shell-logo.png" alt="Shell" width="70" height="70">
+      <span class="logo-text">Shell Egypt</span>
+    </a>
 
-            <!-- ===== زر الترجمة في الهيدر (خارج الموبيل منيو) ===== -->
-            <div class="header-translation-dropdown" id="headerTranslationDropdown">
-                <button type="button" class="header-translation-btn" id="headerTranslationBtn">
-                    <span class="globe-icon">🌐</span>
-                    <span id="headerLangLabel">عربي</span>
-                </button>
-                <div class="dropdown-menu" id="headerLangMenu">
-                    <button type="button" data-lang="ar" class="active-lang">العربية</button>
-                    <button type="button" data-lang="en">English</button>
-                </div>
-            </div>
+    <div class="topbar-right">
 
-            <!-- زر القائمة (الموبايل) -->
-            <button type="button" class="mobile-menu-button" id="mobileMenuButton" aria-label="فتح القائمة" aria-expanded="false">
-                <span class="menu-icon">☰</span>
-                <span class="close-icon">×</span>
-            </button>
+      <button
+        class="lang-switch-btn"
+        id="langToggleBtn"
+        type="button"
+        onclick="toggleLanguage()">
+        AR
+      </button>
 
-        </div>
+      <button
+        class="burger-menu"
+        id="burgerBtn"
+        type="button"
+        aria-label="Menu">
 
-    </header>
+        <span></span>
+        <span></span>
+        <span></span>
 
-    <!-- =========================
-         MOBILE MENU
-    ========================= -->
-    <div class="mobile-menu" id="mobileMenu">
-
-        <div class="mobile-menu-inner">
-
-            <a href="#verify" class="mobile-menu-link" id="mobileVerifyLink" data-translate-key="headerVerify">
-                <span>التحقق من أصالة المنتج</span>
-                <span class="mobile-menu-arrow">‹</span>
-            </a>
-
-            <!-- ===== الترجمة داخل الموبيل منيو (موجود سابقاً) ===== -->
-            <div class="translation-wrapper" id="translationWrapper">
-
-                <button type="button" class="translation-button" id="translationButton">
-                    <span id="translationLabel">الترجمة</span>
-                    <span class="translation-arrow">⌄</span>
-                </button>
-
-                <div class="translation-list">
-                    <button type="button" class="active" data-lang="ar">العربية</button>
-                    <button type="button" data-lang="en">English</button>
-                </div>
-
-            </div>
-
-        </div>
+      </button>
 
     </div>
 
-    <!-- =========================
-         MAIN CONTAINER
-    ========================= -->
-    <div class="container">
+  </div>
 
-        <!-- Breadcrumb -->
-        <div class="breadcrumb">
-            <span data-translate-key="breadcrumbShell">شل مصر</span>
-            <span class="separator">|</span>
-            <span data-translate-key="breadcrumbVerify">التحقق من المنتج</span>
-        </div>
+</header>
 
-        <!-- Main Success Screen -->
-        <main class="main" id="mainView">
 
-            <h1 data-translate-key="pageTitle">التحقق من المنتج</h1>
-            <div class="red-line"></div>
+<!-- =========================================================
+     MOBILE DRAWER
+========================================================= -->
 
-            <div class="check-circle" aria-label="منتج أصلي">
-                <div class="check"></div>
-            </div>
+<div class="drawer-overlay" id="drawerOverlay"></div>
 
-            <div class="message">
-                <div data-translate-key="successTitle">منتج اصلي</div>
-                <div data-translate-key="successMsg">شكرا لشراء منتجات شل الأصلية</div>
-            </div>
+<div class="drawer" id="drawer">
 
-        </main>
+  <div class="drawer-header">
 
-        <!-- Verify Form -->
-        <div class="verify-form" id="verifyForm">
+    <a href="verification.html" class="drawer-title">
+      Shell Egypt
+    </a>
 
-            <h1 data-translate-key="pageTitle">التحقق من المنتج</h1>
-            <div class="red-line"></div>
-
-            <div class="verify-required" data-translate-key="requiredField">* حقل مطلوب</div>
-
-            <div class="verify-body">
-
-                <div class="verify-field-col">
-
-                    <div class="verify-label-row">
-                        <span class="verify-help-icon" title="أدخل الكود المطبوع على المنتج أو الرمز المرسل عبر SMS">؟</span>
-                        <span class="verify-label" data-translate-key="codeLabel">كود المنتج / رمز SMS *</span>
-                    </div>
-
-                    <input type="text" id="verifyCodeInput" class="verify-input" aria-label="كود المنتج / رمز SMS" autocomplete="off">
-
-                    <button type="button" class="verify-btn" id="verifyClearBtn" data-translate-key="clearBtn">مسح</button>
-                    <button type="button" class="verify-btn" id="verifySubmitBtn" data-translate-key="submitBtn">إرسال</button>
-
-                </div>
-
-                <div class="verify-help-col">
-
-                    <p class="verify-help-title" data-translate-key="helpTitle">هل تحتاج مساعدة في العثور على كود المنتج؟</p>
-
-                    <button type="button" class="verify-btn" id="verifyHelpBtn" data-translate-key="helpBtn">اضغط هنا لمعرفة المزيد</button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- Legal Pages -->
-        <div class="legal-inline" id="legalInline">
-
-            <button class="legal-back" type="button" id="legalBack" data-translate-key="backToVerify">← العودة إلى صفحة التحقق</button>
-
-            <!-- Terms -->
-            <div id="legalTermsContent" class="legal-content" hidden>
-                <h2 class="legal-title" data-translate-key="termsTitle">الشروط والأحكام</h2>
-
-                <h3 data-translate-key="termsIntroHeading">مقدمة</h3>
-                <p data-translate-key="termsIntroText">مرحباً بك في موقع شل للتحقق من أصالة المنتجات. باستخدامك لهذا الموقع، فإنك توافق على الالتزام بالشروط والأحكام التالية. يرجى قراءة هذه الشروط بعناية قبل استخدام الموقع. إذا كنت لا توافق على أي من هذه الشروط، يرجى عدم استخدام الموقع.</p>
-
-                <h3 data-translate-key="termsUseHeading">استخدام الموقع</h3>
-                <p data-translate-key="termsUseText">هذا الموقع مخصص للتحقق من أصالة منتجات شل فقط. يُمنع استخدام الموقع لأي أغراض غير قانونية أو غير مصرح بها. لا يجوز لك محاولة الوصول غير المصرح به إلى أي جزء من الموقع أو أي أنظمة أو شبكات مرتبطة به.</p>
-
-                <h3 data-translate-key="termsIpHeading">الملكية الفكرية</h3>
-                <p data-translate-key="termsIpText">جميع المحتويات المنشورة على هذا الموقع، بما في ذلك النصوص والرسومات والشعارات والأيقونات والصور والبرامج، هي ملك لشركة شل أو مرخصيها وتخضع لحماية قوانين حقوق الملكية الفكرية المحلية والدولية.</p>
-
-                <h3 data-translate-key="termsLiabilityHeading">حدود المسؤولية</h3>
-                <p data-translate-key="termsLiabilityText">يتم توفير هذا الموقع والمحتوى الموجود عليه 'كما هو' دون أي ضمانات صريحة أو ضمنية. لا تتحمل شل المسؤولية عن أي أضرار مباشرة أو غير مباشرة ناتجة عن استخدام الموقع أو عدم القدرة على استخدامه.</p>
-
-                <h3 data-translate-key="termsPrivacyHeading">الخصوصية وحماية البيانات</h3>
-                <p data-translate-key="termsPrivacyText">نحن نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية. للمزيد من المعلومات حول كيفية جمع واستخدام وحماية معلوماتك الشخصية، يرجى مراجعة سياسة الخصوصية الخاصة بنا.</p>
-
-                <h3 data-translate-key="termsLawHeading">القانون الحاكم</h3>
-                <p data-translate-key="termsLawText">تخضع هذه الشروط والأحكام لقوانين جمهورية مصر العربية وتفسر وفقاً لها. أي نزاع ينشأ عن أو يتعلق بهذه الشروط يخضع للاختصاص القضائي الحصري لمحاكم القاهرة.</p>
-
-                <h3 data-translate-key="termsAmendHeading">التعديلات على الشروط</h3>
-                <p data-translate-key="termsAmendText">تحتفظ شل بالحق في تعديل هذه الشروط والأحكام في أي وقت. سيتم نشر أي تغييرات على هذه الصفحة، ويعتبر استمرارك في استخدام الموقع بعد نشر التعديلات موافقة منك على الشروط المعدلة.</p>
-
-                <span class="legal-date" data-translate-key="lastUpdate">آخر تحديث: August 2024</span>
-            </div>
-
-            <!-- Privacy -->
-            <div id="legalPrivacyContent" class="legal-content" hidden>
-                <h2 class="legal-title" data-translate-key="privacyTitle">سياسة الخصوصية</h2>
-
-                <h3 data-translate-key="privacyIntroHeading">مقدمة</h3>
-                <p data-translate-key="privacyIntroText">مرحباً بك في موقع شل للتحقق من أصالة المنتجات. نحن نلتزم بحماية خصوصيتك وسرية بياناتك الشخصية. توضح هذه السياسة كيفية جمعنا واستخدامنا وحماية معلوماتك عند زيارتك لموقعنا.</p>
-
-                <h3 data-translate-key="privacyCollectHeading">جمع المعلومات</h3>
-                <p data-translate-key="privacyCollectText">قد نجمع معلومات شخصية مثل الاسم والبريد الإلكتروني عند استخدامك لنماذج الاتصال أو الاشتراك في خدماتنا. كما نجمع بيانات غير شخصية مثل عنوان IP ونوع المتصفح وصفحات الزيارة لتحسين أداء الموقع.</p>
-
-                <h3 data-translate-key="privacyUseHeading">استخدام المعلومات</h3>
-                <p data-translate-key="privacyUseText">نستخدم المعلومات التي نجمعها لتقديم الخدمات المطلوبة، وتحسين تجربة المستخدم، وإرسال تحديثات وعروض ترويجية (بموافقتك)، والامتثال للمتطلبات القانونية.</p>
-
-                <h3 data-translate-key="privacyShareHeading">مشاركة المعلومات</h3>
-                <p data-translate-key="privacyShareText">لا نبيع أو نؤجر معلوماتك الشخصية لأطراف خارجية. قد نشاركها مع مقدمي الخدمات الموثوقين الذين يساعدوننا في تشغيل الموقع، مع الالتزام بسرية البيانات.</p>
-
-                <h3 data-translate-key="privacySecurityHeading">أمان البيانات</h3>
-                <p data-translate-key="privacySecurityText">نطبق إجراءات أمنية تقنية وتنظيمية لحماية بياناتك من الوصول غير المصرح به أو التعديل أو الكشف. ومع ذلك، لا يمكن ضمان أمان كامل للبيانات المرسلة عبر الإنترنت.</p>
-
-                <h3 data-translate-key="privacyCookiesHeading">ملفات تعريف الارتباط</h3>
-                <p data-translate-key="privacyCookiesText">نستخدم ملفات تعريف الارتباط لتحسين أداء الموقع وتذكر تفضيلاتك. يمكنك التحكم في إعدادات الكوكيز من خلال متصفحك، راجع سياسة الكوكيز الخاصة بنا للمزيد من التفاصيل.</p>
-
-                <h3 data-translate-key="privacyRightsHeading">حقوقك</h3>
-                <p data-translate-key="privacyRightsText">لديك الحق في طلب الوصول إلى بياناتك الشخصية أو تصحيحها أو حذفها، وكذلك الاعتراض على معالجتها. يمكنك ممارسة هذه الحقوق بالتواصل معنا عبر المعلومات المذكورة في الموقع.</p>
-
-                <span class="legal-date" data-translate-key="lastUpdate">آخر تحديث: August 2024</span>
-            </div>
-
-            <!-- Cookies -->
-            <div id="legalCookiesContent" class="legal-content" hidden>
-                <h2 class="legal-title" data-translate-key="cookiesTitle">سياسة الكوكيز</h2>
-
-                <h3 data-translate-key="cookiesWhatHeading">ما هي ملفات تعريف الارتباط؟</h3>
-                <p data-translate-key="cookiesWhatText">ملفات تعريف الارتباط (الكوكيز) هي ملفات نصية صغيرة يتم تخزينها على جهاز الكمبيوتر أو الجهاز المحمول الخاص بك عند زيارة موقع إلكتروني. تُستخدم هذه الملفات على نطاق واسع لجعل المواقع تعمل بشكل أفضل وأكثر كفاءة، فضلاً عن تقديم معلومات لأصحاب الموقع.</p>
-
-                <h3 data-translate-key="cookiesHowHeading">كيف نستخدم ملفات تعريف الارتباط؟</h3>
-                <p data-translate-key="cookiesHowText">نحن نستخدم ملفات تعريف الارتباط لعدة أغراض، منها: ضمان عمل الموقع بشكل صحيح، تحسين أداء الموقع وتجربة المستخدم، تذكر تفضيلاتك وإعداداتك، وتحليل كيفية استخدام الزوار لموقعنا لتحسين خدماتنا.</p>
-
-                <h3 data-translate-key="cookiesTypesHeading">أنواع ملفات تعريف الارتباط التي نستخدمها</h3>
-
-                <h3 data-translate-key="cookiesEssentialHeading">ملفات كوكيز ضرورية أساسية - نشط دائماً</h3>
-                <p data-translate-key="cookiesEssentialText">هذه الملفات ضرورية لعمل الموقع بشكل صحيح. تمكّنك من التنقل في الموقع واستخدام ميزاته. لا يمكن تعطيل هذه الملفات.</p>
-
-                <h3 data-translate-key="cookiesAnalyticsHeading">ملفات كوكيز تحليلية وأداء</h3>
-                <p data-translate-key="cookiesAnalyticsText">تساعدنا هذه الملفات في فهم كيفية تفاعل الزوار مع الموقع من خلال جمع معلومات مجهولة الهوية. تساعدنا هذه البيانات في تحسين أداء الموقع وتجربة المستخدم.</p>
-
-                <h3 data-translate-key="cookiesMarketingHeading">ملفات كوكيز تسويقية وإعلانات</h3>
-                <p data-translate-key="cookiesMarketingText">تُستخدم هذه الملفات لتقديم إعلانات ذات صلة بك وباهتماماتك. كما تُستخدم لتحديد عدد مرات مشاهدة الإعلان وقياس فعالية الحملات الإعلانية.</p>
-
-                <h3 data-translate-key="cookiesManageHeading">كيفية إدارة ملفات تعريف الارتباط</h3>
-                <p data-translate-key="cookiesManageText">يمكنك التحكم في ملفات تعريف الارتباط وحذفها من خلال إعدادات المتصفح الخاص بك. يرجى ملاحظة أن حذف أو حظر بعض ملفات تعريف الارتباط قد يؤثر على تجربة استخدامك للموقع.</p>
-
-                <span class="legal-date" data-translate-key="lastUpdate">آخر تحديث: August 2024</span>
-            </div>
-
-            <!-- Modify Cookies -->
-            <div id="legalModifyContent" class="legal-content cookie-preferences" hidden>
-                <h2 class="legal-title" data-translate-key="modifyCookiesTitle">تعديل تفضيلات الكوكيز</h2>
-
-                <p class="cookie-preferences-intro" data-translate-key="modifyCookiesIntro">نحن نستخدم ملفات تعريف الارتباط لتحسين تجربة استخدام مواقع شل الإلكترونية. بعض ملفات الكوكيز ضرورية لعمل الموقع، بينما يساعدنا البعض الآخر في تحسين تجربتك وتقديم محتوى مخصص لك.</p>
-
-                <!-- Essential -->
-                <div class="cookie-option">
-                    <div class="cookie-option-text">
-                        <h3 data-translate-key="cookiesEssentialHeading">ملفات كوكيز ضرورية أساسية</h3>
-                        <p data-translate-key="cookiesEssentialText">هذه الملفات ضرورية لعمل الموقع بشكل صحيح. تمكّنك من التنقل في الموقع واستخدام ميزاته. لا يمكن تعطيل هذه الملفات.</p>
-                        <strong class="always-active" data-translate-key="alwaysActive">نشط دائماً</strong>
-                    </div>
-                    <div class="cookie-switch disabled">
-                        <input type="checkbox" checked disabled aria-label="ملفات الكوكيز الضرورية">
-                        <span class="cookie-slider"></span>
-                    </div>
-                </div>
-
-                <!-- Analytics -->
-                <div class="cookie-option">
-                    <div class="cookie-option-text">
-                        <h3 data-translate-key="cookiesAnalyticsHeading">ملفات كوكيز تحليلية وأداء</h3>
-                        <p data-translate-key="cookiesAnalyticsText">تساعدنا هذه الملفات في فهم كيفية تفاعل الزوار مع الموقع من خلال جمع معلومات مجهولة الهوية. تساعدنا هذه البيانات في تحسين أداء الموقع وتجربة المستخدم.</p>
-                    </div>
-                    <label class="cookie-switch">
-                        <input type="checkbox" id="analyticsCookies" aria-label="ملفات كوكيز تحليلية وأداء">
-                        <span class="cookie-slider"></span>
-                    </label>
-                </div>
-
-                <!-- Marketing -->
-                <div class="cookie-option">
-                    <div class="cookie-option-text">
-                        <h3 data-translate-key="cookiesMarketingHeading">ملفات كوكيز تسويقية وإعلانات</h3>
-                        <p data-translate-key="cookiesMarketingText">تُستخدم هذه الملفات لتقديم إعلانات ذات صلة بك وباهتماماتك. كما تُستخدم لتحديد عدد مرات مشاهدة الإعلان وقياس فعالية الحملات الإعلانية.</p>
-                    </div>
-                    <label class="cookie-switch">
-                        <input type="checkbox" id="marketingCookies" aria-label="ملفات كوكيز تسويقية وإعلانات">
-                        <span class="cookie-slider"></span>
-                    </label>
-                </div>
-
-                <!-- Save -->
-                <div class="cookie-save-wrapper">
-                    <button type="button" id="saveCookiePreferences" class="cookie-save-button" data-translate-key="savePreferences">حفظ التفضيلات</button>
-                    <div id="cookieSaveMessage" class="cookie-save-message" aria-live="polite" data-translate-key="preferencesSaved">تم حفظ التفضيلات بنجاح</div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- =========================
-         FOOTER
-    ========================= -->
-    <footer class="site-footer">
-
-        <div class="footer-accordion">
-
-            <!-- Connect -->
-            <div class="footer-item">
-                <button class="footer-toggle" type="button" aria-expanded="false">
-                    <span data-translate-key="footerConnect">Connect with us</span>
-                    <span class="footer-arrow">⌃</span>
-                </button>
-                <div class="footer-content">
-                    <a href="https://www.youtube.com/user/Shell" target="_blank" rel="noopener noreferrer">YouTube</a>
-                    <a href="https://x.com/shell" target="_blank" rel="noopener noreferrer">Twitter</a>
-                    <a href="https://www.facebook.com/Shell/?brand_redir=1443772475642172#" target="_blank" rel="noopener noreferrer">Facebook</a>
-                    <a href="https://www.linkedin.com/company/shell" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                    <a href="https://www.instagram.com/shell" target="_blank" rel="noopener noreferrer">Instagram</a>
-                </div>
-            </div>
-
-            <!-- Site Information -->
-            <div class="footer-item">
-                <button class="footer-toggle" type="button" aria-expanded="false">
-                    <span data-translate-key="footerSiteInfo">Site information</span>
-                    <span class="footer-arrow">⌃</span>
-                </button>
-                <div class="footer-content">
-                    <a href="#terms" class="legal-link" data-legal="terms" data-translate-key="footerTerms">الشروط والأحكام</a>
-                    <a href="#privacy" class="legal-link" data-legal="privacy" data-translate-key="footerPrivacy">سياسة الخصوصية</a>
-                    <a href="#cookies" class="legal-link" data-legal="cookies" data-translate-key="footerCookies">سياسة الكوكيز</a>
-                    <a href="#modify-cookies" class="legal-link" data-legal="modify-cookies" data-translate-key="footerModify">تعديل تفضيلات الكوكيز</a>
-                </div>
-            </div>
-
-        </div>
-
-    </footer>
-
-    <!-- =========================
-         TOP BUTTON
-    ========================= -->
-    <button class="top-button" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="العودة للأعلى">
-        ↑
+    <button
+      class="drawer-close"
+      id="drawerCloseBtn"
+      type="button">
+      ✕
     </button>
 
-    <!-- =========================
-         NOTIFICATION PANEL
-    ========================= -->
-    <div class="notification-panel" id="notificationPanel" aria-hidden="true">
+  </div>
 
-        <div class="notification-panel-header">
-            <button class="notification-close" id="notificationClose" aria-label="إغلاق">×</button>
-            <div class="notification-panel-title" data-translate-key="notificationsTitle">الإشعارات</div>
-        </div>
 
-        <div class="notification-empty">
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M20 45h24c-3-4-4-8-4-14v-5c0-7-5-12-12-12S16 19 16 26v5c0 6-1 10-4 14h8" fill="none" stroke="#aaa" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M25 50c1.5 2.5 3.5 3.5 7 3.5s5.5-1 7-3.5" fill="none" stroke="#aaa" stroke-width="3.5" stroke-linecap="round"/>
-                <path d="M11 10l42 44" fill="none" stroke="#aaa" stroke-width="4" stroke-linecap="round"/>
-            </svg>
-            <div class="notification-empty-text" data-translate-key="noNotifications">لا توجد إشعارات جديدة حالياً</div>
-        </div>
+  <ul class="drawer-nav">
+
+    <li>
+      <a href="verification.html">
+        <i>🏠</i>
+        <span data-i18n="nav_home">الرئيسية</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="verification.html">
+        <i>✅</i>
+        <span data-i18n="nav_verify">التحقق من المنتج</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="#" onclick="showPrivacy(event)">
+        <i>🔒</i>
+        <span data-i18n="nav_privacy">سياسة الخصوصية</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="#" onclick="showCookie(event)">
+        <i>🍪</i>
+        <span data-i18n="nav_cookie">سياسة ملفات تعريف الارتباط</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="#" onclick="showTerms(event)">
+        <i>📄</i>
+        <span data-i18n="nav_terms">الشروط والأحكام</span>
+      </a>
+    </li>
+
+  </ul>
+
+
+  <div class="drawer-lang-section">
+
+    <span
+      class="drawer-lang-label"
+      data-i18n="lang_choose">
+      اللغة
+    </span>
+
+    <div class="drawer-lang-buttons">
+
+      <button
+        class="drawer-lang-btn"
+        data-lang="en"
+        type="button"
+        onclick="setLanguage('en')">
+        EN
+      </button>
+
+      <button
+        class="drawer-lang-btn active-lang"
+        data-lang="ar"
+        type="button"
+        onclick="setLanguage('ar')">
+        AR
+      </button>
 
     </div>
 
-    <!-- Notification Button -->
-    <button class="notification" id="notificationButton" aria-label="الإشعارات" aria-expanded="false">
-        🔔
-    </button>
+  </div>
 
-    <script>
-        /* =========================
-           TRANSLATIONS
-        ========================= */
-        const translations = {
-            ar: {
-                // عام
-                pageTitle: "التحقق من المنتج",
-                headerVerify: "التحقق من أصالة المنتج",
-                breadcrumbShell: "شل مصر",
-                breadcrumbVerify: "التحقق من المنتج",
-                requiredField: "* حقل مطلوب",
-                codeLabel: "كود المنتج / رمز SMS *",
-                clearBtn: "مسح",
-                submitBtn: "إرسال",
-                helpTitle: "هل تحتاج مساعدة في العثور على كود المنتج؟",
-                helpBtn: "اضغط هنا لمعرفة المزيد",
-                successTitle: "منتج اصلي",
-                successMsg: "شكرا لشراء منتجات شل الأصلية",
-                backToVerify: "← العودة إلى صفحة التحقق",
-                // Legal
-                termsTitle: "الشروط والأحكام",
-                privacyTitle: "سياسة الخصوصية",
-                cookiesTitle: "سياسة الكوكيز",
-                modifyCookiesTitle: "تعديل تفضيلات الكوكيز",
-                // Terms
-                termsIntroHeading: "مقدمة",
-                termsIntroText: "مرحباً بك في موقع شل للتحقق من أصالة المنتجات. باستخدامك لهذا الموقع، فإنك توافق على الالتزام بالشروط والأحكام التالية. يرجى قراءة هذه الشروط بعناية قبل استخدام الموقع. إذا كنت لا توافق على أي من هذه الشروط، يرجى عدم استخدام الموقع.",
-                termsUseHeading: "استخدام الموقع",
-                termsUseText: "هذا الموقع مخصص للتحقق من أصالة منتجات شل فقط. يُمنع استخدام الموقع لأي أغراض غير قانونية أو غير مصرح بها. لا يجوز لك محاولة الوصول غير المصرح به إلى أي جزء من الموقع أو أي أنظمة أو شبكات مرتبطة به.",
-                termsIpHeading: "الملكية الفكرية",
-                termsIpText: "جميع المحتويات المنشورة على هذا الموقع، بما في ذلك النصوص والرسومات والشعارات والأيقونات والصور والبرامج، هي ملك لشركة شل أو مرخصيها وتخضع لحماية قوانين حقوق الملكية الفكرية المحلية والدولية.",
-                termsLiabilityHeading: "حدود المسؤولية",
-                termsLiabilityText: "يتم توفير هذا الموقع والمحتوى الموجود عليه 'كما هو' دون أي ضمانات صريحة أو ضمنية. لا تتحمل شل المسؤولية عن أي أضرار مباشرة أو غير مباشرة ناتجة عن استخدام الموقع أو عدم القدرة على استخدامه.",
-                termsPrivacyHeading: "الخصوصية وحماية البيانات",
-                termsPrivacyText: "نحن نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية. للمزيد من المعلومات حول كيفية جمع واستخدام وحماية معلوماتك الشخصية، يرجى مراجعة سياسة الخصوصية الخاصة بنا.",
-                termsLawHeading: "القانون الحاكم",
-                termsLawText: "تخضع هذه الشروط والأحكام لقوانين جمهورية مصر العربية وتفسر وفقاً لها. أي نزاع ينشأ عن أو يتعلق بهذه الشروط يخضع للاختصاص القضائي الحصري لمحاكم القاهرة.",
-                termsAmendHeading: "التعديلات على الشروط",
-                termsAmendText: "تحتفظ شل بالحق في تعديل هذه الشروط والأحكام في أي وقت. سيتم نشر أي تغييرات على هذه الصفحة، ويعتبر استمرارك في استخدام الموقع بعد نشر التعديلات موافقة منك على الشروط المعدلة.",
-                // Privacy
-                privacyIntroHeading: "مقدمة",
-                privacyIntroText: "مرحباً بك في موقع شل للتحقق من أصالة المنتجات. نحن نلتزم بحماية خصوصيتك وسرية بياناتك الشخصية. توضح هذه السياسة كيفية جمعنا واستخدامنا وحماية معلوماتك عند زيارتك لموقعنا.",
-                privacyCollectHeading: "جمع المعلومات",
-                privacyCollectText: "قد نجمع معلومات شخصية مثل الاسم والبريد الإلكتروني عند استخدامك لنماذج الاتصال أو الاشتراك في خدماتنا. كما نجمع بيانات غير شخصية مثل عنوان IP ونوع المتصفح وصفحات الزيارة لتحسين أداء الموقع.",
-                privacyUseHeading: "استخدام المعلومات",
-                privacyUseText: "نستخدم المعلومات التي نجمعها لتقديم الخدمات المطلوبة، وتحسين تجربة المستخدم، وإرسال تحديثات وعروض ترويجية (بموافقتك)، والامتثال للمتطلبات القانونية.",
-                privacyShareHeading: "مشاركة المعلومات",
-                privacyShareText: "لا نبيع أو نؤجر معلوماتك الشخصية لأطراف خارجية. قد نشاركها مع مقدمي الخدمات الموثوقين الذين يساعدوننا في تشغيل الموقع، مع الالتزام بسرية البيانات.",
-                privacySecurityHeading: "أمان البيانات",
-                privacySecurityText: "نطبق إجراءات أمنية تقنية وتنظيمية لحماية بياناتك من الوصول غير المصرح به أو التعديل أو الكشف. ومع ذلك، لا يمكن ضمان أمان كامل للبيانات المرسلة عبر الإنترنت.",
-                privacyCookiesHeading: "ملفات تعريف الارتباط",
-                privacyCookiesText: "نستخدم ملفات تعريف الارتباط لتحسين أداء الموقع وتذكر تفضيلاتك. يمكنك التحكم في إعدادات الكوكيز من خلال متصفحك، راجع سياسة الكوكيز الخاصة بنا للمزيد من التفاصيل.",
-                privacyRightsHeading: "حقوقك",
-                privacyRightsText: "لديك الحق في طلب الوصول إلى بياناتك الشخصية أو تصحيحها أو حذفها، وكذلك الاعتراض على معالجتها. يمكنك ممارسة هذه الحقوق بالتواصل معنا عبر المعلومات المذكورة في الموقع.",
-                // Cookies
-                cookiesWhatHeading: "ما هي ملفات تعريف الارتباط؟",
-                cookiesWhatText: "ملفات تعريف الارتباط (الكوكيز) هي ملفات نصية صغيرة يتم تخزينها على جهاز الكمبيوتر أو الجهاز المحمول الخاص بك عند زيارة موقع إلكتروني. تُستخدم هذه الملفات على نطاق واسع لجعل المواقع تعمل بشكل أفضل وأكثر كفاءة، فضلاً عن تقديم معلومات لأصحاب الموقع.",
-                cookiesHowHeading: "كيف نستخدم ملفات تعريف الارتباط؟",
-                cookiesHowText: "نحن نستخدم ملفات تعريف الارتباط لعدة أغراض، منها: ضمان عمل الموقع بشكل صحيح، تحسين أداء الموقع وتجربة المستخدم، تذكر تفضيلاتك وإعداداتك، وتحليل كيفية استخدام الزوار لموقعنا لتحسين خدماتنا.",
-                cookiesTypesHeading: "أنواع ملفات تعريف الارتباط التي نستخدمها",
-                cookiesEssentialHeading: "ملفات كوكيز ضرورية أساسية - نشط دائماً",
-                cookiesEssentialText: "هذه الملفات ضرورية لعمل الموقع بشكل صحيح. تمكّنك من التنقل في الموقع واستخدام ميزاته. لا يمكن تعطيل هذه الملفات.",
-                cookiesAnalyticsHeading: "ملفات كوكيز تحليلية وأداء",
-                cookiesAnalyticsText: "تساعدنا هذه الملفات في فهم كيفية تفاعل الزوار مع الموقع من خلال جمع معلومات مجهولة الهوية. تساعدنا هذه البيانات في تحسين أداء الموقع وتجربة المستخدم.",
-                cookiesMarketingHeading: "ملفات كوكيز تسويقية وإعلانات",
-                cookiesMarketingText: "تُستخدم هذه الملفات لتقديم إعلانات ذات صلة بك وباهتماماتك. كما تُستخدم لتحديد عدد مرات مشاهدة الإعلان وقياس فعالية الحملات الإعلانية.",
-                cookiesManageHeading: "كيفية إدارة ملفات تعريف الارتباط",
-                cookiesManageText: "يمكنك التحكم في ملفات تعريف الارتباط وحذفها من خلال إعدادات المتصفح الخاص بك. يرجى ملاحظة أن حذف أو حظر بعض ملفات تعريف الارتباط قد يؤثر على تجربة استخدامك للموقع.",
-                // Modify Cookies
-                modifyCookiesIntro: "نحن نستخدم ملفات تعريف الارتباط لتحسين تجربة استخدام مواقع شل الإلكترونية. بعض ملفات الكوكيز ضرورية لعمل الموقع، بينما يساعدنا البعض الآخر في تحسين تجربتك وتقديم محتوى مخصص لك.",
-                alwaysActive: "نشط دائماً",
-                savePreferences: "حفظ التفضيلات",
-                preferencesSaved: "تم حفظ التفضيلات بنجاح",
-                // Footer
-                footerConnect: "Connect with us",
-                footerSiteInfo: "Site information",
-                footerTerms: "الشروط والأحكام",
-                footerPrivacy: "سياسة الخصوصية",
-                footerCookies: "سياسة الكوكيز",
-                footerModify: "تعديل تفضيلات الكوكيز",
-                // Notifications
-                notificationsTitle: "الإشعارات",
-                noNotifications: "لا توجد إشعارات جديدة حالياً",
-                lastUpdate: "آخر تحديث: August 2024"
-            },
-            en: {
-                pageTitle: "Product Verification",
-                headerVerify: "Verify Product Authenticity",
-                breadcrumbShell: "Shell Egypt",
-                breadcrumbVerify: "Product Verification",
-                requiredField: "* Required field",
-                codeLabel: "Product Code / SMS Code *",
-                clearBtn: "Clear",
-                submitBtn: "Submit",
-                helpTitle: "Need help finding your product code?",
-                helpBtn: "Click here to learn more",
-                successTitle: "Authentic Product",
-                successMsg: "Thank you for purchasing genuine Shell products",
-                backToVerify: "← Back to verification page",
-                // Legal
-                termsTitle: "Terms and Conditions",
-                privacyTitle: "Privacy Policy",
-                cookiesTitle: "Cookie Policy",
-                modifyCookiesTitle: "Modify Cookie Preferences",
-                // Terms
-                termsIntroHeading: "Introduction",
-                termsIntroText: "Welcome to the Shell product authenticity verification website. By using this site, you agree to comply with the following terms and conditions. Please read these terms carefully before using the site. If you do not agree with any of these terms, please do not use the site.",
-                termsUseHeading: "Use of the Site",
-                termsUseText: "This site is intended solely for verifying the authenticity of Shell products. It is prohibited to use the site for any illegal or unauthorized purposes. You may not attempt to gain unauthorized access to any part of the site or any associated systems or networks.",
-                termsIpHeading: "Intellectual Property",
-                termsIpText: "All content published on this site, including text, graphics, logos, icons, images, and software, is the property of Shell or its licensors and is protected by local and international intellectual property laws.",
-                termsLiabilityHeading: "Limitation of Liability",
-                termsLiabilityText: "This site and its content are provided 'as is' without any express or implied warranties. Shell shall not be liable for any direct or indirect damages arising from the use of the site or the inability to use it.",
-                termsPrivacyHeading: "Privacy and Data Protection",
-                termsPrivacyText: "We respect your privacy and are committed to protecting your personal data. For more information about how we collect, use, and protect your personal information, please review our Privacy Policy.",
-                termsLawHeading: "Governing Law",
-                termsLawText: "These terms and conditions are governed by and construed in accordance with the laws of the Arab Republic of Egypt. Any dispute arising out of or in connection with these terms shall be subject to the exclusive jurisdiction of the courts of Cairo.",
-                termsAmendHeading: "Amendments to Terms",
-                termsAmendText: "Shell reserves the right to amend these terms and conditions at any time. Any changes will be posted on this page, and your continued use of the site after such amendments constitutes your acceptance of the revised terms.",
-                // Privacy
-                privacyIntroHeading: "Introduction",
-                privacyIntroText: "Welcome to the Shell product authenticity verification website. We are committed to protecting your privacy and the confidentiality of your personal data. This policy explains how we collect, use, and protect your information when you visit our site.",
-                privacyCollectHeading: "Information Collection",
-                privacyCollectText: "We may collect personal information such as name and email address when you use contact forms or subscribe to our services. We also collect non-personal data such as IP address, browser type, and visited pages to improve site performance.",
-                privacyUseHeading: "Use of Information",
-                privacyUseText: "We use the information we collect to provide requested services, improve user experience, send updates and promotional offers (with your consent), and comply with legal requirements.",
-                privacyShareHeading: "Information Sharing",
-                privacyShareText: "We do not sell or rent your personal information to third parties. We may share it with trusted service providers who assist us in operating the site, subject to confidentiality obligations.",
-                privacySecurityHeading: "Data Security",
-                privacySecurityText: "We implement technical and organizational security measures to protect your data from unauthorized access, modification, or disclosure. However, no data transmission over the internet can be guaranteed to be completely secure.",
-                privacyCookiesHeading: "Cookies",
-                privacyCookiesText: "We use cookies to improve site performance and remember your preferences. You can control cookie settings through your browser; please see our Cookie Policy for more details.",
-                privacyRightsHeading: "Your Rights",
-                privacyRightsText: "You have the right to request access to, correction, or deletion of your personal data, as well as to object to its processing. You can exercise these rights by contacting us using the information provided on the site.",
-                // Cookies
-                cookiesWhatHeading: "What are cookies?",
-                cookiesWhatText: "Cookies are small text files stored on your computer or mobile device when you visit a website. They are widely used to make websites work more efficiently and to provide information to site owners.",
-                cookiesHowHeading: "How do we use cookies?",
-                cookiesHowText: "We use cookies for several purposes, including: ensuring the site functions correctly, improving performance and user experience, remembering your preferences and settings, and analyzing visitor behavior to improve our services.",
-                cookiesTypesHeading: "Types of cookies we use",
-                cookiesEssentialHeading: "Essential cookies – Always active",
-                cookiesEssentialText: "These cookies are necessary for the site to function properly. They enable navigation and use of site features. These cookies cannot be disabled.",
-                cookiesAnalyticsHeading: "Analytics and performance cookies",
-                cookiesAnalyticsText: "These cookies help us understand how visitors interact with the site by collecting anonymous information. This data helps us improve site performance and user experience.",
-                cookiesMarketingHeading: "Marketing and advertising cookies",
-                cookiesMarketingText: "These cookies are used to deliver relevant advertisements to you based on your interests. They also measure ad impressions and campaign effectiveness.",
-                cookiesManageHeading: "How to manage cookies",
-                cookiesManageText: "You can control and delete cookies through your browser settings. Please note that disabling or blocking certain cookies may affect your experience on the site.",
-                // Modify Cookies
-                modifyCookiesIntro: "We use cookies to improve your experience on Shell websites. Some cookies are essential for the site to work, while others help us enhance your experience and deliver personalized content.",
-                alwaysActive: "Always active",
-                savePreferences: "Save preferences",
-                preferencesSaved: "Preferences saved successfully",
-                // Footer
-                footerConnect: "Connect with us",
-                footerSiteInfo: "Site information",
-                footerTerms: "Terms and Conditions",
-                footerPrivacy: "Privacy Policy",
-                footerCookies: "Cookie Policy",
-                footerModify: "Modify Cookie Preferences",
-                // Notifications
-                notificationsTitle: "Notifications",
-                noNotifications: "No new notifications at this time",
-                lastUpdate: "Last updated: August 2024"
-            }
-        };
+</div>
 
-        /* =========================
-           LANGUAGE & TRANSLATION ENGINE
-        ========================= */
 
-        const translatableElements = document.querySelectorAll('[data-translate-key]');
+<!-- =========================================================
+     TITLE BAR
+========================================================= -->
 
-        function applyTranslations(lang) {
-            const dict = translations[lang];
-            if (!dict) return;
+<div class="title-bar">
 
-            translatableElements.forEach(el => {
-                const key = el.getAttribute('data-translate-key');
-                if (dict[key] !== undefined) {
-                    const textNodes = [];
-                    const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
-                    let node;
-                    while (node = walk.nextNode()) {
-                        textNodes.push(node);
-                    }
-                    if (textNodes.length > 0) {
-                        textNodes[0].textContent = dict[key];
-                        for (let i = 1; i < textNodes.length; i++) {
-                            textNodes[i].remove();
-                        }
-                    } else {
-                        el.textContent = dict[key];
-                    }
-                }
-            });
+  <div class="title-bar-inner">
 
-            const titleEl = document.querySelector('title[data-translate-key]');
-            if (titleEl && dict.pageTitle) {
-                titleEl.textContent = dict.pageTitle;
-            }
+    <h1 data-i18n="check_product">
+      التحقق من صحة المنتج
+    </h1>
 
-            const transLabel = document.getElementById('translationLabel');
-            if (transLabel) {
-                transLabel.textContent = lang === 'ar' ? 'الترجمة' : 'Translation';
-            }
+  </div>
 
-            // تحديث تسمية زر الترجمة في الهيدر
-            const headerLangLabel = document.getElementById('headerLangLabel');
-            if (headerLangLabel) {
-                headerLangLabel.textContent = lang === 'ar' ? 'عربي' : 'English';
-            }
+  <div class="title-underline">
+    <span class="underline-yellow"></span>
+    <span class="underline-dark"></span>
+  </div>
 
-            // تحديث الحالة النشطة في قائمة الهيدر
-            document.querySelectorAll('#headerLangMenu button').forEach(btn => {
-                btn.classList.toggle('active-lang', btn.dataset.lang === lang);
-            });
-            // تحديث الحالة النشطة في قائمة الموبايل
-            document.querySelectorAll('.translation-list button').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.lang === lang);
-            });
+</div>
 
-            const htmlEl = document.documentElement;
-            if (lang === 'ar') {
-                htmlEl.setAttribute('dir', 'rtl');
-                htmlEl.setAttribute('lang', 'ar');
-            } else {
-                htmlEl.setAttribute('dir', 'ltr');
-                htmlEl.setAttribute('lang', 'en');
-            }
 
-            localStorage.setItem('selectedLanguage', lang);
-        }
+<!-- =========================================================
+     BREADCRUMB
+========================================================= -->
 
-        function setLanguage(lang) {
-            if (!translations[lang]) return;
-            applyTranslations(lang);
-        }
+<nav class="breadcrumb">
 
-        // =========================
-        // تهيئة اللغة
-        // =========================
-        const savedLang = localStorage.getItem('selectedLanguage') || 'ar';
-        setLanguage(savedLang);
+  <div class="breadcrumb-inner">
 
-        // =========================
-        // أحداث أزرار الترجمة (في الهيدر)
-        // =========================
-        const headerTranslationBtn = document.getElementById('headerTranslationBtn');
-        const headerTranslationDropdown = document.getElementById('headerTranslationDropdown');
-        const headerLangMenu = document.getElementById('headerLangMenu');
+    <a href="verification.html" class="shell-brand">
+      Shell Egypt
+    </a>
 
-        headerTranslationBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            headerTranslationDropdown.classList.toggle('open');
-        });
+    <span class="chevron">&#8250;</span>
 
-        // اختيار لغة من قائمة الهيدر
-        headerLangMenu.querySelectorAll('button').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const lang = this.dataset.lang;
-                setLanguage(lang);
-                headerTranslationDropdown.classList.remove('open');
-            });
-        });
+    <span
+      class="current"
+      id="breadcrumbCurrent"
+      data-i18n="product_verification">
+      التحقق من المنتج
+    </span>
 
-        // إغلاق القائمة عند النقر خارجها
-        document.addEventListener('click', function(e) {
-            if (!headerTranslationDropdown.contains(e.target)) {
-                headerTranslationDropdown.classList.remove('open');
-            }
-        });
+  </div>
 
-        // =========================
-        // أحداث أزرار الترجمة (في الموبايل)
-        // =========================
-        document.querySelectorAll('.translation-list button').forEach(button => {
-            button.addEventListener('click', function() {
-                const lang = this.dataset.lang;
-                setLanguage(lang);
-                document.getElementById('translationWrapper').classList.remove('open');
-            });
-        });
+</nav>
 
-        document.getElementById('translationButton').addEventListener('click', function() {
-            document.getElementById('translationWrapper').classList.toggle('open');
-        });
 
-        // =========================
-        // باقي الكود (القوائم، الإشعارات، النماذج، إلخ)
-        // =========================
+<!-- =========================================================
+     MAIN
+========================================================= -->
 
-        /* Mobile Menu */
-        const mobileMenuButton = document.getElementById('mobileMenuButton');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileVerifyLink = document.getElementById('mobileVerifyLink');
+<main class="content">
 
-        function closeMobileMenu() {
-            mobileMenu.classList.remove('open');
-            mobileMenuButton.classList.remove('open');
-            mobileMenuButton.setAttribute('aria-expanded', 'false');
-        }
+  <!-- =======================================================
+       PRODUCT VERIFICATION
+  ======================================================== -->
 
-        mobileMenuButton.addEventListener('click', function() {
-            const isOpen = mobileMenu.classList.toggle('open');
-            mobileMenuButton.classList.toggle('open', isOpen);
-            mobileMenuButton.setAttribute('aria-expanded', String(isOpen));
-        });
+  <div
+    id="verificationContent"
+    class="verification-content">
 
-        mobileVerifyLink.addEventListener('click', function(event) {
-            event.preventDefault();
-            showVerifyForm();
-            closeMobileMenu();
-        });
+    <h2
+      class="page-heading"
+      data-i18n="product_verification_heading">
+      التحقق من المنتج
+    </h2>
 
-        /* Notifications */
-        const notificationButton = document.getElementById('notificationButton');
-        const notificationPanel = document.getElementById('notificationPanel');
-        const notificationClose = document.getElementById('notificationClose');
+    <div class="status-icon">
 
-        function toggleNotifications() {
-            const isOpen = notificationPanel.classList.toggle('open');
-            notificationPanel.setAttribute('aria-hidden', String(!isOpen));
-            notificationButton.setAttribute('aria-expanded', String(isOpen));
-        }
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
 
-        notificationButton.addEventListener('click', toggleNotifications);
-        notificationClose.addEventListener('click', function() {
-            notificationPanel.classList.remove('open');
-            notificationPanel.setAttribute('aria-hidden', 'true');
-            notificationButton.setAttribute('aria-expanded', 'false');
-        });
+        <rect
+          x="10.7"
+          y="0.5"
+          width="2.6"
+          height="19"
+          rx="1.3"
+          fill="#fff"/>
 
-        document.addEventListener('click', function(event) {
-            if (notificationPanel.classList.contains('open') &&
-                !notificationPanel.contains(event.target) &&
-                !notificationButton.contains(event.target)) {
-                notificationPanel.classList.remove('open');
-                notificationPanel.setAttribute('aria-hidden', 'true');
-                notificationButton.setAttribute('aria-expanded', 'false');
-            }
-        });
+        <circle
+          cx="12"
+          cy="21"
+          r="2.2"
+          fill="#fff"/>
 
-        /* Footer Accordion */
-        document.querySelectorAll('.footer-toggle').forEach(function(button) {
-            button.addEventListener('click', function() {
-                const item = button.closest('.footer-item');
-                const isOpen = item.classList.toggle('open');
-                button.setAttribute('aria-expanded', String(isOpen));
-            });
-        });
+      </svg>
 
-        /* View Switching */
-        const mainView = document.getElementById('mainView');
-        const verifyForm = document.getElementById('verifyForm');
-        const legalInline = document.getElementById('legalInline');
+    </div>
 
-        const legalContents = {
-            terms: document.getElementById('legalTermsContent'),
-            privacy: document.getElementById('legalPrivacyContent'),
-            cookies: document.getElementById('legalCookiesContent'),
-            'modify-cookies': document.getElementById('legalModifyContent')
-        };
+    <p
+      class="result-message"
+      data-i18n="invalid_code">
+      كود غير صحيح، بالرجاء الرجوع للتاجر
+    </p>
 
-        function hideAllViews() {
-            mainView.style.display = 'none';
-            verifyForm.classList.remove('active');
-            legalInline.classList.remove('active');
-            Object.values(legalContents).forEach(function(content) {
-                content.hidden = true;
-            });
-        }
+  </div>
 
-        function showMainView() {
-            hideAllViews();
-            mainView.style.display = 'block';
-            window.scrollTo({ top: mainView.offsetTop - 20, behavior: 'smooth' });
-        }
 
-        function showVerifyForm() {
-            hideAllViews();
-            verifyForm.classList.add('active');
-            window.scrollTo({ top: verifyForm.offsetTop - 20, behavior: 'smooth' });
-        }
+  <!-- =======================================================
+       PRIVACY POLICY
+  ======================================================== -->
 
-        function showLegalContent(key) {
-            const content = legalContents[key];
-            if (!content) return;
-            hideAllViews();
-            content.hidden = false;
-            legalInline.classList.add('active');
-            window.scrollTo({ top: legalInline.offsetTop - 20, behavior: 'smooth' });
-        }
+  <section
+    id="privacyContent"
+    class="policy-content">
 
-        document.getElementById('verifyLink').addEventListener('click', function(event) {
-            event.preventDefault();
-            showVerifyForm();
-        });
+    <h2
+      class="policy-title"
+      data-i18n="privacy_title">
+      سياسة الخصوصية
+    </h2>
 
-        document.querySelectorAll('.legal-link').forEach(function(link) {
-            link.addEventListener('click', function(event) {
-                event.preventDefault();
-                showLegalContent(link.dataset.legal);
-            });
-        });
+    <div class="policy-red-line"></div>
 
-        document.getElementById('legalBack').addEventListener('click', showMainView);
+    <div
+      class="policy-text"
+      id="privacyTextContainer">
+    </div>
 
-        /* Verify Form */
-        const verifyCodeInput = document.getElementById('verifyCodeInput');
-        document.getElementById('verifyClearBtn').addEventListener('click', function() {
-            verifyCodeInput.value = '';
-            verifyCodeInput.focus();
-        });
-        document.getElementById('verifySubmitBtn').addEventListener('click', function() {
-            showMainView();
-        });
-        document.getElementById('verifyHelpBtn').addEventListener('click', function() {
-            alert('يرجى مراجعة العبوة أو التواصل مع خدمة العملاء للحصول على مساعدة في إيجاد كود المنتج.');
-        });
+    <a
+      href="verification.html"
+      class="policy-back"
+      onclick="goToVerification(event)"
+      data-i18n="back_to_verification">
+      ‹ العودة إلى التحقق من المنتج
+    </a>
 
-        /* Cookie Preferences */
-        const analyticsCookies = document.getElementById('analyticsCookies');
-        const marketingCookies = document.getElementById('marketingCookies');
-        const saveCookiePreferences = document.getElementById('saveCookiePreferences');
-        const cookieSaveMessage = document.getElementById('cookieSaveMessage');
+  </section>
 
-        const savedAnalytics = localStorage.getItem('analyticsCookies');
-        const savedMarketing = localStorage.getItem('marketingCookies');
 
-        if (savedAnalytics !== null) {
-            analyticsCookies.checked = savedAnalytics === 'true';
-        }
-        if (savedMarketing !== null) {
-            marketingCookies.checked = savedMarketing === 'true';
-        }
+  <!-- =======================================================
+       COOKIE POLICY
+  ======================================================== -->
 
-        saveCookiePreferences.addEventListener('click', function() {
-            localStorage.setItem('analyticsCookies', analyticsCookies.checked);
-            localStorage.setItem('marketingCookies', marketingCookies.checked);
-            cookieSaveMessage.classList.add('show');
-            setTimeout(function() {
-                cookieSaveMessage.classList.remove('show');
-            }, 4000);
-        });
+  <section
+    id="cookieContent"
+    class="cookie-content">
 
-        /* Close mobile menu when clicking outside */
-        document.addEventListener('click', function(event) {
-            if (mobileMenu.classList.contains('open') &&
-                !mobileMenu.contains(event.target) &&
-                !mobileMenuButton.contains(event.target)) {
-                closeMobileMenu();
-            }
-        });
+    <h2
+      class="cookie-title"
+      data-i18n="cookie_title">
+      سياسة ملفات تعريف الارتباط
+    </h2>
 
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeMobileMenu();
-            }
-        });
+    <div class="cookie-red-line"></div>
 
-        // إعادة تطبيق الترجمة عند تحميل الصفحة
-        window.addEventListener('load', function() {
-            const currentLang = localStorage.getItem('selectedLanguage') || 'ar';
-            setLanguage(currentLang);
-        });
-    </script>
+  </section>
+
+
+  <!-- =======================================================
+       TERMS & CONDITIONS
+  ======================================================== -->
+
+  <section
+    id="termsContent"
+    class="terms-content">
+
+    <h2
+      class="terms-title"
+      data-i18n="terms_title">
+      الشروط والأحكام
+    </h2>
+
+    <div class="terms-red-line"></div>
+
+    <div
+      class="terms-text"
+      id="termsTextContainer">
+    </div>
+
+    <a
+      href="verification.html"
+      class="terms-back"
+      onclick="goToVerification(event)"
+      data-i18n="back_to_verification">
+      ‹ العودة إلى التحقق من المنتج
+    </a>
+
+  </section>
+
+</main>
+
+
+<div class="bottom-line"></div>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="site-footer">
+
+  <div class="footer-top">
+
+    <span
+      class="connect-label"
+      data-i18n="connect_with_us">
+      تواصل معنا
+    </span>
+
+    <div class="social-icons">
+
+      <a href="#" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M23.5 6.2c-.3-1.1-1.1-1.9-2.2-2.2C19.3 3.5 12 3.5 12 3.5s-7.3 0-9.3.5c-1.1.3-1.9 1.1-2.2 2.2C0 8.2 0 12 0 12s0 3.8.5 5.8c.3 1.1 1.1 1.9 2.2 2.2 2 .5 9.3.5 9.3.5s7.3 0 9.3-.5c1.1-.3 1.9-1.1 2.2-2.2.5-2 .5-5.8.5-5.8s0-3.8-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
+        </svg>
+      </a>
+
+      <a href="#" aria-label="Twitter">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M23.4 4.9c-.8.4-1.7.7-2.6.8.9-.6 1.7-1.5 2-2.5-.9.5-1.9.9-2.9 1.1-.8-.9-2-1.5-3.3-1.5-2.5 0-4.5 2-4.5 4.5 0 .4 0 .7.1 1-3.8-.2-7.1-2-9.4-4.8-.4.7-.6 1.5-.6 2.3 0 1.6.8 3 2 3.8-.7 0-1.4-.2-2-.6v.1c0 2.2 1.6 4 3.6 4.4-.4.1-.8.2-1.2.2-.3 0-.6 0-.8-.1.6 1.8 2.2 3.1 4.2 3.1-1.5 1.2-3.5 1.9-5.6 1.9-.4 0-.7 0-1.1-.1 2 1.3 4.4 2 6.9 2 8.3 0 12.9-6.9 12.9-12.9v-.6c.9-.6 1.6-1.4 2.3-2.3z"/>
+        </svg>
+      </a>
+
+      <a href="#" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/>
+        </svg>
+      </a>
+
+      <a href="#" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8.3 18.5H5.7V9.8h2.6v8.7zM7 8.7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11.5 9.8h-2.6v-4.3c0-1 0-2.4-1.5-2.4s-1.7 1.1-1.7 2.3v4.4H10V9.8h2.5v1.2c.4-.7 1.3-1.4 2.6-1.4 2.7 0 3.2 1.8 3.2 4.2v4.7z"/>
+        </svg>
+      </a>
+
+      <a href="#" aria-label="Instagram">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8">
+
+          <rect
+            x="3"
+            y="3"
+            width="18"
+            height="18"
+            rx="4"/>
+
+          <circle
+            cx="12"
+            cy="12"
+            r="4"/>
+
+          <circle
+            cx="17.2"
+            cy="6.8"
+            r="0.6"
+            fill="currentColor"
+            stroke="none"/>
+
+        </svg>
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    <a
+      href="#"
+      onclick="showTerms(event)"
+      data-i18n="terms">
+      الشروط والأحكام
+    </a>
+
+    <a
+      href="#"
+      onclick="showPrivacy(event)"
+      data-i18n="privacy">
+      سياسة الخصوصية
+    </a>
+
+    <a
+      href="#"
+      onclick="showCookie(event)"
+      data-i18n="cookie">
+      سياسة ملفات تعريف الارتباط
+    </a>
+
+    <!--
+      Modify Cookie Preferences
+      intentionally disabled as requested
+    -->
+    <a
+      href="#"
+      data-i18n="modify_cookies">
+      تعديل تفضيلات ملفات تعريف الارتباط
+    </a>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+/* ============================================================
+   TRANSLATIONS
+============================================================ */
+
+const translations = {
+
+  en: {
+
+    check_product:
+      "Check Product Authenticity",
+
+    product_verification:
+      "Product Verification",
+
+    product_verification_heading:
+      "PRODUCT VERIFICATION",
+
+    invalid_code:
+      "Invalid code, please refer to the merchant",
+
+    connect_with_us:
+      "Connect with us",
+
+    terms:
+      "Terms & Conditions",
+
+    privacy:
+      "Privacy Policy",
+
+    cookie:
+      "Cookie Policy",
+
+    modify_cookies:
+      "Modify Cookie Preferences",
+
+    privacy_title:
+      "Privacy Policy",
+
+    cookie_title:
+      "Cookie Policy",
+
+    terms_title:
+      "Terms & Conditions",
+
+    back_to_verification:
+      "‹ Back to Product Verification",
+
+    nav_home:
+      "Home",
+
+    nav_verify:
+      "Product Verification",
+
+    nav_privacy:
+      "Privacy Policy",
+
+    nav_cookie:
+      "Cookie Policy",
+
+    nav_terms:
+      "Terms & Conditions",
+
+    lang_choose:
+      "Language",
+
+    privacy_html: `
+
+      <h3>
+        NOTICE - MOTORISTS, LOYALTY OR ENERGY CUSTOMERS,
+        SHELL APP USERS AND VISITORS TO OUR WEBSITES
+      </h3>
+
+      <h4>
+        What does this Privacy Notice cover?
+      </h4>
+
+      <p>
+        This Privacy Notice provides information regarding the processing
+        of your personal data when using services and/or purchasing products
+        from or on behalf of a company or companies within the Shell group
+        of companies (‘Shell’ or ‘we’) whether as:
+      </p>
+
+      <p>
+        (i) a retail, energy or e-mobility customer;<br>
+        (ii) a member of a Shell loyalty program such as Club Smart,
+        Shell Go +, SHARE Program or equivalent in your location
+        (‘Shell Loyalty Programme’);<br>
+        (iii) a visitor to a Shell website (‘Website’ or ’Shell Website’);
+        and/or<br>
+        (iv) a user of the Shell Application or other Shell applications
+        (‘Shell App’).
+      </p>
+
+      <p>
+        As well as this Privacy Notice, bespoke privacy notices and
+        supplementary privacy statements may contain further information
+        about how Shell is processing your personal data.
+      </p>
+
+      <p>
+        This Privacy Notice explains what personal data are processed
+        about you; why we are processing your personal data and for which
+        purposes; for how long we hold your personal data for; how to
+        access and update your personal data.
+      </p>
+
+      <p class="special-notice">
+        Special Notice - if you are under 21 years old.
+        Processing children’s personal data
+      </p>
+
+      <p>
+        Except in those cases where Shell organizes educational events
+        specifically designed for children, we do not intentionally collect
+        personal data of individuals under 21 years old.
+      </p>
+
+      <h3>
+        What personal data do we process about you? Collection of information
+      </h3>
+
+      <p>
+        We collect information, including personal data about you,
+        as a Shell customer, user of Shell Apps and/or visitor to a
+        Shell Website or Shell administered social media page.
+      </p>
+
+      <p>
+        <strong>Information that you provide to us</strong> -
+        when creating a Shell account profile, we will ask for your name,
+        e-mail address and gender, your contact preferences and information
+        necessary for answering any security questions.
+      </p>
+
+      <p>
+        <strong>Information that we obtain through your use of Shell services</strong>
+        - we will also collect information about how and where you use or
+        purchase Shell services and products.
+      </p>
+
+      <h3>
+        What are the consequences of not providing your personal data?
+      </h3>
+
+      <p>
+        Where you choose not to provide us with information set out above
+        for the purposes of using a Shell App or participating in a Shell
+        Loyalty Programme the only consequence is that it will affect your
+        ability to fully interact with the Shell App.
+      </p>
+
+      <h3>
+        Who is responsible for any personal data collected?
+      </h3>
+
+      <p>
+        Shell Lubricants Egypt, whose address is Business View,
+        79 South Teseen Street, New Cairo, Egypt, will be responsible
+        for processing your personal data.
+      </p>
+
+      <h3>
+        Who can you contact if you have a query, concern or complaint
+        about your personal data?
+      </h3>
+
+      <p>
+        If you have any issues, queries or complaints regarding the
+        processing of your personal data, please contact us at
+        <a href="mailto:SITI-MLM-Support@shell.com">
+          SITI-MLM-Support@shell.com
+        </a>
+        and
+        <a href="mailto:Walaa.salem@shell.com">
+          Walaa.salem@shell.com
+        </a>.
+      </p>
+
+      <h3>
+        How long do we hold your personal data for?
+      </h3>
+
+      <p>
+        Personal data processed by Shell in line with this Privacy Notice
+        will be deleted or rendered anonymous.
+      </p>
+
+      <h3>
+        Changes to this Privacy Notice
+      </h3>
+
+      <p>
+        This Privacy Notice may be changed over time.
+        You are advised to regularly review this Privacy Notice
+        for possible changes.
+      </p>
+
+    `,
+
+    terms_html: `
+
+      <h1>
+        Shell Advantage Rewards Program (“Share Program”) Benefits Terms And Conditions
+      </h1>
+
+      <h2>
+        SHELL ADVANTAGE REWARDS PROGRAM (“SHARE PROGRAM”) GENERAL TERMS AND CONDITIONS
+      </h2>
+
+      <p>
+        <strong>1.</strong>
+        The Shell Advantage Rewards Program (“SHARE Program”) organized by
+        Shell Lubricants Egypt, whose address is Business View,
+        79 South Teseen Street, New Cairo, Egypt, (referred to as “Shell”)
+        is made available to you, at your option, subject to the SHARE Program
+        General Terms and Conditions as stated below.
+      </p>
+
+      <p>
+        <strong>2.</strong>
+        Without limitation, registering and signing up for the SHARE Program
+        with the relevant SHARE Profile, accessing the SHARE Program Website
+        and/or downloading/using the SHARE Mobile Application shall signify
+        your decision to “OPT-IN” and accept the SHARE Program General Terms
+        and Conditions, the SHARE Program Privacy Policy and the SHARE Program
+        Benefits Terms and Conditions (collectively referred to as
+        “SHARE Program Terms and Conditions”).
+      </p>
+
+      <p>
+        <strong>3.</strong>
+        These SHARE Program Terms and Conditions will prevail in the event
+        of any conflict or inconsistency with any other communications sent
+        to you by us, including advertising or promotional materials.
+        Prize redemption instructions are deemed to form part of the SHARE
+        Program Terms and Conditions and by entering this Promotion all SHARE
+        Participants will be deemed to have accepted, and shall be bound by,
+        the Terms and Conditions. This version of the SHARE Program Terms and
+        Conditions applies to SHARE Participants (defined below) in the Arab
+        Republic of Egypt.
+      </p>
+
+      <p>
+        <strong>4.</strong>
+        Participation in the SHARE Program is at your absolute option and risk,
+        and in no event shall Shell be liable for any loss or damages including
+        without limitations, loss of income, profits or goodwill, direct or
+        indirect, incidental, consequential, exemplary, punitive or special
+        damages of any party including third parties howsoever arising whether
+        in contract, tort, negligence or otherwise, in connection with the SHARE
+        Program, even if Shell has been advised of the possibility of such damages
+        in advance, and all such damages are expressly excluded.
+      </p>
+
+      <p>
+        <strong>5.</strong>
+        The SHARE Program is open only to the following categories of persons
+        in the Arab Republic of Egypt who shall be collectively referred to as
+        eligible SHARE Participants:
+      </p>
+
+      <ol type="a">
+        <li>
+          all participating Shell B2B and B2C Distributors;
+        </li>
+
+        <li>
+          all IWS; Shell Branded IWS and Shell Branded Container Customers
+          who buy selected genuine Shell Lubricants products by Shell;
+        </li>
+
+        <li>
+          Participating Agri customers who buy selected genuine Shell products
+          from Shell participating Shell Distributors.
+        </li>
+      </ol>
+
+      <p>
+        <strong>6.</strong>
+        SHARE Participants who are corporations, partnerships, enterprises and
+        sole proprietors must be lawfully incorporated in accordance with the
+        Egyptian laws.
+      </p>
+
+      <p>
+        <strong>7.</strong>
+        SHARE Participants, who are individuals, must not be less than
+        21 years old at the time of registration and sign-up for the SHARE Program.
+      </p>
+
+      <p>
+        <strong>8.</strong>
+        To participate in the SHARE Program and enjoy the SHARE Benefits under
+        the SHARE Program Benefits Terms and Conditions, eligible SHARE
+        Participants must:
+      </p>
+
+      <ol type="a">
+        <li>
+          successfully register themselves under the relevant SHARE Profile
+          via the SHARE Program Website or SHARE Program Mobile Application
+          using an Egyptian mobile phone number; and
+        </li>
+
+        <li>
+          fulfil the relevant stated criteria to enjoy the corresponding
+          relevant stated SHARE Benefit as stated in the SHARE Program
+          Benefits Terms and Conditions.
+        </li>
+      </ol>
+
+      <p>
+        <strong>9.</strong>
+        By registering and signing up for the SHARE Program with the relevant
+        SHARE Profile, accessing the SHARE Program Website and/or downloading/
+        using the SHARE Mobile Application, the SHARE Participants expressly
+        agree and consent to participate in the SHARE Program and be bound by
+        the SHARE Program Terms and Conditions including Shell Privacy notice
+        for Shell APP users and to be bound by all Shell’s decisions in relation
+        to the SHARE Program.
+      </p>
+
+      <p>
+        <strong>10.</strong>
+        All Shell’s decisions on all matters including but not limited to the
+        eligibility of the SHARE Participants, the mechanics for the SHARE
+        Benefits or in the event of any dispute shall be final and binding
+        and no correspondence or appeals shall be entertained.
+      </p>
+
+      <p>
+        <strong>11.</strong>
+        By taking part in this SHARE Program, SHARE Participants hereby warrant
+        that all information submitted to Shell is true, current and complete.
+      </p>
+
+      <p>
+        <strong>12.</strong>
+        Shell may decline to award a prize or benefit in terms of the SHARE
+        Program if there is a reasonable suspicion of any irregularities or
+        fraudulent activities.
+      </p>
+
+      <p>
+        <strong>13.</strong>
+        As far as the law allows, all warranties and representations in relation
+        to the SHARE Program which are not set out in these SHARE Program Terms
+        and Conditions (whether express, implied or tacit) are hereby excluded.
+      </p>
+
+      <p>
+        <strong>14.</strong>
+        Shell reserves the right to cancel, terminate or suspend the SHARE
+        Program with or without any prior notice. For the avoidance of doubt,
+        cancellation, termination or suspension by Shell of the SHARE Program
+        shall not entitle any party to any claim or compensation against Shell
+        for any and all losses or damage suffered or incurred by any party as
+        a direct or indirect result of the act of cancellation, termination
+        or suspension.
+      </p>
+
+      <p>
+        <strong>15.</strong>
+        To the maximum extent permitted by law, Shell shall only be responsible
+        for those costs which these SHARE Program Terms and Conditions expressly
+        say that Shell will pay. All SHARE Participants shall be personally
+        responsible for all taxes, rates, government fees or any other charges
+        that may be levied against them under applicable laws, if any, in relation
+        to the SHARE Program.
+      </p>
+
+      <p>
+        <strong>16.</strong>
+        To the maximum extent permitted by law, Shell, its associated companies
+        (directors, officers and employees), agents and suppliers, shall not be
+        responsible for a SHARE Participant's failure to access the SHARE Program
+        for any reason whatsoever including, by way of example only, as a
+        consequence of communications or network failures.
+      </p>
+
+      <p>
+        <strong>17.</strong>
+        No responsibility will be accepted by Shell, its associated companies
+        (directors, officers and employees), agents and suppliers, for any prizes
+        or benefits which are lost, delayed, corrupted, damaged, misdirected or
+        incomplete or cannot be redeemed for any technical reason, delivery or
+        other reasons.
+      </p>
+
+      <p>
+        <strong>18.</strong>
+        All SHARE Participants shall indemnify Shell, its associated companies
+        (directors, officers and employees), agents and suppliers, against any
+        claims for any loss or damages, whether direct, indirect, consequential
+        or otherwise, arising from any cause whatsoever connected to their
+        participation in this SHARE Program and/or any receipt of and/or use
+        of a prize.
+      </p>
+
+      <p>
+        <strong>19.</strong>
+        These SHARE Program Terms and Conditions shall be governed by the laws
+        of Egypt.
+      </p>
+
+      <p>
+        <strong>20.</strong>
+        If any provision of these SHARE Program Terms and Conditions is found
+        to be invalid or unenforceable by any court of competent jurisdiction,
+        then that provision shall be severed from these SHARE Program Terms and
+        Conditions and shall not affect the validity or enforceability of any
+        remaining provisions.
+      </p>
+
+      <p>
+        <strong>21.</strong>
+        Shell reserves the right at its absolute discretion to amend, delete
+        or add to any of the SHARE Program Terms and Conditions from time to
+        time without prior notice.
+      </p>
+
+      <p>
+        <strong>22.</strong>
+        The SHARE Program Terms and Conditions, as the same may be amended from
+        time to time, shall prevail over any provisions or representations
+        contained in any other promotional material advertising the SHARE Program.
+      </p>
+
+    `
+
+  },
+
+
+  ar: {
+
+    check_product:
+      "التحقق من صحة المنتج",
+
+    product_verification:
+      "التحقق من المنتج",
+
+    product_verification_heading:
+      "التحقق من المنتج",
+
+    invalid_code:
+      "كود غير صحيح، بالرجاء الرجوع للتاجر",
+
+    connect_with_us:
+      "تواصل معنا",
+
+    terms:
+      "الشروط والأحكام",
+
+    privacy:
+      "سياسة الخصوصية",
+
+    cookie:
+      "سياسة ملفات تعريف الارتباط",
+
+    modify_cookies:
+      "تعديل تفضيلات ملفات تعريف الارتباط",
+
+    privacy_title:
+      "سياسة الخصوصية",
+
+    cookie_title:
+      "سياسة ملفات تعريف الارتباط",
+
+    terms_title:
+      "الشروط والأحكام",
+
+    back_to_verification:
+      "‹ العودة إلى التحقق من المنتج",
+
+    nav_home:
+      "الرئيسية",
+
+    nav_verify:
+      "التحقق من المنتج",
+
+    nav_privacy:
+      "سياسة الخصوصية",
+
+    nav_cookie:
+      "سياسة ملفات تعريف الارتباط",
+
+    nav_terms:
+      "الشروط والأحكام",
+
+    lang_choose:
+      "اللغة",
+
+    privacy_html: `
+
+      <h3>
+        إشعار - السائقون، عملاء الولاء أو الطاقة،
+        مستخدمو تطبيق شل وزوار مواقعنا الإلكترونية
+      </h3>
+
+      <h4>
+        ماذا تغطي سياسة الخصوصية هذه؟
+      </h4>
+
+      <p>
+        توفر سياسة الخصوصية هذه معلومات حول معالجة بياناتك الشخصية
+        عند استخدام الخدمات و/أو شراء المنتجات من أو نيابة عن شركة
+        أو شركات تابعة لمجموعة شركات شل ("شل" أو "نحن").
+      </p>
+
+      <p>
+        (i) عميل تجزئة، طاقة أو تنقل كهربائي؛<br>
+        (ii) عضو في برنامج ولاء شل مثل Club Smart،
+        Shell Go +، برنامج SHARE أو ما يعادله في موقعك؛<br>
+        (iii) زائر لموقع شل الإلكتروني؛ و/أو<br>
+        (iv) مستخدم لتطبيق شل أو تطبيقات شل الأخرى.
+      </p>
+
+      <p>
+        توضح سياسة الخصوصية هذه البيانات الشخصية التي تتم معالجتها عنك،
+        ولماذا نقوم بمعالجة بياناتك الشخصية ولأي أغراض،
+        ومدة احتفاظنا ببياناتك الشخصية.
+      </p>
+
+      <p class="special-notice">
+        إشعار خاص - إذا كنت تحت 21 عامًا.
+        معالجة البيانات الشخصية للأطفال
+      </p>
+
+      <p>
+        باستثناء الحالات التي تنظم فيها شل فعاليات تعليمية مصممة
+        خصيصًا للأطفال، فإننا لا نجمع عمدًا البيانات الشخصية للأفراد
+        الذين تقل أعمارهم عن 21 عامًا.
+      </p>
+
+      <h3>
+        ما هي البيانات الشخصية التي نعالجها عنك؟ جمع المعلومات
+      </h3>
+
+      <p>
+        نجمع المعلومات، بما في ذلك البيانات الشخصية عنك،
+        كعميل لشل، ومستخدم لتطبيقات شل و/أو زائر لموقع شل.
+      </p>
+
+      <p>
+        <strong>المعلومات التي تقدمها لنا</strong> -
+        عند إنشاء ملف تعريف لحساب شل، سنطلب اسمك وعنوان بريدك الإلكتروني
+        وجنسك وتفضيلات الاتصال الخاصة بك.
+      </p>
+
+      <p>
+        <strong>
+          المعلومات التي نحصل عليها من خلال استخدامك لخدمات شل
+        </strong>
+        - سنقوم أيضًا بجمع معلومات حول كيف وأين تستخدم أو تشتري
+        خدمات ومنتجات شل.
+      </p>
+
+      <h3>
+        ما هي عواقب عدم تزويدك ببياناتك الشخصية؟
+      </h3>
+
+      <p>
+        عندما تختار عدم تزويدنا بالمعلومات المذكورة أعلاه،
+        فإن النتيجة الوحيدة هي أنها ستؤثر على قدرتك على التفاعل
+        بشكل كامل مع تطبيق شل.
+      </p>
+
+      <h3>
+        من المسؤول عن أي بيانات شخصية يتم جمعها؟
+      </h3>
+
+      <p>
+        شركة شل للزيوت مصر، وعنوانها Business View،
+        79 شارع التسعين الجنوبي، القاهرة الجديدة، مصر،
+        ستكون مسؤولة عن معالجة بياناتك الشخصية.
+      </p>
+
+      <h3>
+        بمن يمكنك الاتصال إذا كان لديك استفسار أو مخاوف
+        أو شكوى بشأن بياناتك الشخصية؟
+      </h3>
+
+      <p>
+        إذا كانت لديك أي مشكلات أو استفسارات أو شكاوى بخصوص
+        معالجة بياناتك الشخصية، فيرجى الاتصال بنا على
+        <a href="mailto:SITI-MLM-Support@shell.com">
+          SITI-MLM-Support@shell.com
+        </a>
+        و
+        <a href="mailto:Walaa.salem@shell.com">
+          Walaa.salem@shell.com
+        </a>.
+      </p>
+
+      <h3>
+        كم من الوقت نحتفظ ببياناتك الشخصية؟
+      </h3>
+
+      <p>
+        سيتم حذف البيانات الشخصية التي تعالجها شل وفقًا
+        لسياسة الخصوصية هذه أو جعلها مجهولة المصدر.
+      </p>
+
+      <h3>
+        التغييرات في سياسة الخصوصية هذه
+      </h3>
+
+      <p>
+        قد يتم تغيير سياسة الخصوصية هذه بمرور الوقت.
+        ننصحك بمراجعة سياسة الخصوصية هذه بانتظام.
+      </p>
+
+    `,
+
+    terms_html: `
+
+      <h1>
+        شروط وأحكام مزايا برنامج Shell Advantage Rewards ("برنامج SHARE")
+      </h1>
+
+      <h2>
+        الشروط والأحكام العامة لبرنامج Shell Advantage Rewards ("برنامج SHARE")
+      </h2>
+
+      <p>
+        <strong>1.</strong>
+        برنامج Shell Advantage Rewards ("برنامج SHARE") الذي تنظمه
+        Shell Lubricants Egypt، وعنوانها Business View،
+        79 South Teseen Street, New Cairo, Egypt،
+        (ويشار إليها باسم "Shell") متاح لك، حسب اختيارك،
+        وفقًا للشروط والأحكام العامة لبرنامج SHARE الموضحة أدناه.
+      </p>
+
+      <p>
+        <strong>2.</strong>
+        دون تحديد، فإن التسجيل والاشتراك في برنامج SHARE باستخدام
+        ملف SHARE Profile ذي الصلة، والوصول إلى موقع برنامج SHARE
+        و/أو تنزيل/استخدام تطبيق SHARE للهاتف المحمول، يعني قرارك
+        بـ "OPT-IN" وقبول الشروط والأحكام العامة لبرنامج SHARE،
+        وسياسة الخصوصية لبرنامج SHARE، وشروط وأحكام مزايا برنامج SHARE،
+        والتي يشار إليها مجتمعة باسم "شروط وأحكام برنامج SHARE".
+      </p>
+
+      <p>
+        <strong>3.</strong>
+        تسود شروط وأحكام برنامج SHARE هذه في حالة وجود أي تعارض
+        أو عدم اتساق مع أي اتصالات أخرى يتم إرسالها إليك من جانبنا،
+        بما في ذلك المواد الإعلانية أو الترويجية. وتعتبر تعليمات
+        استرداد الجوائز جزءًا من شروط وأحكام برنامج SHARE، وبالدخول
+        في هذا العرض، يعتبر جميع المشاركين في SHARE قد قبلوا الشروط
+        والأحكام والتزموا بها. وتسري هذه النسخة من شروط وأحكام برنامج
+        SHARE على المشاركين في SHARE في جمهورية مصر العربية.
+      </p>
+
+      <p>
+        <strong>4.</strong>
+        المشاركة في برنامج SHARE تكون وفقًا لاختيارك ومسؤوليتك الكاملة،
+        ولن تكون Shell بأي حال من الأحوال مسؤولة عن أي خسارة أو أضرار،
+        بما في ذلك على سبيل المثال لا الحصر خسارة الدخل أو الأرباح أو
+        السمعة، سواء كانت مباشرة أو غير مباشرة أو عرضية أو تبعية أو
+        تأديبية أو خاصة، لأي طرف بما في ذلك الأطراف الثالثة، مهما كان
+        سبب نشوئها، سواء بموجب عقد أو ضرر أو إهمال أو غير ذلك، فيما
+        يتعلق ببرنامج SHARE، حتى لو تم إخطار Shell مسبقًا بإمكانية
+        حدوث هذه الأضرار، وجميع هذه الأضرار مستثناة صراحةً.
+      </p>
+
+      <p>
+        <strong>5.</strong>
+        برنامج SHARE مفتوح فقط للفئات التالية من الأشخاص في جمهورية
+        مصر العربية، والذين سيشار إليهم مجتمعين باسم المشاركين المؤهلين
+        في SHARE:
+      </p>
+
+      <ol type="a">
+        <li>
+          جميع موزعي Shell المشاركين من فئة B2B وB2C.
+        </li>
+
+        <li>
+          جميع IWS؛ وعملاء IWS ذوي العلامة التجارية Shell وعملاء الحاويات
+          ذوي العلامة التجارية Shell الذين يشترون منتجات زيوت Shell
+          الأصلية المختارة من Shell.
+        </li>
+
+        <li>
+          عملاء الزراعة المشاركون الذين يشترون منتجات Shell الأصلية
+          المختارة من موزعي Shell المشاركين.
+        </li>
+      </ol>
+
+      <p>
+        <strong>6.</strong>
+        يجب أن يكون المشاركون في SHARE من الشركات والشراكات والمؤسسات
+        والمالكين الفرديين مؤسسين بشكل قانوني وفقًا للقوانين المصرية.
+      </p>
+
+      <p>
+        <strong>7.</strong>
+        يجب ألا يقل عمر المشاركين في SHARE من الأفراد عن 21 عامًا
+        وقت التسجيل والاشتراك في برنامج SHARE.
+      </p>
+
+      <p>
+        <strong>8.</strong>
+        للمشاركة في برنامج SHARE والاستمتاع بمزايا SHARE بموجب
+        شروط وأحكام مزايا برنامج SHARE، يجب على المشاركين المؤهلين:
+      </p>
+
+      <ol type="a">
+        <li>
+          التسجيل بنجاح ضمن ملف SHARE Profile ذي الصلة عبر موقع برنامج
+          SHARE أو تطبيق SHARE للهاتف المحمول باستخدام رقم هاتف محمول مصري؛
+        </li>
+
+        <li>
+          استيفاء المعايير المحددة ذات الصلة للاستمتاع بمزية SHARE
+          المقابلة كما هو موضح في شروط وأحكام مزايا برنامج SHARE.
+        </li>
+      </ol>
+
+      <p>
+        <strong>9.</strong>
+        من خلال التسجيل والاشتراك في برنامج SHARE باستخدام ملف SHARE
+        Profile ذي الصلة، والوصول إلى موقع برنامج SHARE و/أو تنزيل/
+        استخدام تطبيق SHARE للهاتف المحمول، يوافق المشاركون في SHARE
+        ويوافقون صراحةً على المشاركة في برنامج SHARE والالتزام بشروط
+        وأحكام برنامج SHARE، بما في ذلك إشعار الخصوصية الخاص بـ Shell
+        لمستخدمي تطبيق Shell، والالتزام بجميع قرارات Shell المتعلقة
+        ببرنامج SHARE.
+      </p>
+
+      <p>
+        <strong>10.</strong>
+        جميع قرارات Shell في جميع المسائل، بما في ذلك على سبيل المثال
+        لا الحصر أهلية المشاركين في SHARE وآلية مزايا SHARE أو في حالة
+        وجود أي نزاع، تكون نهائية وملزمة، ولن يتم قبول أي مراسلات أو
+        استئنافات.
+      </p>
+
+      <p>
+        <strong>11.</strong>
+        بالمشاركة في برنامج SHARE، يضمن المشاركون في SHARE أن جميع
+        المعلومات المقدمة إلى Shell صحيحة وحديثة وكاملة.
+      </p>
+
+      <p>
+        <strong>12.</strong>
+        يجوز لـ Shell رفض منح جائزة أو ميزة بموجب برنامج SHARE إذا
+        كان هناك اشتباه معقول في وجود أي مخالفات أو أنشطة احتيالية.
+      </p>
+
+      <p>
+        <strong>13.</strong>
+        إلى الحد الذي يسمح به القانون، يتم استبعاد جميع الضمانات
+        والتعهدات المتعلقة ببرنامج SHARE التي لم يتم النص عليها في
+        شروط وأحكام برنامج SHARE هذه، سواء كانت صريحة أو ضمنية أو
+        مفترضة.
+      </p>
+
+      <p>
+        <strong>14.</strong>
+        تحتفظ Shell بالحق في إلغاء أو إنهاء أو تعليق برنامج SHARE
+        مع أو بدون إشعار مسبق. ولتجنب الشك، فإن إلغاء أو إنهاء أو
+        تعليق برنامج SHARE من قبل Shell لا يمنح أي طرف الحق في تقديم
+        أي مطالبة أو طلب تعويض ضد Shell عن أي خسائر أو أضرار تكبدها
+        أو تحملها أي طرف كنتيجة مباشرة أو غير مباشرة لعملية الإلغاء
+        أو الإنهاء أو التعليق.
+      </p>
+
+      <p>
+        <strong>15.</strong>
+        إلى أقصى حد يسمح به القانون، تكون Shell مسؤولة فقط عن التكاليف
+        التي تنص شروط وأحكام برنامج SHARE هذه صراحةً على أن Shell ستدفعها.
+        ويتحمل جميع المشاركين في SHARE شخصيًا مسؤولية جميع الضرائب والرسوم
+        والرسوم الحكومية أو أي رسوم أخرى قد تفرض عليهم بموجب القوانين
+        المعمول بها، إن وجدت، فيما يتعلق ببرنامج SHARE.
+      </p>
+
+      <p>
+        <strong>16.</strong>
+        إلى أقصى حد يسمح به القانون، لن تكون Shell أو شركاتها المرتبطة
+        (المديرون والمسؤولون والموظفون) أو الوكلاء أو الموردون مسؤولين
+        عن فشل أي مشارك في SHARE في الوصول إلى برنامج SHARE لأي سبب كان،
+        بما في ذلك، على سبيل المثال فقط، نتيجة لفشل الاتصالات أو الشبكة.
+      </p>
+
+      <p>
+        <strong>17.</strong>
+        لن تتحمل Shell أو شركاتها المرتبطة (المديرون والمسؤولون والموظفون)
+        أو الوكلاء أو الموردون أي مسؤولية عن أي جوائز أو مزايا مفقودة
+        أو متأخرة أو تالفة أو مشوهة أو موجهة بشكل خاطئ أو غير مكتملة،
+        أو لا يمكن استردادها لأي سبب تقني أو لأسباب تتعلق بالتسليم أو
+        لأسباب أخرى.
+      </p>
+
+      <p>
+        <strong>18.</strong>
+        يتعين على جميع المشاركين في SHARE تعويض Shell وشركاتها المرتبطة
+        (المديرين والمسؤولين والموظفين) والوكلاء والموردين عن أي مطالبات
+        بشأن أي خسائر أو أضرار، سواء كانت مباشرة أو غير مباشرة أو تبعية
+        أو غير ذلك، ناشئة عن أي سبب كان مرتبطًا بمشاركتهم في برنامج SHARE
+        و/أو استلام و/أو استخدام جائزة.
+      </p>
+
+      <p>
+        <strong>19.</strong>
+        تخضع شروط وأحكام برنامج SHARE هذه لقوانين مصر.
+      </p>
+
+      <p>
+        <strong>20.</strong>
+        إذا تبين أن أي حكم من أحكام شروط وأحكام برنامج SHARE هذه غير صالح
+        أو غير قابل للتنفيذ من قبل أي محكمة ذات اختصاص قضائي، فسيتم فصل
+        هذا الحكم عن شروط وأحكام برنامج SHARE هذه ولن يؤثر ذلك على صلاحية
+        أو قابلية تنفيذ أي من الأحكام المتبقية.
+      </p>
+
+      <p>
+        <strong>21.</strong>
+        تحتفظ Shell بالحق، وفقًا لتقديرها المطلق، في تعديل أو حذف أو إضافة
+        أي من شروط وأحكام برنامج SHARE من وقت لآخر دون إشعار مسبق.
+      </p>
+
+      <p>
+        <strong>22.</strong>
+        تسود شروط وأحكام برنامج SHARE، بصيغتها المعدلة من وقت لآخر،
+        على أي أحكام أو إقرارات واردة في أي مواد ترويجية أخرى تعلن عن
+        برنامج SHARE.
+      </p>
+
+    `
+
+  }
+
+};
+
+
+/* ============================================================
+   STATE
+============================================================ */
+
+let currentLang =
+  localStorage.getItem('shell_lang') || 'ar';
+
+let currentPage = 'verification';
+
+
+/* ============================================================
+   HELPERS
+============================================================ */
+
+function getText(key) {
+
+  return translations[currentLang]?.[key] || key;
+
+}
+
+
+function getPrivacyHTML() {
+
+  return translations[currentLang]?.privacy_html ||
+         translations.en.privacy_html;
+
+}
+
+
+function getTermsHTML() {
+
+  return translations[currentLang]?.terms_html ||
+         translations.en.terms_html;
+
+}
+
+
+/* ============================================================
+   UPDATE UI
+============================================================ */
+
+function updateUI() {
+
+  document
+    .querySelectorAll('[data-i18n]')
+    .forEach(el => {
+
+      const key =
+        el.getAttribute('data-i18n');
+
+      const text =
+        getText(key);
+
+      if (
+        el.tagName === 'INPUT' ||
+        el.tagName === 'TEXTAREA'
+      ) {
+
+        el.placeholder = text;
+
+      } else {
+
+        el.textContent = text;
+
+      }
+
+    });
+
+
+  const privacyContainer =
+    document.getElementById(
+      'privacyTextContainer'
+    );
+
+  if (privacyContainer) {
+
+    privacyContainer.innerHTML =
+      getPrivacyHTML();
+
+  }
+
+
+  const termsContainer =
+    document.getElementById(
+      'termsTextContainer'
+    );
+
+  if (termsContainer) {
+
+    termsContainer.innerHTML =
+      getTermsHTML();
+
+  }
+
+
+  const html =
+    document.documentElement;
+
+
+  if (currentLang === 'ar') {
+
+    html.setAttribute('dir', 'rtl');
+    html.setAttribute('lang', 'ar');
+
+  } else {
+
+    html.setAttribute('dir', 'ltr');
+    html.setAttribute('lang', 'en');
+
+  }
+
+
+  const resultMessage =
+    document.querySelector('.result-message');
+
+  if (resultMessage) {
+
+    resultMessage.style.direction =
+      currentLang === 'ar'
+        ? 'rtl'
+        : 'ltr';
+
+  }
+
+
+  document
+    .querySelectorAll('.drawer-lang-btn')
+    .forEach(btn => {
+
+      btn.classList.toggle(
+        'active-lang',
+        btn.dataset.lang === currentLang
+      );
+
+    });
+
+
+  const toggleBtn =
+    document.getElementById(
+      'langToggleBtn'
+    );
+
+  if (toggleBtn) {
+
+    toggleBtn.textContent =
+      currentLang === 'ar'
+        ? 'EN'
+        : 'AR';
+
+  }
+
+
+  const breadcrumbCurrent =
+    document.getElementById(
+      'breadcrumbCurrent'
+    );
+
+
+  if (breadcrumbCurrent) {
+
+    if (currentPage === 'verification') {
+
+      breadcrumbCurrent.textContent =
+        getText('product_verification');
+
+    }
+
+    else if (currentPage === 'privacy') {
+
+      breadcrumbCurrent.textContent =
+        getText('privacy');
+
+    }
+
+    else if (currentPage === 'cookie') {
+
+      breadcrumbCurrent.textContent =
+        getText('cookie');
+
+    }
+
+    else if (currentPage === 'terms') {
+
+      breadcrumbCurrent.textContent =
+        getText('terms');
+
+    }
+
+  }
+
+
+  const verifyDiv =
+    document.getElementById(
+      'verificationContent'
+    );
+
+  const privacyDiv =
+    document.getElementById(
+      'privacyContent'
+    );
+
+  const cookieDiv =
+    document.getElementById(
+      'cookieContent'
+    );
+
+  const termsDiv =
+    document.getElementById(
+      'termsContent'
+    );
+
+
+  verifyDiv.classList.add('hidden');
+
+  privacyDiv.classList.remove('active');
+
+  cookieDiv.classList.remove('active');
+
+  termsDiv.classList.remove('active');
+
+
+  document.body.classList.remove(
+    'policy-mode',
+    'cookie-mode',
+    'terms-mode'
+  );
+
+
+  if (currentPage === 'verification') {
+
+    verifyDiv.classList.remove('hidden');
+
+  }
+
+  else if (currentPage === 'privacy') {
+
+    privacyDiv.classList.add('active');
+
+    document.body.classList.add(
+      'policy-mode'
+    );
+
+  }
+
+  else if (currentPage === 'cookie') {
+
+    cookieDiv.classList.add('active');
+
+    document.body.classList.add(
+      'cookie-mode'
+    );
+
+  }
+
+  else if (currentPage === 'terms') {
+
+    termsDiv.classList.add('active');
+
+    document.body.classList.add(
+      'terms-mode'
+    );
+
+  }
+
+
+  localStorage.setItem(
+    'shell_lang',
+    currentLang
+  );
+
+}
+
+
+/* ============================================================
+   LANGUAGE
+============================================================ */
+
+function setLanguage(lang) {
+
+  if (lang !== 'ar' && lang !== 'en') {
+    return;
+  }
+
+  if (lang === currentLang) {
+
+    closeDrawer();
+    return;
+
+  }
+
+  currentLang = lang;
+
+  updateUI();
+
+  closeDrawer();
+
+}
+
+
+function toggleLanguage() {
+
+  const nextLang =
+    currentLang === 'ar'
+      ? 'en'
+      : 'ar';
+
+  setLanguage(nextLang);
+
+}
+
+
+/* ============================================================
+   PAGE NAVIGATION
+============================================================ */
+
+function showVerification(event) {
+
+  if (event) {
+    event.preventDefault();
+  }
+
+  currentPage = 'verification';
+
+  updateUI();
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+
+  closeDrawer();
+
+}
+
+
+function goToVerification(event) {
+
+  if (event) {
+    event.preventDefault();
+  }
+
+  window.location.href = 'verification.html';
+
+}
+
+
+function showPrivacy(event) {
+
+  if (event) {
+    event.preventDefault();
+  }
+
+  currentPage = 'privacy';
+
+  updateUI();
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+
+  closeDrawer();
+
+}
+
+
+function showCookie(event) {
+
+  if (event) {
+    event.preventDefault();
+  }
+
+  currentPage = 'cookie';
+
+  updateUI();
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+
+  closeDrawer();
+
+}
+
+
+/* ============================================================
+   TERMS & CONDITIONS
+============================================================ */
+
+function showTerms(event) {
+
+  if (event) {
+    event.preventDefault();
+  }
+
+  currentPage = 'terms';
+
+  updateUI();
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+
+  closeDrawer();
+
+}
+
+
+/* ============================================================
+   MOBILE DRAWER
+============================================================ */
+
+function openDrawer() {
+
+  document
+    .getElementById('drawer')
+    .classList.add('open');
+
+  document
+    .getElementById('drawerOverlay')
+    .classList.add('open');
+
+  document
+    .getElementById('burgerBtn')
+    .classList.add('active');
+
+  document.body.style.overflow = 'hidden';
+
+}
+
+
+function closeDrawer() {
+
+  document
+    .getElementById('drawer')
+    .classList.remove('open');
+
+  document
+    .getElementById('drawerOverlay')
+    .classList.remove('open');
+
+  document
+    .getElementById('burgerBtn')
+    .classList.remove('active');
+
+  document.body.style.overflow = '';
+
+}
+
+
+/* ============================================================
+   EVENT LISTENERS
+============================================================ */
+
+document
+  .getElementById('burgerBtn')
+  .addEventListener(
+    'click',
+    openDrawer
+  );
+
+
+document
+  .getElementById('drawerCloseBtn')
+  .addEventListener(
+    'click',
+    closeDrawer
+  );
+
+
+document
+  .getElementById('drawerOverlay')
+  .addEventListener(
+    'click',
+    closeDrawer
+  );
+
+
+document.addEventListener(
+  'keydown',
+  function(e) {
+
+    if (e.key === 'Escape') {
+
+      closeDrawer();
+
+    }
+
+  }
+);
+
+
+/* ============================================================
+   INITIALIZATION
+============================================================ */
+
+updateUI();
+
+</script>
 
 </body>
-
 </html>

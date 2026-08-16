@@ -5,14 +5,100 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Check Product Authenticity - Shell</title>
+<!-- BACK TO TOP -->
+<button
+  type="button"
+  id="backToTopBtn"
+  class="back-to-top"
+  aria-label="Back to top"
+  onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
 
+  <svg viewBox="0 0 24 24">
+    <path
+      d="M12 19V5"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"/>
+
+    <path
+      d="M6.5 10.5L12 5L17.5 10.5"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"/>
+  </svg>
+
+</button>
 <style>
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+/* ================= BACK TO TOP ================= */
 
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+
+  width: 65px;
+  height: 65px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #fff;
+  color: #222;
+
+  border: 1px solid #d5d5d5;
+  border-radius: 0;
+
+  cursor: pointer;
+
+  z-index: 99999;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.back-to-top svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Hover رمادي */
+.back-to-top:hover {
+  background-color: #161414be;
+  color: #faf7f7;
+  border-color: #111;
+}
+
+/* عند الضغط */
+.back-to-top:active {
+  background-color: #d5d5d5;
+}
+
+@media (max-width: 768px) {
+
+  .back-to-top {
+    width: 42px;
+    height: 42px;
+    right: 15px;
+    bottom: 15px;
+  }
+
+  .back-to-top svg {
+    width: 20px;
+    height: 20px;
+  }
+
+}
 body {
   font-family: Arial, Helvetica, sans-serif;
   color: #333;
@@ -3238,12 +3324,7 @@ document
   );
 
 
-document
-  .getElementById('drawerCloseBtn')
-  .addEventListener(
-    'click',
-    closeDrawer
-  );
+
 
 
 document

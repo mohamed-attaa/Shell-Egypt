@@ -1,5 +1,6 @@
+
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr"></html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,8 +55,8 @@ a {
 .logo img {
   display: block;
   object-fit: contain;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
 }
 
 .logo-text {
@@ -80,21 +81,22 @@ a {
 }
 
 .lang-switch-btn {
-  font-size: 14px;
-  font-weight: 700;
-  color: #1a1a1a;
-  background: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 6px 14px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-family: Arial, Helvetica, sans-serif;
-  letter-spacing: 0.5px;
+   font-size: 14px;
+   font-weight: 400;
+   color: #1a1a1a;
+   background: none;
+   border: none;
+   border-radius: 0;
+   padding: 0;
+   cursor: pointer;
+   transition: none;
+   font-family: Arial, Helvetica, sans-serif;
+   letter-spacing: 0;
 }
 
 .lang-switch-btn:hover {
-  background: #ddd;
+   background: none;
+   text-decoration: underline;
 }
 
 /* ---------- Burger ---------- */
@@ -392,19 +394,50 @@ a {
   letter-spacing: .5px;
   color: #1a1a1a;
   padding-bottom: 10px;
+  /* الخط الأول الرفيع (موجود دائماً في كل اللغات) */
   border-bottom: 3px solid #DD1D21;
   margin-bottom: 60px;
+  position: relative; /* مهم لكي يظهر الخط الإضافي تحته مباشرة */
+}
+
+/* ---------- الخط الإضافي الكبير (مخفي افتراضياً) ---------- */
+.page-heading::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -30px;
+  width: 700%;
+  height: 10px;
+  background: #DD1D21;
+  border-radius: 2px;
+  display: none;
+}
+body.lang-ar .footer-top {
+  direction: rtl;
+  justify-content: flex-start;
+  padding-left: 24px;
+  padding-right: 110px;
+}
+/* ---------- يظهر فقط عندما تكون اللغة العربية مفعلة ---------- */
+body.lang-ar .page-heading::after {
+  display: block; /* يظهر الخط الكبير والعريض */
 }
 
 .status-icon {
   width: 170px;
   height: 170px;
   border-radius: 50%;
-  background: #ffe600;
+  background: #008f3c;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 18px;
+}
+
+.status-icon svg {
+  width: 58px;
+  height: 58px;
 }
 
 .status-icon svg {
@@ -644,6 +677,13 @@ a {
   align-items: center;
   justify-content: center;
   color: #1a1a1a;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* تأثير hover باللون الأصفر */
+.social-icons a:hover {
+  background-color: #ffd900;
+  color: #1a1a1a;
 }
 
 .social-icons a + a {
@@ -786,6 +826,13 @@ a {
     font-size: 18px;
   }
 
+  /* تعديلات للشاشات الصغيرة */
+  body.lang-ar .page-heading::after {
+    width: 120%;
+    height: 8px;
+    bottom: -12px;
+  }
+
   .status-icon {
     width: 130px;
     height: 130px;
@@ -820,6 +867,571 @@ a {
   .drawer-header .drawer-title {
     font-size: 16px;
   }
+
+  body.lang-ar .page-heading::after {
+    width: 110%;
+    height: 6px;
+    bottom: -10px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE DESIGN - EXACT SCREENSHOT
+========================================================= */
+
+.mobile-footer-row,
+.mobile-footer-content {
+  display: none;
+}
+
+.desktop-footer {
+  display: block;
+}
+
+.mobile-language-link {
+  border: 0;
+  background: none;
+  padding: 0;
+  margin: 0;
+  color: #444;
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+  body {
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  .topbar {
+    height: 57px;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .topbar-inner {
+    height: 57px;
+    padding: 0;
+    direction: ltr;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    height: 57px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding-left: 13px;
+  }
+
+  .logo img {
+    width: 43px;
+    height: 43px;
+  }
+
+  .logo-text {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .topbar-right {
+    height: 57px;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  .lang-switch-btn {
+    display: none;
+  }
+
+  .burger-menu {
+    width: 57px;
+    height: 57px;
+    display: flex;
+    border-radius: 0;
+    border-left: 1px solid #ddd;
+    padding: 0;
+    gap: 5px;
+  }
+
+  .burger-menu:hover {
+    background: transparent;
+  }
+
+  .burger-menu span {
+    width: 20px;
+    height: 2px;
+  }
+
+
+  /* MOBILE DRAWER */
+
+  .drawer-overlay {
+    display: none;
+  }
+
+  .drawer {
+    position: absolute;
+    top: 57px;
+    right: 0;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 60px;
+    padding: 0;
+    background: #fff;
+    box-shadow: none;
+    border-bottom: 1px solid #ddd;
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity .2s ease,
+      transform .2s ease,
+      visibility .2s ease;
+    overflow: visible;
+    z-index: 250;
+    display: block;
+  }
+
+  .drawer.open {
+    right: 0;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .drawer-nav {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  .drawer-nav li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .drawer-nav li a {
+    display: block;
+    padding: 22px 40px;
+    border-radius: 0;
+    font-size: 13px;
+    color: #444;
+    font-weight: 400;
+  }
+
+  .drawer-nav li a:hover {
+    background: transparent;
+  }
+
+  .drawer-lang-section {
+    margin: 0;
+    padding: 20px 40px;
+    border-top: 1px solid #eee;
+    display: block;
+  }
+
+  .mobile-language-link {
+    display: block;
+    font-size: 13px;
+    color: #555;
+  }
+
+
+  /* TITLE BAR */
+
+  .title-bar {
+    width: 100%;
+    padding: 0;
+  }
+
+  .title-bar-inner {
+    height: 61px;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+  }
+
+  .title-bar h1 {
+    font-size: 14px;
+    font-weight: 700;
+    transform: none;
+    margin: 0;
+  }
+
+  .title-underline {
+    height: 6px;
+  }
+
+  .underline-yellow {
+    width: 100%;
+  }
+
+  .underline-dark {
+    display: none;
+  }
+/* إخفاء عنوان التحقق على الموبايل */
+.title-bar h1 {
+  display: none;
+}
+
+/* جعل الخط الأصفر مباشرة تحت الهيدر */
+.title-bar-inner {
+  display: none;
+}
+
+.title-underline {
+  height: 3px;
+}
+
+.underline-yellow {
+  width: 100%;
+}
+
+.underline-dark {
+  display: none;
+}
+
+  /* HIDE BREADCRUMB ON MOBILE */
+
+  .breadcrumb {
+    display: none;
+  }
+
+
+  /* MAIN VERIFICATION */
+
+  .content {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 15px;
+    min-height: 361px;
+    text-align: center;
+  }
+
+  .verification-content {
+    width: 100%;
+  }
+
+  .page-heading {
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 800;
+  padding-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 64px;
+  border-bottom: 3px solid #DD1D21;
+  letter-spacing: .3px;
+}
+  body.lang-ar .page-heading::after {
+    display: none;
+  }
+
+  .status-icon {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 14px;
+  }
+
+  .status-icon svg {
+    width: 31px;
+    height: 73px;
+  }
+
+  .result-message {
+    font-size: 15px;
+    line-height: 24px;
+    margin: 0;
+  }
+
+
+  /* BOTTOM YELLOW LINE */
+
+  .bottom-line {
+    width: 100%;
+    height: 2px;
+    max-width: none;
+    margin: 0;
+    background: #FFC72C;
+  }
+
+
+  /* MOBILE FOOTER */
+
+  .desktop-footer {
+    display: none;
+  }
+
+  .site-footer {
+    width: 100%;
+    margin: 0;
+  }
+
+  .mobile-footer-row {
+    display: block;
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+  }
+
+  .mobile-footer-toggle {
+    width: 100%;
+    height: 60px;
+    padding: 0 30px;
+    border: 0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    color: #1a1a1a;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .mobile-footer-arrow {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .25s ease;
+  }
+
+  .mobile-footer-arrow svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .mobile-footer-arrow.open {
+    transform: rotate(180deg);
+  }
+
+  .mobile-footer-content {
+    display: none;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .mobile-footer-content.open {
+    display: block;
+  }
+
+
+  /* SOCIAL LINKS */
+
+  .mobile-footer-content .social-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 10px 30px;
+}
+
+.mobile-footer-content .social-icons a {
+  width: 100%;
+  height: auto;
+  min-height: 45px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 13px;
+  color: #003b5c;
+}
+
+.mobile-footer-content .social-icons a + a {
+  border-left: none;
+  border-top: 1px solid #eee;
+}
+
+.mobile-footer-content .social-icons svg {
+  display: none;
+}
+
+  /* SITE INFORMATION LINKS */
+
+  .mobile-footer-content .footer-bottom {
+    width: 100%;
+    margin: 0;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    transform: none;
+  }
+
+  .mobile-footer-content .footer-bottom a {
+    display: block;
+    padding: 13px 0;
+    font-size: 13px;
+    color: #003b5c;
+    border-bottom: 1px solid #eee;
+  }
+
+  .mobile-footer-content .footer-bottom a:last-child {
+    border-bottom: none;
+  }
+
+
+  /* MOBILE LEGAL PAGES */
+
+  .policy-content,
+  .cookie-content,
+  .terms-content {
+    padding: 25px 15px 50px;
+  }
+
+  .policy-title,
+  .cookie-title,
+  .terms-title {
+    font-size: 22px;
+  }
+
+}
+
+
+/* ================= SMALL PHONES ================= */
+
+@media (max-width: 480px) {
+
+  .logo {
+    padding-left: 13px;
+  }
+
+  .logo img {
+    width: 43px;
+    height: 43px;
+  }
+
+  .logo-text {
+    font-size: 13px;
+  }
+
+  .title-bar-inner {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .page-heading {
+    font-size: 22px;
+    margin-bottom: 64px;
+  }
+
+  .status-icon {
+    width: 150px;
+    height: 150px;
+  }
+
+  .result-message {
+    font-size: 15px;
+  }
+
+}
+/* إخفاء Shell Advantage Rewards على الكمبيوتر */
+.logo-text {
+  display: none;
+}
+
+/* إظهارها على الموبايل فقط */
+@media (max-width: 768px) {
+  .logo-text {
+    display: block;
+  }
+}
+@media (max-width: 768px) {
+  .title-bar h1 {
+    display: none;
+  }
+}
+/* ================= MOBILE SOCIAL LINKS ================= */
+@media (max-width: 768px) {
+
+  .mobile-footer-content .social-icons a {
+    color: #000000;
+    text-decoration: none;
+    background: transparent !important;
+  }
+
+  /* عند الضغط على اللينك */
+  .mobile-footer-content .social-icons a:active,
+  .mobile-footer-content .social-icons a:focus {
+    color: #000000;
+    text-decoration: underline;
+    text-decoration-color: #000;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    background: transparent !important;
+  }
+
+  /* منع أي لون أصفر */
+  .mobile-footer-content .social-icons a:hover {
+    color: #090a0a;
+    text-decoration: none;
+    background: transparent !important;
+  }
+}
+/* ================= MOBILE FOOTER LINKS ================= */
+@media (max-width: 768px) {
+
+  /* لينكات السوشيال ميديا */
+  .mobile-footer-content .social-icons a {
+    color: #000 !important;
+    text-decoration: none;
+    background: transparent !important;
+  }
+
+  .mobile-footer-content .social-icons a:active,
+  .mobile-footer-content .social-icons a:focus {
+    color: #000 !important;
+    text-decoration: underline;
+    text-decoration-color: #000;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    background: transparent !important;
+  }
+
+  /* لينكات Site information */
+  .mobile-footer-content .footer-bottom a {
+    color: #000 !important;
+    text-decoration: none;
+    background: transparent !important;
+  }
+
+  .mobile-footer-content .footer-bottom a:active,
+  .mobile-footer-content .footer-bottom a:focus {
+    color: #000 !important;
+    text-decoration: underline;
+    text-decoration-color: #000;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    background: transparent !important;
+  }
+
+  /* منع اللون الأصفر */
+  .mobile-footer-content .social-icons a:hover,
+  .mobile-footer-content .footer-bottom a:hover {
+    color: #000 !important;
+    background: transparent !important;
+  }
 }
 </style>
 </head>
@@ -834,11 +1446,10 @@ a {
 
   <div class="topbar-inner">
 
-    <a href="verification.html" class="logo">
-      <img src="./img/shell-logo.png" alt="Shell" width="70" height="70">
-      <span class="logo-text">Shell Egypt</span>
-    </a>
-
+  <a href="verification.html" class="logo">
+  <img src="./img/shell-logo.png" alt="Shell" width="70" height="70">
+  <span class="logo-text">Shell Advantage Rewards</span>
+</a>
     <div class="topbar-right">
 
       <button
@@ -846,7 +1457,7 @@ a {
         id="langToggleBtn"
         type="button"
         onclick="toggleLanguage()">
-        AR
+        عربي
       </button>
 
       <button
@@ -872,98 +1483,39 @@ a {
      MOBILE DRAWER
 ========================================================= -->
 
+<!-- =========================================================
+     MOBILE DRAWER
+========================================================= -->
+
 <div class="drawer-overlay" id="drawerOverlay"></div>
 
 <div class="drawer" id="drawer">
 
-  <div class="drawer-header">
-
-    <a href="verification.html" class="drawer-title">
-      Shell Egypt
-    </a>
-
-    <button
-      class="drawer-close"
-      id="drawerCloseBtn"
-      type="button">
-      ✕
-    </button>
-
-  </div>
-
-
   <ul class="drawer-nav">
 
     <li>
-      <a href="verification.html">
-        <i>🏠</i>
-        <span data-i18n="nav_home">الرئيسية</span>
-      </a>
-    </li>
-
-    <li>
-      <a href="verification.html">
-        <i>✅</i>
-        <span data-i18n="nav_verify">التحقق من المنتج</span>
-      </a>
-    </li>
-
-    <li>
-      <a href="#" onclick="showPrivacy(event)">
-        <i>🔒</i>
-        <span data-i18n="nav_privacy">سياسة الخصوصية</span>
-      </a>
-    </li>
-
-    <li>
-      <a href="#" onclick="showCookie(event)">
-        <i>🍪</i>
-        <span data-i18n="nav_cookie">سياسة ملفات تعريف الارتباط</span>
-      </a>
-    </li>
-
-    <li>
-      <a href="#" onclick="showTerms(event)">
-        <i>📄</i>
-        <span data-i18n="nav_terms">الشروط والأحكام</span>
+      <a href="verification.html" onclick="showVerification(event)">
+        <span data-i18n="check_product">
+          Check Product Authenticity
+        </span>
       </a>
     </li>
 
   </ul>
 
-
   <div class="drawer-lang-section">
 
-    <span
-      class="drawer-lang-label"
-      data-i18n="lang_choose">
-      اللغة
-    </span>
-
-    <div class="drawer-lang-buttons">
-
-      <button
-        class="drawer-lang-btn"
-        data-lang="en"
-        type="button"
-        onclick="setLanguage('en')">
-        EN
-      </button>
-
-      <button
-        class="drawer-lang-btn active-lang"
-        data-lang="ar"
-        type="button"
-        onclick="setLanguage('ar')">
-        AR
-      </button>
-
-    </div>
+    <button
+      class="mobile-language-link"
+      type="button"
+      id="mobileLanguageBtn"
+      onclick="toggleLanguage()">
+      عربي
+    </button>
 
   </div>
 
 </div>
-
 
 <!-- =========================================================
      TITLE BAR
@@ -1033,26 +1585,21 @@ a {
       التحقق من المنتج
     </h2>
 
-    <div class="status-icon">
+   <div class="status-icon success-icon">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg">
 
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-
-        <rect
-          x="10.7"
-          y="0.5"
-          width="2.6"
-          height="19"
-          rx="1.3"
-          fill="#fff"/>
-
-        <circle
-          cx="12"
-          cy="21"
-          r="2.2"
-          fill="#fff"/>
+    <path
+      d="M5 12.5L10 17.5L19.5 7"
+      stroke="#ffffff"
+      stroke-width="2.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"/>
+      
+  </svg>
+</div>
 
       </svg>
 
@@ -1157,71 +1704,144 @@ a {
 
 <!-- =========================================================
      FOOTER
+<!-- =========================================================
+     FOOTER
 ========================================================= -->
 
 <footer class="site-footer">
 
-  <div class="footer-top">
+  <!-- CONNECT WITH US -->
+  <div class="mobile-footer-row connect-row">
 
-    <span
-      class="connect-label"
-      data-i18n="connect_with_us">
-      تواصل معنا
-    </span>
+    <button
+      type="button"
+      class="mobile-footer-toggle"
+      onclick="toggleMobileSection('socialSection')">
 
-    <div class="social-icons">
+      <span data-i18n="connect_with_us">
+        Connect with us
+      </span>
 
-      <a href="#" aria-label="YouTube">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M23.5 6.2c-.3-1.1-1.1-1.9-2.2-2.2C19.3 3.5 12 3.5 12 3.5s-7.3 0-9.3.5c-1.1.3-1.9 1.1-2.2 2.2C0 8.2 0 12 0 12s0 3.8.5 5.8c.3 1.1 1.1 1.9 2.2 2.2 2 .5 9.3.5 9.3.5s7.3 0 9.3-.5c1.1-.3 1.9-1.1 2.2-2.2.5-2 .5-5.8.5-5.8s0-3.8-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
+      <span class="mobile-footer-arrow" id="socialArrow">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M6 9l6 6 6-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
         </svg>
+      </span>
+
+    </button>
+
+  </div>
+
+
+  <!-- SOCIAL LINKS -->
+  <div
+  class="mobile-footer-content"
+  id="socialSection">
+
+  <div class="social-icons mobile-social-links">
+
+    <a
+      href="https://www.youtube.com/user/Shell"
+      target="_blank">
+      YouTube
+    </a>
+
+    <a
+      href="https://twitter.com/shell"
+      target="_blank">
+      Twitter
+    </a>
+
+    <a
+      href="https://www.facebook.com/Shell"
+      target="_blank">
+      Facebook
+    </a>
+
+    <a
+      href="https://www.linkedin.com/company/shell"
+      target="_blank">
+      LinkedIn
+    </a>
+
+    <a
+      href="https://www.instagram.com/shell"
+      target="_blank">
+      Instagram
+    </a>
+
+  </div>
+
+</div>
+
+
+  <!-- SITE INFORMATION -->
+  <div class="mobile-footer-row">
+
+    <button
+      type="button"
+      class="mobile-footer-toggle"
+      onclick="toggleMobileSection('siteInfoSection')">
+
+      <span>
+        Site information
+      </span>
+
+      <span class="mobile-footer-arrow" id="siteInfoArrow">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M6 9l6 6 6-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+        </svg>
+      </span>
+
+    </button>
+
+  </div>
+
+
+  <!-- FOOTER LINKS -->
+  <div
+    class="mobile-footer-content"
+    id="siteInfoSection">
+
+    <div class="footer-bottom">
+
+      <a
+        href="#"
+        onclick="showTerms(event)"
+        data-i18n="terms">
+        Terms & Conditions
       </a>
 
-      <a href="#" aria-label="Twitter">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M23.4 4.9c-.8.4-1.7.7-2.6.8.9-.6 1.7-1.5 2-2.5-.9.5-1.9.9-2.9 1.1-.8-.9-2-1.5-3.3-1.5-2.5 0-4.5 2-4.5 4.5 0 .4 0 .7.1 1-3.8-.2-7.1-2-9.4-4.8-.4.7-.6 1.5-.6 2.3 0 1.6.8 3 2 3.8-.7 0-1.4-.2-2-.6v.1c0 2.2 1.6 4 3.6 4.4-.4.1-.8.2-1.2.2-.3 0-.6 0-.8-.1.6 1.8 2.2 3.1 4.2 3.1-1.5 1.2-3.5 1.9-5.6 1.9-.4 0-.7 0-1.1-.1 2 1.3 4.4 2 6.9 2 8.3 0 12.9-6.9 12.9-12.9v-.6c.9-.6 1.6-1.4 2.3-2.3z"/>
-        </svg>
+      <a
+        href="#"
+        onclick="showPrivacy(event)"
+        data-i18n="privacy">
+        Privacy Policy
       </a>
 
-      <a href="#" aria-label="Facebook">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/>
-        </svg>
+      <a
+        href="#"
+        onclick="showCookie(event)"
+        data-i18n="cookie">
+        Cookie Policy
       </a>
 
-      <a href="#" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8.3 18.5H5.7V9.8h2.6v8.7zM7 8.7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11.5 9.8h-2.6v-4.3c0-1 0-2.4-1.5-2.4s-1.7 1.1-1.7 2.3v4.4H10V9.8h2.5v1.2c.4-.7 1.3-1.4 2.6-1.4 2.7 0 3.2 1.8 3.2 4.2v4.7z"/>
-        </svg>
-      </a>
-
-      <a href="#" aria-label="Instagram">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.8">
-
-          <rect
-            x="3"
-            y="3"
-            width="18"
-            height="18"
-            rx="4"/>
-
-          <circle
-            cx="12"
-            cy="12"
-            r="4"/>
-
-          <circle
-            cx="17.2"
-            cy="6.8"
-            r="0.6"
-            fill="currentColor"
-            stroke="none"/>
-
-        </svg>
+      <a
+        href="#"
+        data-i18n="modify_cookies">
+        Modify Cookie Preferences
       </a>
 
     </div>
@@ -1229,38 +1849,75 @@ a {
   </div>
 
 
-  <div class="footer-bottom">
+  <!-- DESKTOP FOOTER -->
+  <div class="desktop-footer">
 
-    <a
-      href="#"
-      onclick="showTerms(event)"
-      data-i18n="terms">
-      الشروط والأحكام
-    </a>
+    <div class="footer-top">
 
-    <a
-      href="#"
-      onclick="showPrivacy(event)"
-      data-i18n="privacy">
-      سياسة الخصوصية
-    </a>
+      <span
+        class="connect-label"
+        data-i18n="connect_with_us">
+        Connect with us
+      </span>
 
-    <a
-      href="#"
-      onclick="showCookie(event)"
-      data-i18n="cookie">
-      سياسة ملفات تعريف الارتباط
-    </a>
+      <div class="social-icons">
 
-    <!--
-      Modify Cookie Preferences
-      intentionally disabled as requested
-    -->
-    <a
-      href="#"
-      data-i18n="modify_cookies">
-      تعديل تفضيلات ملفات تعريف الارتباط
-    </a>
+        <a href="https://www.youtube.com/user/Shell" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.5 6.2c-.3-1.1-1.1-1.9-2.2-2.2C19.3 3.5 12 3.5 12 3.5s-7.3 0-9.3.5c-1.1.3-1.9 1.1-2.2 2.2C0 8.2 0 12 0 12s0 3.8.5 5.8c.3 1.1 1.1 1.9 2.2 2.2 2 .5 9.3.5 9.3.5s7.3 0 9.3-.5c1.1-.3 1.9-1.1 2.2-2.2.5-2 .5-5.8.5-5.8s0-3.8-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
+          </svg>
+        </a>
+
+        <a href="https://twitter.com/shell" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.4 4.9c-.8.4-1.7.7-2.6.8.9-.6 1.7-1.5 2-2.5-.9.5-1.9.9-2.9 1.1-.8-.9-2-1.5-3.3-1.5-2.5 0-4.5 2-4.5 4.5 0 .4 0 .7.1 1-3.8-.2-7.1-2-9.4-4.8-.4.7-.6 1.5-.6 2.3 0 1.6.8 3 2 3.8-.7 0-1.4-.2-2-.6v.1c0 2.2 1.6 4 3.6 4.4-.4.1-.8.2-1.2.2-.3 0-.6 0-.8-.1.6 1.8 2.2 3.1 4.2 3.1-1.5 1.2-3.5 1.9-5.6 1.9-.4 0-.7 0-1.1-.1 2 1.3 4.4 2 6.9 2 8.3 0 12.9-6.9 12.9-12.9v-.6c.9-.6 1.6-1.4 2.3-2.3z"/>
+          </svg>
+        </a>
+
+        <a href="https://www.facebook.com/Shell" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/>
+          </svg>
+        </a>
+
+        <a href="https://www.linkedin.com/company/shell" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8.3 18.5H5.7V9.8h2.6v8.7zM7 8.7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11.5 9.8h-2.6v-4.3c0-1 0-2.4-1.5-2.4s-1.7 1.1-1.7 2.3v4.4H10V9.8h2.5v1.2c.4-.7 1.3-1.4 2.6-1.4 2.7 0 3.2 1.8 3.2 4.2v4.7z"/>
+          </svg>
+        </a>
+
+        <a href="https://www.instagram.com/shell" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="3" width="18" height="18" rx="4"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <a href="#" onclick="showTerms(event)" data-i18n="terms">
+        Terms & Conditions
+      </a>
+
+      <a href="#" onclick="showPrivacy(event)" data-i18n="privacy">
+        Privacy Policy
+      </a>
+
+      <a href="#" onclick="showCookie(event)" data-i18n="cookie">
+        Cookie Policy
+      </a>
+
+      <a href="#" data-i18n="modify_cookies">
+        Modify Cookie Preferences
+      </a>
+
+    </div>
 
   </div>
 
@@ -1287,7 +1944,7 @@ const translations = {
       "PRODUCT VERIFICATION",
 
     invalid_code:
-      "Invalid code, please refer to the merchant",
+      "كود غير صحيح، بالرجاء الرجوع للتاجر",
 
     connect_with_us:
       "Connect with us",
@@ -1706,7 +2363,7 @@ const translations = {
   ar: {
 
     check_product:
-      "التحقق من صحة المنتج",
+      "التحقق من صحة",
 
     product_verification:
       "التحقق من المنتج",
@@ -1718,25 +2375,19 @@ const translations = {
       "كود غير صحيح، بالرجاء الرجوع للتاجر",
 
     connect_with_us:
-      "تواصل معنا",
+      "Connect with us",
 
-    terms:
-      "الشروط والأحكام",
+   terms:
+  "Terms & Conditions",
 
-    privacy:
-      "سياسة الخصوصية",
+privacy:
+  "Privacy Policy",
 
-    cookie:
-      "سياسة ملفات تعريف الارتباط",
+cookie:
+  "Cookie Policy",
 
-    modify_cookies:
-      "تعديل تفضيلات ملفات تعريف الارتباط",
-
-    privacy_title:
-      "سياسة الخصوصية",
-
-    cookie_title:
-      "سياسة ملفات تعريف الارتباط",
+modify_cookies:
+  "Modify Cookie Preferences",
 
     terms_title:
       "الشروط والأحكام",
@@ -2068,7 +2719,7 @@ const translations = {
       <p>
         <strong>18.</strong>
         يتعين على جميع المشاركين في SHARE تعويض Shell وشركاتها المرتبطة
-        (المديرين والمسؤولين والموظفين) والوكلاء والموردين عن أي مطالبات
+        (المديرون والمسؤولون والموظفون) والوكلاء والموردين عن أي مطالبات
         بشأن أي خسائر أو أضرار، سواء كانت مباشرة أو غير مباشرة أو تبعية
         أو غير ذلك، ناشئة عن أي سبب كان مرتبطًا بمشاركتهم في برنامج SHARE
         و/أو استلام و/أو استخدام جائزة.
@@ -2111,8 +2762,7 @@ const translations = {
    STATE
 ============================================================ */
 
-let currentLang =
-  localStorage.getItem('shell_lang') || 'ar';
+let currentLang = 'en';
 
 let currentPage = 'verification';
 
@@ -2149,6 +2799,32 @@ function getTermsHTML() {
 ============================================================ */
 
 function updateUI() {
+
+  const toggleBtn =
+    document.getElementById('langToggleBtn');
+
+if (toggleBtn) {
+
+  toggleBtn.textContent =
+    currentLang === 'ar'
+      ? 'EN'
+      : 'عربي';
+
+}
+
+
+const mobileLanguageBtn =
+  document.getElementById('mobileLanguageBtn');
+
+if (mobileLanguageBtn) {
+
+  mobileLanguageBtn.textContent =
+    currentLang === 'ar'
+      ? 'EN'
+      : 'عربي';
+
+}
+  // ==========================================
 
   document
     .querySelectorAll('[data-i18n]')
@@ -2206,17 +2882,23 @@ function updateUI() {
     document.documentElement;
 
 
-  if (currentLang === 'ar') {
+ if (currentLang === 'ar') {
 
-    html.setAttribute('dir', 'rtl');
-    html.setAttribute('lang', 'ar');
+  html.setAttribute('dir', 'rtl');
+  html.setAttribute('lang', 'ar');
 
-  } else {
+  document.body.classList.add('lang-ar');
+  document.body.classList.remove('lang-en');
 
-    html.setAttribute('dir', 'ltr');
-    html.setAttribute('lang', 'en');
+} else {
 
-  }
+  html.setAttribute('dir', 'ltr');
+  html.setAttribute('lang', 'en');
+
+  document.body.classList.add('lang-en');
+  document.body.classList.remove('lang-ar');
+
+}
 
 
   const resultMessage =
@@ -2242,21 +2924,6 @@ function updateUI() {
       );
 
     });
-
-
-  const toggleBtn =
-    document.getElementById(
-      'langToggleBtn'
-    );
-
-  if (toggleBtn) {
-
-    toggleBtn.textContent =
-      currentLang === 'ar'
-        ? 'EN'
-        : 'AR';
-
-  }
 
 
   const breadcrumbCurrent =
@@ -2600,7 +3267,68 @@ document.addEventListener(
   }
 );
 
+/* ============================================================
+   MOBILE FOOTER ACCORDIONS
+============================================================ */
 
+function toggleMobileSection(sectionId) {
+
+  const section = document.getElementById(sectionId);
+
+  if (!section) {
+    return;
+  }
+
+  const isOpen = section.classList.contains('open');
+
+  /*
+   * Close both sections first
+   */
+  document
+    .querySelectorAll('.mobile-footer-content')
+    .forEach(sectionItem => {
+      sectionItem.classList.remove('open');
+    });
+
+  document
+    .querySelectorAll('.mobile-footer-arrow')
+    .forEach(arrow => {
+      arrow.classList.remove('open');
+    });
+
+
+  /*
+   * Open selected section
+   */
+  if (!isOpen) {
+
+    section.classList.add('open');
+
+    if (sectionId === 'socialSection') {
+
+      const arrow =
+        document.getElementById('socialArrow');
+
+      if (arrow) {
+        arrow.classList.add('open');
+      }
+
+    }
+
+    if (sectionId === 'siteInfoSection') {
+
+      const arrow =
+        document.getElementById('siteInfoArrow');
+
+      if (arrow) {
+        arrow.classList.add('open');
+      }
+
+    }
+
+  }
+
+}
 /* ============================================================
    INITIALIZATION
 ============================================================ */
@@ -2611,3 +3339,4 @@ updateUI();
 
 </body>
 </html>
+

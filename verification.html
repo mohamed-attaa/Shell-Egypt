@@ -6,6 +6,7 @@
 <title>Product Verification - Shell</title>
 
 <style>
+
 * {
   margin: 0;
   padding: 0;
@@ -16,6 +17,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color: #333;
   background: #fff;
+  transition: all 0.3s ease;
 }
 
 a {
@@ -27,6 +29,10 @@ a {
 
 .topbar {
   border-bottom: 1px solid #e2e2e2;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 100;
 }
 
 .topbar-inner {
@@ -38,14 +44,234 @@ a {
   justify-content: space-between;
 }
 
-.logo svg {
-  display: block;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  cursor: pointer;
 }
 
-.lang-switch {
+.logo img {
+  display: block;
+  object-fit: contain;
+  width: 70px;
+  height: 70px;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1a1a1a;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 14px;
+  }
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lang-switch-btn {
+  font-size: 14px;
+  font-weight: 400;
+  color: #1a1a1a;
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0;
+}
+
+.lang-switch-btn:hover {
+  background: none;
+  text-decoration: underline;
+}
+
+/* ================= BURGER ================= */
+
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.burger-menu:hover {
+  background: #f0f0f0;
+}
+
+.burger-menu span {
+  display: block;
+  width: 24px;
+  height: 2.5px;
+  background: #1a1a1a;
+  border-radius: 4px;
+  transition: 0.3s;
+  transform-origin: center;
+}
+
+.burger-menu.active span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.burger-menu.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-menu.active span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ================= DRAWER ================= */
+
+.drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 300px;
+  max-width: 85%;
+  height: 100%;
+  background: #ffffff;
+  z-index: 300;
+  padding: 30px 24px;
+  box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+  transition: right 0.35s cubic-bezier(.4,0,.2,1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+.drawer.open {
+  right: 0;
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e2e2e2;
+  padding-bottom: 16px;
+}
+
+.drawer-header .drawer-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+.drawer-header .drawer-title:hover {
+  color: #003b5c;
+}
+
+.drawer-close {
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: #666;
+  padding: 0 8px;
+}
+
+.drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.drawer-nav li a {
+  display: block;
+  padding: 14px 12px;
+  font-size: 15px;
+  color: #1a1a1a;
+  border-radius: 8px;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+.drawer-nav li a:hover {
+  background: #f5f5f5;
+}
+
+.drawer-lang-section {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #e2e2e2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawer-lang-label {
   font-size: 13px;
-  color: #333;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
+  color: #666;
+}
+
+.drawer-lang-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.drawer-lang-buttons button {
+  padding: 6px 18px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.drawer-lang-buttons button.active-lang {
+  background: #003b5c;
+  color: #fff;
+  border-color: #003b5c;
+}
+
+.drawer-lang-buttons button:hover:not(.active-lang) {
+  background: #f0f0f0;
 }
 
 /* ================= TITLE BAR ================= */
@@ -117,17 +343,13 @@ a {
   color: #444;
 }
 
-/* ================================================= */
-/* ================= VERIFICATION ================== */
-/* ================================================= */
+/* ================= VERIFICATION ================= */
 
 .verification-section {
   max-width: 1300px;
   margin: 0 auto;
   padding: 28px 24px 70px;
 }
-
-/* العنوان */
 
 .verification-title {
   text-align: center;
@@ -136,20 +358,18 @@ a {
   font-weight: 700;
   color: #111;
   text-decoration: underline;
+  text-decoration-color: #ed1c24;
+  text-decoration-thickness: 3px;
   text-underline-offset: 7px;
   margin-bottom: 28px;
 }
-
-/* الخط الأحمر */
 
 .verification-red-line {
   width: 60%;
   height: 10px;
   background: #ed1c24;
-  margin-bottom: 28px;
+  margin: 0 auto 28px auto;
 }
-
-/* المحتوى */
 
 .verification-content {
   max-width: 1000px;
@@ -285,6 +505,126 @@ a {
   background: #d71920;
 }
 
+/* ================= POLICY CONTENT ================= */
+
+.policy-content,
+.cookie-content,
+.terms-content {
+  display: none;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 40px 24px 70px;
+  direction: ltr;
+  color: #333;
+}
+
+.policy-content.active,
+.cookie-content.active,
+.terms-content.active {
+  display: block;
+}
+
+/* نفس تصميم الملف الأول للسياسات */
+
+.policy-title,
+.cookie-title,
+.terms-title {
+  color: #000;
+  font-size: 30px;
+  line-height: 1.4;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 auto 14px;
+}
+
+.policy-red-line,
+.cookie-red-line,
+.terms-red-line {
+  width: 100%;
+  max-width: 900px;
+  height: 10px;
+  background: #dd1d21;
+  margin: 0 auto 28px;
+}
+
+.policy-text,
+.terms-text {
+  max-width: 1120px;
+  margin: 0 auto;
+  color: #050505;
+  font-size: 15px;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.policy-text p,
+.terms-text p {
+  margin: 0 0 20px;
+}
+
+.policy-text h3,
+.terms-text h3 {
+  color: #000;
+  font-size: 22px;
+  line-height: 1.5;
+  font-weight: 700;
+  margin: 30px 0 16px;
+}
+
+.policy-text h4,
+.terms-text h4 {
+  color: #000;
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 700;
+  margin: 28px 0 14px;
+}
+
+.policy-text .special-notice,
+.terms-text .special-notice {
+  color: #dd1d21;
+  font-weight: 700;
+}
+
+.policy-text a,
+.terms-text a {
+  color: #1565c0;
+  text-decoration: underline;
+}
+
+.policy-text ul,
+.terms-text ul {
+  max-width: 1000px;
+  margin: 0 auto 22px;
+  padding-left: 35px;
+  text-align: left;
+}
+
+.policy-text li,
+.terms-text li {
+  margin-bottom: 12px;
+  line-height: 1.8;
+}
+
+.policy-back,
+.terms-back,
+.cookie-back {
+  display: inline-block;
+  margin-top: 30px;
+  color: #003b5c;
+  font-size: 13px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.policy-back:hover,
+.terms-back:hover,
+.cookie-back:hover {
+  text-decoration: underline;
+}
+
 /* ================= BOTTOM YELLOW LINE ================= */
 
 .bottom-line {
@@ -330,6 +670,12 @@ a {
   align-items: center;
   justify-content: center;
   color: #1a1a1a;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+  background-color: #ffd900;
+  color: #1a1a1a;
 }
 
 .social-icons a + a {
@@ -351,14 +697,263 @@ a {
   transform: translateY(-10px);
 }
 
-.footer-bottom a {
+/* =========================================================
+   FOOTER LINKS - DESKTOP
+========================================================= */
+
+.desktop-footer .footer-bottom a {
   font-size: 13px;
-  color: #003b5c;
+  color: #000;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color .2s ease;
 }
 
-/* ================= RESPONSIVE ================= */
+.desktop-footer .footer-bottom a.active-link {
+  color: #000;
+  text-decoration: underline;
+  text-decoration-color: #000;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
 
-@media (max-width: 700px) {
+.desktop-footer .footer-bottom a:hover {
+  color: #000;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+.mobile-footer-row,
+.mobile-footer-content {
+  display: none;
+}
+
+.desktop-footer {
+  display: block;
+}
+
+.mobile-language-link {
+  border: 0;
+  background: none;
+  padding: 0;
+  margin: 0;
+  color: #444;
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+  body {
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+
+  .topbar {
+    height: 57px;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .topbar-inner {
+    height: 57px;
+    padding: 0;
+    direction: ltr;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    height: 57px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding-left: 13px;
+  }
+
+  .logo img {
+    width: 43px;
+    height: 43px;
+  }
+
+  .logo-text {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .topbar-right {
+    height: 57px;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  .lang-switch-btn {
+    display: none;
+  }
+
+  .burger-menu {
+    width: 57px;
+    height: 57px;
+    display: flex;
+    border-radius: 0;
+    border-left: 1px solid #ddd;
+    padding: 0;
+    gap: 5px;
+  }
+
+  .burger-menu:hover {
+    background: transparent;
+  }
+
+  .burger-menu span {
+    width: 20px;
+    height: 2px;
+  }
+
+  /* MOBILE DRAWER */
+
+  .drawer-overlay {
+    display: none;
+  }
+
+  .drawer {
+    position: absolute;
+    top: 57px;
+    right: 0;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 60px;
+    padding: 0;
+    background: #fff;
+    box-shadow: none;
+    border-bottom: 1px solid #ddd;
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity .2s ease,
+      transform .2s ease,
+      visibility .2s ease;
+    overflow: visible;
+    z-index: 250;
+    display: block;
+  }
+
+  .drawer.open {
+    right: 0;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .drawer-nav {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  .drawer-nav li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .drawer-nav li a {
+    display: block;
+    padding: 22px 40px;
+    border-radius: 0;
+    font-size: 13px;
+    color: #444;
+    font-weight: 400;
+  }
+
+  .drawer-nav li a:hover {
+    background: transparent;
+  }
+
+  .drawer-lang-section {
+    margin: 0;
+    padding: 20px 40px;
+    border-top: 1px solid #eee;
+    display: block;
+  }
+
+  .mobile-language-link {
+    display: block;
+    font-size: 13px;
+    color: #555;
+  }
+
+  /* TITLE BAR */
+
+  .title-bar {
+    width: 100%;
+    padding: 0;
+  }
+
+  .title-bar-inner {
+    height: 61px;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+  }
+
+  .title-bar h1 {
+    font-size: 14px;
+    font-weight: 700;
+    transform: none;
+    margin: 0;
+  }
+
+  .title-underline {
+    height: 6px;
+  }
+
+  .underline-yellow {
+    width: 100%;
+  }
+
+  .underline-dark {
+    display: none;
+  }
+
+  .title-bar h1 {
+    display: none;
+  }
+
+  .title-bar-inner {
+    display: none;
+  }
+
+  .title-underline {
+    height: 3px;
+  }
+
+  .underline-yellow {
+    width: 100%;
+  }
+
+  .underline-dark {
+    display: none;
+  }
+
+  /* BREADCRUMB */
+
+  .breadcrumb {
+    display: none;
+  }
+
+  /* MAIN */
 
   .verification-section {
     padding: 25px 18px 50px;
@@ -393,75 +988,396 @@ a {
     width: 50%;
   }
 
-  .footer-top {
-    max-width: 1300px;
-    margin: 0 auto;
-    height: 111px;
-    padding: 0 24px;
+  .verification-title {
+    font-size: 22px;
+    text-underline-offset: 5px;
+  }
+
+  /* BOTTOM YELLOW LINE */
+
+  .bottom-line {
+    width: 100%;
+    height: 2px;
+    max-width: none;
+    margin: 0;
+    background: #FFC72C;
+  }
+
+  /* MOBILE FOOTER */
+
+  .desktop-footer {
+    display: none;
+  }
+
+  .site-footer {
+    width: 100%;
+    margin: 0;
+  }
+
+  .mobile-footer-row {
+    display: block;
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+  }
+
+  .mobile-footer-toggle {
+    width: 100%;
+    height: 60px;
+    padding: 0 30px;
+    border: 0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    color: #1a1a1a;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .mobile-footer-arrow {
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 24px;
-    border-bottom: 1px solid #e2e2e2;
-    flex-wrap: wrap;
+    transition: transform .25s ease;
   }
-  .footer-bottom {
-    padding: 30px 20px;
+
+  .mobile-footer-arrow svg {
+    width: 21px;
+    height: 21px;
   }
+
+  .mobile-footer-arrow.open {
+    transform: rotate(180deg);
+  }
+
+  .mobile-footer-content {
+    display: none;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .mobile-footer-content.open {
+    display: block;
+  }
+
+  /* SOCIAL LINKS */
+
+  .mobile-footer-content .social-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 10px 30px;
+  }
+
+  .mobile-footer-content .social-icons a {
+    width: 100%;
+    height: auto;
+    min-height: 45px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 13px;
+    color: #000 !important;
+    text-decoration: none;
+  }
+
+  .mobile-footer-content .social-icons a + a {
+    border-left: none;
+    border-top: 1px solid #eee;
+  }
+
+  .mobile-footer-content .social-icons svg {
+    display: none;
+  }
+
+  /* SITE INFORMATION */
+
+  .mobile-footer-content .footer-bottom {
+    width: 100%;
+    margin: 0;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    transform: none;
+  }
+
+  .mobile-footer-content .footer-bottom a {
+    display: block;
+    padding: 13px 0;
+    font-size: 13px;
+    color: #000 !important;
+    border-bottom: 1px solid #eee;
+    text-decoration: none;
+    cursor: pointer;
+    background: transparent !important;
+  }
+
+  .mobile-footer-content .footer-bottom a:last-child {
+    border-bottom: none;
+  }
+
+  /* ACTIVE MOBILE FOOTER LINK */
+
+  .mobile-footer-content .footer-bottom a.active-link {
+    color: #000 !important;
+    text-decoration: underline !important;
+    text-decoration-color: #000 !important;
+    text-decoration-thickness: 1px !important;
+    text-underline-offset: 4px;
+  }
+
+  .mobile-footer-content .footer-bottom a:hover {
+    color: #000 !important;
+    background: transparent !important;
+  }
+
+  /* SOCIAL ACTIVE */
+
+  .mobile-footer-content .social-icons a.active-link {
+    color: #000 !important;
+    text-decoration: underline !important;
+    text-decoration-color: #000 !important;
+    text-decoration-thickness: 1px !important;
+    text-underline-offset: 4px;
+  }
+
+  /* POLICY MOBILE */
+
+  .policy-content,
+  .cookie-content,
+  .terms-content {
+    padding: 30px 25px 50px;
+  }
+
+  .policy-title,
+  .cookie-title,
+  .terms-title {
+    font-size: 22px;
+  }
+
+  .policy-text h3,
+  .terms-text h3 {
+    font-size: 19px;
+  }
+
+  .policy-text h4,
+  .terms-text h4 {
+    font-size: 17px;
+  }
+
+  .policy-text,
+  .terms-text {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .policy-text ul,
+  .terms-text ul {
+    padding-left: 25px;
+  }
+
 }
+
+/* ================= 480 ================= */
+
+@media (max-width: 480px) {
+
+  .logo {
+    padding-left: 13px;
+  }
+
+  .logo img {
+    width: 43px;
+    height: 43px;
+  }
+
+  .logo-text {
+    font-size: 13px;
+  }
+
+  .verification-title {
+    font-size: 20px;
+  }
+
+  .help-title {
+    font-size: 16px;
+  }
+
+  .help-button {
+    font-size: 14px;
+  }
+
+  .form-button {
+    font-size: 15px;
+  }
+
+}
+
+/* إخفاء Shell Advantage Rewards على الكمبيوتر */
+
+.logo-text {
+  display: none;
+}
+
+/* إظهارها على الموبايل فقط */
+
+@media (max-width: 768px) {
+
+  .logo-text {
+    display: block;
+  }
+
+}
+
+/* ================= RTL لسياسات العربية ================= */
+
+body.lang-ar .policy-content,
+body.lang-ar .cookie-content,
+body.lang-ar .terms-content {
+  direction: rtl;
+  text-align: right;
+}
+
+body.lang-ar .policy-back,
+body.lang-ar .terms-back,
+body.lang-ar .cookie-back {
+  direction: rtl;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- ================================================= -->
-<!-- ================= TOP NAVBAR ==================== -->
-<!-- ================================================= -->
+<!-- ================= TOP NAVBAR ================= -->
 
 <header class="topbar">
 
   <div class="topbar-inner">
 
-     <a href="#" class="logo">
-  <img src="./img/shell-logo.png" alt="Shell" width="70" height="70">
-</a>
+    <a href="verification.html" class="logo">
 
-    <a href="#" class="lang-switch">
-      عربي
+      <img
+        src="./img/shell-logo.png"
+        alt="Shell"
+        width="70"
+        height="70">
+
+      <span class="logo-text">
+        Shell Advantage Rewards
+      </span>
+
     </a>
+
+    <div class="topbar-right">
+
+      <button
+        class="lang-switch-btn"
+        id="langToggleBtn"
+        type="button"
+        onclick="toggleLanguage()">
+
+        عربي
+
+      </button>
+
+      <button
+        class="burger-menu"
+        id="burgerBtn"
+        type="button"
+        aria-label="Menu">
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </button>
+
+    </div>
 
   </div>
 
 </header>
 
+<!-- ================= MOBILE DRAWER ================= -->
 
-<!-- ================================================= -->
-<!-- ================= TITLE BAR ===================== -->
-<!-- ================================================= -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
 
-<div class="title-bar">
+<div class="drawer" id="drawer">
 
-  <div class="title-bar-inner">
-    <h1>Check Product Authenticity</h1>
-  </div>
+  <ul class="drawer-nav">
 
-  <div class="title-underline">
-    <span class="underline-yellow"></span>
-    <span class="underline-dark"></span>
+    <li>
+
+      <a
+        href="verification.html"
+        onclick="showVerification(event)">
+
+        <span data-i18n="check_product">
+          Check Product Authenticity
+        </span>
+
+      </a>
+
+    </li>
+
+  </ul>
+
+  <div class="drawer-lang-section">
+
+    <button
+      class="mobile-language-link"
+      type="button"
+      id="mobileLanguageBtn"
+      onclick="toggleLanguage()">
+
+      عربي
+
+    </button>
+
   </div>
 
 </div>
 
+<!-- ================= TITLE BAR ================= -->
 
-<!-- ================================================= -->
-<!-- ================= BREADCRUMB ==================== -->
-<!-- ================================================= -->
+<div class="title-bar">
+
+  <div class="title-bar-inner">
+
+    <h1 data-i18n="check_product">
+      التحقق من صحة المنتج
+    </h1>
+
+  </div>
+
+  <div class="title-underline">
+
+    <span class="underline-yellow"></span>
+    <span class="underline-dark"></span>
+
+  </div>
+
+</div>
+
+<!-- ================= BREADCRUMB ================= -->
 
 <nav class="breadcrumb">
 
   <div class="breadcrumb-inner">
 
-    <a href="verification.html">
+    <a href="verification.html" class="shell-brand">
       Shell Egypt
     </a>
 
@@ -469,211 +1385,300 @@ a {
       &#8250;
     </span>
 
-    <span class="current">
+    <span
+      class="current"
+      id="breadcrumbCurrent"
+      data-i18n="product_verification">
+
       Product Verification
+
     </span>
 
   </div>
 
 </nav>
 
+<!-- ================= MAIN CONTENT ================= -->
 
-<!-- ================================================= -->
-<!-- =============== VERIFICATION AREA =============== -->
-<!-- ================================================= -->
+<main>
 
-<section class="verification-section">
+  <!-- ================= VERIFICATION SECTION ================= -->
 
-  <h2 class="verification-title">
-    التحقق من المنتج
-  </h2>
+  <section class="verification-section" id="verificationSection">
 
-  <div class="verification-red-line"></div>
+    <h2
+      class="verification-title"
+      data-i18n="product_verification_heading">
 
+      التحقق من المنتج
 
-  <div class="verification-content">
+    </h2>
 
+    <div class="verification-red-line"></div>
 
-    <!-- ================= HELP ================= -->
+    <div class="verification-content">
 
-    <div class="help-area">
+      <!-- HELP -->
 
-      <h3 class="help-title">
-        هل تحتاج إلى مساعدة في العثور على رمز المنتج؟
-      </h3>
+      <div class="help-area">
 
-      <div class="help-question">
-        ؟
-      </div>
+        <h3
+          class="help-title"
+          data-i18n="help_title">
 
-      <button
-        class="help-button"
-        type="button"
-        onclick="showHelp()">
+          هل تحتاج إلى مساعدة في العثور على رمز المنتج؟
 
-        اضغط هنا لمعرفة المزيد
+        </h3>
 
-      </button>
+        <div
+          class="help-question"
+          data-i18n="help_question">
 
-    </div>
+          ؟
 
-
-    <!-- ================= FORM ================= -->
-
-    <div class="product-form">
-
-      <div class="required-text">
-        <span>*</span>
-        حقول مطلوبة
-      </div>
-
-      <label class="product-label">
-        رمز المنتج؟
-      </label>
-
-      <div class="product-input-wrapper">
-
-        <div class="product-help-icon">
-          ?
         </div>
 
-        <input
-          id="productCode"
-          class="product-input"
-          type="text"
-          autocomplete="off"
-        >
+        <button
+          class="help-button"
+          type="button"
+          onclick="showHelp()"
+          data-i18n="help_button">
+
+          اضغط هنا لمعرفة المزيد
+
+        </button>
 
       </div>
 
+      <!-- FORM -->
 
-      <div class="form-buttons">
+      <div class="product-form">
 
-        <button
-          class="form-button"
-          type="button"
-          onclick="clearProductCode()">
+        <div class="required-text">
 
-          مسح
+          <span>*</span>
 
-        </button>
+          <span data-i18n="required_fields">
+            حقول مطلوبة
+          </span>
 
-        <button
-          class="form-button"
-          type="button"
-          onclick="registerProduct()">
+        </div>
 
-          سجل
+        <label
+          class="product-label"
+          data-i18n="product_code_label">
 
-        </button>
+          رمز المنتج؟
+
+        </label>
+
+        <div class="product-input-wrapper">
+
+          <div class="product-help-icon">
+            ?
+          </div>
+
+          <input
+            id="productCode"
+            class="product-input"
+            type="text"
+            autocomplete="off"
+            data-i18n-placeholder="product_code_placeholder"
+            placeholder="أدخل الرمز هنا">
+
+        </div>
+
+        <div class="form-buttons">
+
+          <button
+            class="form-button"
+            type="button"
+            onclick="clearProductCode()"
+            data-i18n="clear_button">
+
+            مسح
+
+          </button>
+
+          <button
+            class="form-button"
+            type="button"
+            onclick="registerProduct()"
+            data-i18n="register_button">
+
+            سجل
+
+          </button>
+
+        </div>
 
       </div>
 
     </div>
 
-  </div>
+  </section>
 
-</section>
+  <!-- ================= PRIVACY POLICY ================= -->
+
+  <section
+    id="privacyContent"
+    class="policy-content">
+
+    <h2
+      class="policy-title"
+      data-i18n="privacy_title">
+      سياسة الخصوصية
+    </h2>
+
+    <div class="policy-red-line"></div>
+
+    <div
+      class="policy-text"
+      id="privacyTextContainer">
+    </div>
+
+    <a
+      href="#"
+      class="policy-back"
+      onclick="goToVerification(event)"
+      data-i18n="back_to_verification">
+      ‹ العودة إلى التحقق من المنتج
+    </a>
+
+  </section>
+
+  <!-- ================= COOKIE POLICY ================= -->
+
+  <section
+    id="cookieContent"
+    class="cookie-content">
+
+    <h2
+      class="cookie-title"
+      data-i18n="cookie_title">
+      سياسة ملفات تعريف الارتباط
+    </h2>
+
+    <div class="cookie-red-line"></div>
+
+    <!-- يمكن إضافة محتوى لاحقاً -->
+
+  </section>
+
+  <!-- ================= TERMS & CONDITIONS ================= -->
+
+  <section
+    id="termsContent"
+    class="terms-content">
+
+    
 
 
-<!-- ================================================= -->
-<!-- ================= FOOTER LINE =================== -->
-<!-- ================================================= -->
+    <div
+      class="terms-text"
+      id="termsTextContainer">
+    </div>
+
+    <a
+      href="#"
+      class="terms-back"
+      onclick="goToVerification(event)"
+      data-i18n="back_to_verification">
+      ‹ العودة إلى التحقق من المنتج
+    </a>
+
+  </section>
+
+</main>
+
+<!-- ================= FOOTER LINE ================= -->
 
 <div class="bottom-line"></div>
 
-
-<!-- ================================================= -->
-<!-- ==================== FOOTER ===================== -->
-<!-- ================================================= -->
+<!-- ================= FOOTER ================= -->
 
 <footer class="site-footer">
 
-  <div class="footer-top">
+  <!-- ================= MOBILE CONNECT ================= -->
 
-    <span class="connect-label">
-      Connect with us
-    </span>
+  <div class="mobile-footer-row connect-row">
 
-    <div class="social-icons">
+    <button
+      type="button"
+      class="mobile-footer-toggle"
+      onclick="toggleMobileSection('socialSection')">
 
-      <!-- YouTube -->
-      <a href="#" aria-label="YouTube">
+      <span data-i18n="connect_with_us">
+        Connect with us
+      </span>
 
-        <svg viewBox="0 0 24 24"
-             fill="currentColor">
+      <span
+        class="mobile-footer-arrow"
+        id="socialArrow">
 
-          <path d="M23.5 6.2c-.3-1.1-1.1-1.9-2.2-2.2C19.3 3.5 12 3.5 12 3.5s-7.3 0-9.3.5c-1.1.3-1.9 1.1-2.2 2.2C0 8.2 0 12 0 12s0 3.8.5 5.8c.3 1.1 1.1 1.9 2.2 2.2 2 .5 9.3.5 9.3.5s7.3 0 9.3-.5c1.1-.3 1.9-1.1 2.2-2.2.5-2 .5-5.8.5-5.8s0-3.8-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
+        <svg viewBox="0 0 24 24">
+
+          <path
+            d="M6 9l6 6 6-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
 
         </svg>
+
+      </span>
+
+    </button>
+
+  </div>
+
+  <!-- ================= MOBILE SOCIAL ================= -->
+
+  <div
+    class="mobile-footer-content"
+    id="socialSection">
+
+    <div class="social-icons mobile-social-links">
+
+      <a
+        href="https://www.youtube.com/user/Shell"
+        target="_blank">
+
+        YouTube
 
       </a>
 
+      <a
+        href="https://twitter.com/shell"
+        target="_blank">
 
-      <!-- Twitter -->
-      <a href="#" aria-label="Twitter">
-
-        <svg viewBox="0 0 24 24"
-             fill="currentColor">
-
-          <path d="M23.4 4.9c-.8.4-1.7.7-2.6.8.9-.6 1.7-1.5 2-2.5-.9.5-1.9.9-2.9 1.1-.8-.9-2-1.5-3.3-1.5-2.5 0-4.5 2-4.5 4.5 0 .4 0 .7.1 1-3.8-.2-7.1-2-9.4-4.8-.4.7-.6 1.5-.6 2.3 0 1.6.8 3 2 3.8-.7 0-1.4-.2-2-.6v.1c0 2.2 1.6 4 3.6 4.4-.4.1-.8.2-1.2.2-.3 0-.6 0-.8-.1.6 1.8 2.2 3.1 4.2 3.1-1.5 1.2-3.5 1.9-5.6 1.9-.4 0-.7 0-1.1-.1 2 1.3 4.4 2 6.9 2 8.3 0 12.9-6.9 12.9-12.9v-.6c.9-.6 1.6-1.4 2.3-2.3z"/>
-
-        </svg>
+        Twitter
 
       </a>
 
+      <a
+        href="https://www.facebook.com/Shell"
+        target="_blank">
 
-      <!-- Facebook -->
-      <a href="#" aria-label="Facebook">
-
-        <svg viewBox="0 0 24 24"
-             fill="currentColor">
-
-          <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/>
-
-        </svg>
+        Facebook
 
       </a>
 
+      <a
+        href="https://www.linkedin.com/company/shell"
+        target="_blank">
 
-      <!-- LinkedIn -->
-      <a href="#" aria-label="LinkedIn">
-
-        <svg viewBox="0 0 24 24"
-             fill="currentColor">
-
-          <path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8.3 18.5H5.7V9.8h2.6v8.7zM7 8.7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11.5 9.8h-2.6v-4.3c0-1 0-2.4-1.5-2.4s-1.7 1.1-1.7 2.3v4.4H10V9.8h2.5v1.2c.4-.7 1.3-1.4 2.6-1.4 2.7 0 3.2 1.8 3.2 4.2v4.7z"/>
-
-        </svg>
+        LinkedIn
 
       </a>
 
+      <a
+        href="https://www.instagram.com/shell"
+        target="_blank">
 
-      <!-- Instagram -->
-      <a href="#" aria-label="Instagram">
-
-        <svg viewBox="0 0 24 24"
-             fill="none"
-             stroke="currentColor"
-             stroke-width="1.8">
-
-          <rect x="3"
-                y="3"
-                width="18"
-                height="18"
-                rx="4"/>
-
-          <circle cx="12"
-                  cy="12"
-                  r="4"/>
-
-          <circle cx="17.2"
-                  cy="6.8"
-                  r="0.6"
-                  fill="currentColor"
-                  stroke="none"/>
-
-        </svg>
+        Instagram
 
       </a>
 
@@ -681,52 +1686,2051 @@ a {
 
   </div>
 
+  <!-- ================= MOBILE SITE INFORMATION ================= -->
 
-  <div class="footer-bottom">
+  <div class="mobile-footer-row">
 
-    <a href="#">
-      Terms &amp; Conditions
-    </a>
+    <button
+      type="button"
+      class="mobile-footer-toggle"
+      onclick="toggleMobileSection('siteInfoSection')">
 
-    <a href="#">
-      Privacy Policy
-    </a>
+      <span>
+        Site information
+      </span>
 
-    <a href="#">
-      Cookie Policy
-    </a>
+      <span
+        class="mobile-footer-arrow"
+        id="siteInfoArrow">
 
-    <a href="#">
-      Modify Cookie Preferences
-    </a>
+        <svg viewBox="0 0 24 24">
+
+          <path
+            d="M6 9l6 6 6-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+
+        </svg>
+
+      </span>
+
+    </button>
+
+  </div>
+
+  <!-- ================= MOBILE FOOTER LINKS ================= -->
+
+  <div
+    class="mobile-footer-content"
+    id="siteInfoSection">
+
+    <div class="footer-bottom">
+
+      <a
+        href="#"
+        onclick="showTerms(event)"
+        data-i18n="terms">
+
+        Terms &amp; Conditions
+
+      </a>
+
+      <a
+        href="#"
+        onclick="showPrivacy(event)"
+        data-i18n="privacy">
+
+        Privacy Policy
+
+      </a>
+
+      <a
+        href="#"
+        onclick="showCookie(event)"
+        data-i18n="cookie">
+
+        Cookie Policy
+
+      </a>
+
+      <a
+        href="#"
+        data-i18n="modify_cookies">
+
+        Modify Cookie Preferences
+
+      </a>
+
+    </div>
+
+  </div>
+
+  <!-- ================= DESKTOP FOOTER ================= -->
+
+  <div class="desktop-footer">
+
+    <div class="footer-top">
+
+      <span
+        class="connect-label"
+        data-i18n="connect_with_us">
+
+        Connect with us
+
+      </span>
+
+      <div class="social-icons">
+
+        <a
+          href="https://www.youtube.com/user/Shell"
+          target="_blank"
+          aria-label="YouTube">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor">
+
+            <path d="M23.5 6.2c-.3-1.1-1.1-1.9-2.2-2.2C19.3 3.5 12 3.5 12 3.5s-7.3 0-9.3.5c-1.1.3-1.9 1.1-2.2 2.2C0 8.2 0 12 0 12s0 3.8.5 5.8c.3 1.1 1.1 1.9 2.2 2.2 2 .5 9.3.5 9.3.5s7.3 0 9.3-.5c1.1-.3 1.9-1.1 2.2-2.2.5-2 .5-5.8.5-5.8s0-3.8-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
+
+          </svg>
+
+        </a>
+
+        <a
+          href="https://twitter.com/shell"
+          target="_blank"
+          aria-label="Twitter">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor">
+
+            <path d="M23.4 4.9c-.8.4-1.7.7-2.6.8.9-.6 1.7-1.5 2-2.5-.9.5-1.9.9-2.9 1.1-.8-.9-2-1.5-3.3-1.5-2.5 0-4.5 2-4.5 4.5 0 .4 0 .7.1 1-3.8-.2-7.1-2-9.4-4.8-.4.7-.6 1.5-.6 2.3 0 1.6.8 3 2 3.8-.7 0-1.4-.2-2-.6v.1c0 2.2 1.6 4 3.6 4.4-.4.1-.8.2-1.2.2-.3 0-.6 0-.8-.1.6 1.8 2.2 3.1 4.2 3.1-1.5 1.2-3.5 1.9-5.6 1.9-.4 0-.7 0-1.1-.1 2 1.3 4.4 2 6.9 2 8.3 0 12.9-6.9 12.9-12.9v-.6c.9-.6 1.6-1.4 2.3-2.3z"/>
+
+          </svg>
+
+        </a>
+
+        <a
+          href="https://www.facebook.com/Shell"
+          target="_blank"
+          aria-label="Facebook">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor">
+
+            <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/>
+
+          </svg>
+
+        </a>
+
+        <a
+          href="https://www.linkedin.com/company/shell"
+          target="_blank"
+          aria-label="LinkedIn">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor">
+
+            <path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8.3 18.5H5.7V9.8h2.6v8.7zM7 8.7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11.5 9.8h-2.6v-4.3c0-1 0-2.4-1.5-2.4s-1.7 1.1-1.7 2.3v4.4H10V9.8h2.5v1.2c.4-.7 1.3-1.4 2.6-1.4 2.7 0 3.2 1.8 3.2 4.2v4.7z"/>
+
+          </svg>
+
+        </a>
+
+        <a
+          href="https://www.instagram.com/shell"
+          target="_blank"
+          aria-label="Instagram">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8">
+
+            <rect
+              x="3"
+              y="3"
+              width="18"
+              height="18"
+              rx="4"/>
+
+            <circle
+              cx="12"
+              cy="12"
+              r="4"/>
+
+            <circle
+              cx="17.2"
+              cy="6.8"
+              r="0.6"
+              fill="currentColor"
+              stroke="none"/>
+
+          </svg>
+
+        </a>
+
+      </div>
+
+    </div>
+
+    <!-- DESKTOP FOOTER LINKS -->
+
+    <div class="footer-bottom">
+
+      <a
+        href="#"
+        onclick="showTerms(event)"
+        data-i18n="terms">
+
+        Terms &amp; Conditions
+
+      </a>
+
+      <a
+        href="#"
+        onclick="showPrivacy(event)"
+        data-i18n="privacy">
+
+        Privacy Policy
+
+      </a>
+
+      <a
+        href="#"
+        onclick="showCookie(event)"
+        data-i18n="cookie">
+
+        Cookie Policy
+
+      </a>
+
+      <a
+        href="#"
+        onclick="activateFooterLink(event)"
+        data-i18n="modify_cookies">
+
+        Modify Cookie Preferences
+
+      </a>
+
+    </div>
 
   </div>
 
 </footer>
 
-
 <script>
+
+/* ============================================================
+   TRANSLATIONS (محتوى محدث لسياسة الخصوصية)
+============================================================ */
+
+const translations = {
+
+  en: {
+
+    check_product: "Check Product Authenticity",
+
+    product_verification: "Product Verification",
+
+    product_verification_heading: "PRODUCT VERIFICATION",
+
+    connect_with_us: "Connect with us",
+
+    terms: "Terms & Conditions",
+
+    privacy: "Privacy Policy",
+
+    cookie: "Cookie Policy",
+
+    modify_cookies: "Modify Cookie Preferences",
+
+    help_title: "Need help finding your product code?",
+
+    help_question: "?",
+
+    help_button: "Click here to find out more",
+
+    required_fields: "Required fields",
+
+    product_code_label: "Product Code?",
+
+    product_code_placeholder: "Enter code here",
+
+    clear_button: "Clear",
+
+    register_button: "Register",
+
+    invalid_code: "كود غير صحيح، بالرجاء الرجوع للتاجر",
+
+    privacy_title: "Privacy Policy",
+
+    cookie_title: "Cookie Policy",
+
+    terms_title: "Terms & Conditions",
+
+    back_to_verification: "‹ Back to Product Verification",
+
+    privacy_html: `
+
+      <h3>
+        NOTICE - MOTORISTS, LOYALTY OR ENERGY CUSTOMERS,
+        SHELL APP USERS AND VISITORS TO OUR WEBSITES
+      </h3>
+
+      <h4>
+        What does this Privacy Notice cover?
+      </h4>
+
+      <p>
+        This Privacy Notice provides information regarding the processing
+        of your personal data when using services and/or purchasing products
+        from or on behalf of a company or companies within the Shell group
+        of companies (‘Shell’ or ‘we’) whether as:
+      </p>
+
+      <p>
+        (i) a retail, energy or e-mobility customer;<br>
+        (ii) a member of a Shell loyalty program such as Club Smart,
+        Shell Go +, SHARE Program or equivalent in your location
+        (‘Shell Loyalty Programme’);<br>
+        (iii) a visitor to a Shell website (‘Website’ or ’Shell Website’);
+        and/or<br>
+        (iv) a user of the Shell Application or other Shell applications
+        (‘Shell App’).
+      </p>
+
+      <p>
+        As well as this Privacy Notice, bespoke privacy notices and
+        supplementary privacy statements may contain further information
+        about how Shell is processing your personal data. This would be the
+        case for example if you are an energy or e-mobility customer.
+        In those instances, such privacy notices will be communicated
+        to you separately.
+      </p>
+
+      <p>
+        This Privacy Notice explains what personal data are processed
+        about you; why we are processing your personal data and for which
+        purposes; for how long we hold your personal data for; how to
+        access and update your personal data, as well as the options you
+        have regarding your personal data and where to go for further
+        information.
+      </p>
+
+      <p class="special-notice">
+        Special Notice - if you are under 21 years old.
+        Processing children’s personal data
+      </p>
+
+      <p>
+        Except in those cases where Shell organizes educational events
+        specifically designed for children, we do not intentionally collect
+        personal data of individuals under 21 years old. If you are under
+        21 years old (or a different age to reflect local legal requirement
+        as communicated on the Shell website in your location) please do
+        not send us your personal data for example, your name, address and
+        email address. If you wish to contact Shell in a way which requires
+        you to submit your personal data (such as for education or
+        innovation events) please get your parent or guardian to do so
+        on your behalf.
+      </p>
+
+      <h3>
+        What personal data do we process about you? Collection of information
+      </h3>
+
+      <p>
+        We collect information, including personal data about you,
+        as a Shell customer, user of Shell Apps and/or visitor to a
+        Shell Website or Shell administered social media page
+        (‘Shell Social Media Page’). This information may be either:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Information that you provide to us</strong> -
+          when creating a Shell account profile, we will ask for your name,
+          e-mail address and gender (so that we can address you properly
+          but you do not have to provide us with this information), your
+          contact preferences and information necessary for answering any
+          security questions. If you decide to become a member of a Shell
+          Loyalty Programme, a user of Shell Apps, Shell Drive services or
+          our mobile payments, we may ask you to provide further personal
+          data necessary for the performance of such services and/or
+          authentication such as type of vehicle, driver pattern, date of
+          birth (if collected), communications preferences and mobile
+          number;
+        </li>
+        <li>
+          <strong>Information that we obtain through your use of Shell services</strong>
+          - we will also collect information about how and where you use or
+          purchase Shell services and products. Such information may include
+          electronic device information, IP addresses, log information,
+          browser type and preferences, location information, online
+          identifiers to enable ‘cookies’ and similar technologies.
+          Your purchase history includes data regarding (i) specific products
+          you buy, (ii) the total amount of your purchases per transaction,
+          (iii) the time and place of the purchases you make and (iv) the
+          payment method you use, including payment methods embedded in the
+          Shell Apps (such as mobile payment option);
+        </li>
+        <li>
+          <strong>If you are a member of a Shell Loyalty Programme</strong> -
+          we will collect information about your participation in these
+          programs; this includes data regarding (i) the type and description
+          of the award you have chosen, (ii) the awards you have chosen,
+          (iii) the amount of points you have redeemed, (iv) the frequency
+          and time of redemption of your points and (v) the delivery method
+          used to provide you with your award (if any). If you are a user of
+          Shell Drive we will collect your recorded journeys, including your
+          vehicle co-ordinates, speed and acceleration, comparing this
+          against other users (if you have consented to the collection of
+          such information, including your location);
+        </li>
+        <li>
+          <strong>Information gathered through external sources</strong> -
+          in order to ensure we have the most up to date information about
+          you to provide you with better products and increasingly tailored
+          services, we will combine information that we hold about you,
+          with additional information which is publicly available or
+          obtained through authorised third parties (such as Experian or
+          Acxiom). This includes information about your shopping habits
+          and related products or services that you may use, such as the
+          number of household cars that you possess or the types of cars
+          that you are interested in; or
+        </li>
+        <li>
+          <strong>Information gathered through social media pages</strong> -
+          When you communicate with us through a Shell Social Media Page
+          (for example, when you comment on, share or react to a post,
+          upload media, send a personal message or subscribe to a Shell
+          Social Media Page), we may receive personal data about you such
+          as your user name, profile picture, hometown, email address and
+          gender. We will use any personal data received from social media
+          in accordance with this Privacy Notice.
+        </li>
+      </ul>
+
+      <h3>
+        View of the customer
+      </h3>
+
+      <p>
+        With the aim of ensuring you have a seamless experience with the
+        Shell group, and depending upon the nature of your engagement with
+        Shell, we combine information gathered from the sources referred
+        to above to create a personal profile of you. This enables you to
+        interact with different Shell companies more easily and ensures we
+        have the most up to date information about you in order to better
+        develop services and products and to tailor offers relevant to your
+        specific interests.
+      </p>
+
+      <p>
+        Please note however, you have the ability to control how Shell uses
+        this information. You can opt out of having your personal data
+        combined in this way - Please see the section below
+        ‘Your rights in relation to your personal data’.
+      </p>
+
+      <h3>
+        Why do we process your personal data?
+      </h3>
+
+      <p>
+        Your personal data covered by this Privacy Notice are only processed:
+      </p>
+
+      <ul>
+        <li>with your explicit consent;</li>
+        <li>where it is necessary to conclude a transaction with you (such as payment information);</li>
+        <li>where it is necessary for the purposes of the legitimate interests pursued by the relevant Shell company/companies, except where such interests are overridden by your interests or fundamental rights and freedoms; or</li>
+        <li>where it is necessary for Shell to comply with a legal obligation.</li>
+      </ul>
+
+      <p>
+        Where the processing is based on consent, you have the right to
+        withdraw your consent at any time. This will not affect the validity
+        of the processing prior to the withdrawal of consent.
+      </p>
+
+      <h3>
+        What are the consequences of not providing your personal data?
+      </h3>
+
+      <p>
+        Where you choose not to provide us with information set out above
+        for the purposes of using a Shell App or participating in a Shell
+        Loyalty Programme the only consequence is that it will affect your
+        ability to fully interact with the Shell App and/or to participate
+        in the Shell Loyalty Programme.
+      </p>
+
+      <h3>
+        Who is responsible for any personal data collected?
+      </h3>
+
+      <p>
+        Shell Lubricants Egypt, whose address is Business View,
+        79 South Teseen Street, New Cairo, Egypt, will be responsible
+        for processing your personal data, either solely or jointly with
+        its affiliates within the Shell group of companies.
+      </p>
+
+      <h3>
+        For what purposes do we process your personal data?
+      </h3>
+
+      <p>We process your personal data for the purposes of:</p>
+
+      <ul>
+        <li>providing our products and delivering our services to you;</li>
+        <li>managing relationships and marketing such as maintaining and promoting contact with you;</li>
+        <li>account management including account verification (that is, ensuring that only you or someone you have authorized can access your account and information);</li>
+        <li>customer service and development of our products and services;</li>
+        <li>performance of and analysis of market surveys and marketing strategies;</li>
+        <li>promotions and contests offered to Shell customers, including offering you digital rewards to recognise you as a valued customer; or</li>
+        <li>detecting or preventing fraud if you use a mobile payment function to purchase Shell products (if available in your market).</li>
+      </ul>
+
+      <p>We may also process your personal data for a secondary purpose where it is closely related, such as:</p>
+
+      <ul>
+        <li>storing, deleting or anonymising your personal data;</li>
+        <li>audits, investigations, dispute resolution or insurance purposes, litigation or defence of claims;</li>
+        <li>statistical, historical or scientific research; or</li>
+        <li>legal and/or regulatory compliance.</li>
+      </ul>
+
+      <h3>
+        Communication and marketing - your choices
+      </h3>
+
+      <p>
+        If you have consented to receive communications from Shell (or if
+        you have previously purchased goods/and or services from us and
+        permitted by local law), you may receive offers that are tailored
+        towards your preferences based on the information gathered about
+        you from the various sources described above in order to provide
+        you with better products and increasingly tailored services.
+      </p>
+
+      <p>
+        We may send you service updates and notifications without your
+        advance consent only where such updates and/or notifications are
+        necessary for the proper functioning of the Shell Apps or other
+        services that you use.
+      </p>
+
+      <p>
+        You may receive pertinent offers and communications by different
+        channels and you may update your subscription preferences via your
+        personal profile settings anytime or use the unsubscribe
+        functionality for the different digital channels.
+      </p>
+
+      <h3>
+        Transaction security and preventing, detecting and investigating fraud
+      </h3>
+
+      <p>
+        When you use a mobile payment application to purchase Shell products
+        (if available in your market), you may be asked to provide additional
+        personal details to complete the transaction. We may use the personal
+        data you provide to prevent, detect and investigate fraud and to
+        enforce the terms and conditions of the mobile payment application.
+      </p>
+
+      <p>
+        We may share some information with the service providers involved
+        in mobile payments (such as PayPal), including but not limited to
+        your IP address, device ID or unique identifier, loyalty card number
+        for the purposes detailed above as well as for the purposes of
+        collecting points, device type, geo-location information, connection
+        information (for e.g. wi-fi) and mobile network information.
+      </p>
+
+      <h3>
+        Your rights in relation to your personal data
+      </h3>
+
+      <p>We aim to keep our information as accurate as possible. You can request:</p>
+
+      <ul>
+        <li>access to your personal data;</li>
+        <li>correction or deletion of your personal data (but only where it is no longer required for a legitimate business purpose such as completing a retail transaction);</li>
+        <li>that you no longer receive marketing communications;</li>
+        <li>that the processing of your personal data is restricted;</li>
+        <li>combining of your personal data from different sources to create a personal profile no longer takes place; and/or</li>
+        <li>that you receive personal data that you have provided to Shell, in a structured, digital form to be transmitted to another party, if this is technically feasible.</li>
+      </ul>
+
+      <p>
+        To make any of these requests please go to your Shell account
+        profile or please contact us at
+        <a href="mailto:SITI-MLM-Support@shell.com">
+          SITI-MLM-Support@shell.com
+        </a>
+        in this respect.
+      </p>
+
+      <h3>
+        Who can you contact if you have a query, concern or complaint
+        about your personal data?
+      </h3>
+
+      <p>
+        If you have any issues, queries or complaints regarding the
+        processing of your personal data, please contact us at
+        <a href="mailto:SITI-MLM-Support@shell.com">
+          SITI-MLM-Support@shell.com
+        </a>
+        and
+        <a href="mailto:Walaa.salem@shell.com">
+          Walaa.salem@shell.com
+        </a>
+        for further information or for submitting such requests.
+      </p>
+
+      <p>
+        You may also contact the Shell Group Chief Privacy Office at
+        Shell International B.V. The Hague, The Netherlands -
+        Trade Register No. 27155369 Correspondence: PO Box 162,
+        2501 AN, The Hague, at
+        <a href="mailto:privacy-office-SI@shell.com">
+          privacy-office-SI@shell.com
+        </a>.
+      </p>
+
+      <p>
+        If you are unsatisfied with the handling of your personal data by
+        Shell, then you have the right to lodge a complaint to the Dutch
+        Data Protection Authority whose address is Autoriteit Persoonsgegevens
+        PO Box 93374 2509 AJ The Hague, The Netherlands. Please visit
+        <a href="https://autoriteitpersoonsgegevens.nl/en" target="_blank">
+          https://autoriteitpersoonsgegevens.nl/en
+        </a>
+        for more information.
+      </p>
+
+      <h3>
+        Cookies and similar technologies
+      </h3>
+
+      <p>
+        Shell uses cookies and similar technologies that collect and store
+        information when you visit a Shell Website or use a Shell App.
+        This is to enable Shell to identify your internet browser and
+        collect data on your use of our website, which pages you visit,
+        the duration of your visits and identify these when you return
+        so that we improve your experience when visiting our website(s).
+        You can control and manage your cookies preferences by adjusting
+        your browser settings or using the Shell cookies preference tool
+        on Shell Websites – for more information, please refer to the
+        Shell Cookie Policy at
+        <a href="https://www.shell.ae/en_ae/cookie-policy.html" target="_blank">
+          https://www.shell.ae/en_ae/cookie-policy.html
+        </a>.
+      </p>
+
+      <h3>
+        Security of your personal data
+      </h3>
+
+      <p>
+        We have implemented technology and policies with the objective of
+        protecting your privacy from unauthorised access and improper use.
+        In particular, we may use encryption for some of our services, we
+        apply authentication and verification process for access to Shell
+        services and we regularly test, assess and evaluate the effectiveness
+        of our security measures.
+      </p>
+
+      <h3>
+        Who will we share your personal data with?
+      </h3>
+
+      <p>
+        Your personal data are exclusively processed for the purposes
+        referred to above and will only be shared on a strict need to
+        know basis with:
+      </p>
+
+      <ul>
+        <li>Other companies within the Shell group of companies, including to those which may be located outside of your location;</li>
+        <li>With your consent, authorized third party companies in co-operation with Shell that may products and/or services to users of Shell Apps and Shell Loyalty Programmes;</li>
+        <li>Authorized service providers involved in mobile payments (such as PayPal, Apple Wallet or Android Pay);</li>
+        <li>Authorised agents, licensees, service providers, external auditors and/or subcontractors of Shell;</li>
+        <li>A competent public authority, government, regulatory, supervisory, investigative or fiscal agency where it is necessary to comply with a legal or regulatory obligation to which the relevant Shell company/companies is subject to or as permitted by applicable law; or</li>
+        <li>Any person to whom Shell proposes to transfer any of its rights and/or duties.</li>
+      </ul>
+
+      <h3>
+        Transfers of your personal data to other countries
+      </h3>
+
+      <p>
+        Where your personal data have been transferred to companies within
+        the Shell group and/or to authorized third parties located outside
+        of your country we take organizational, contractual and legal
+        measures to ensure that your personal data are exclusively processed
+        for the purposes mentioned above and that adequate levels of
+        protection have been implemented to safeguard your personal data.
+        These measures include Binding Corporate Rules for transfers among
+        the Shell group and for Shell companies in the European Union,
+        European Commission approved transfer mechanisms for transfers to
+        third parties as well as any additional local legal requirements.
+        You can find a copy of Shell Binding Corporate Rules at
+        <a href="https://www.shell.ae/en_ae/privacy.html" target="_blank">
+          https://www.shell.ae/en_ae/privacy.html
+        </a>
+        or by contacting
+        <a href="mailto:privacy-office-SI@shell.com">
+          privacy-office-SI@shell.com
+        </a>.
+      </p>
+
+      <h3>
+        Communicating with Shell through social media
+      </h3>
+
+      <p>
+        If you choose to interact with Shell through social media on a
+        Shell administered social media page (‘Shell Social Media Page’)
+        such as Facebook, Instagram, Twitter or LinkedIn, your personal
+        data (such as your name, your profile picture and the fact that
+        you are interested in Shell) will be visible to all visitors of
+        your personal webpage depending on your privacy settings on the
+        relevant social media platform, and will also be visible to Shell.
+        You can delete any information that you share on these sites at
+        any time through your relevant social media platform’s account.
+        Shell does not track your activity across the different social
+        media sites that you use. If you send a message to Shell via any
+        messenger service on a social media platform, these messages are
+        held for no longer than one month after receipt. Please contact
+        Shell if you wish to make a request that you are unable to action
+        yourself and which relates to a Shell Social Media Page - see the
+        section below ‘Your rights in relation to your personal data’.
+      </p>
+
+      <p>
+        Additionally and to the extent Shell is jointly responsible with
+        a social media platform of a Shell Social Media Page, Shell will
+        have access through the social media platform to aggregated data
+        providing statistics and insights that help to understand the types
+        of actions you take on Shell Social Media Pages. For more
+        information on how your personal data are processed on those
+        social media platforms, including any targeted advertising that
+        you may receive, please refer to your privacy settings accessible
+        through your relevant social media platform’s account.
+      </p>
+
+      <h3>
+        How long do we hold your personal data for?
+      </h3>
+
+      <p>
+        Personal data processed by Shell in line with this Privacy Notice
+        will be deleted or rendered anonymous (such that it will no longer
+        be possible to identify you);
+      </p>
+
+      <ul>
+        <li>every 5 years where you remain a customer during this period;</li>
+        <li>without undue delay upon you requesting that your Shell account profile is deleted or to discontinue your participation in a Shell Loyalty Programme; or</li>
+        <li>after 3 years for all subscribed services from our last interaction with you (that is where you have not used our services for 3 years).</li>
+      </ul>
+
+      <p>
+        In relation to financial transactions (including those made through
+        a Shell App), your personal data will be held for 10 years from
+        the transaction.
+      </p>
+
+      <p>
+        In all cases information may be held for (a) a longer period of
+        time where there is a legal or regulatory reason to do so (in which
+        case it will be deleted once no longer required for the legal or
+        regulatory purpose) or (b) a shorter period where the individual
+        objects to the processing of their personal data and there is no
+        longer a legitimate business purpose to retain it.
+      </p>
+
+      <h3>
+        Changes to this Privacy Notice
+      </h3>
+
+      <p>
+        This Privacy Notice may be changed over time. You are advised to
+        regularly review this Privacy Notice for possible changes. This
+        Privacy Notice was last updated in October 2023.
+      </p>
+
+    `,
+
+    terms_html: `
+
+      <h2>
+        SHELL ADVANTAGE REWARDS PROGRAM (“SHARE PROGRAM”) GENERAL TERMS AND CONDITIONS
+      </h2>
+
+      <p>
+        <strong>1.</strong>
+        The Shell Advantage Rewards Program (“SHARE Program”) organized by
+        Shell Lubricants Egypt, whose address is Business View,
+        79 South Teseen Street, New Cairo, Egypt, (referred to as “Shell”)
+        is made available to you, at your option, subject to the SHARE Program
+        General Terms and Conditions as stated below.
+      </p>
+
+      <p>
+        <strong>2.</strong>
+        Without limitation, registering and signing up for the SHARE Program
+        with the relevant SHARE Profile, accessing the SHARE Program Website
+        and/or downloading/using the SHARE Mobile Application shall signify
+        your decision to “OPT-IN” and accept the SHARE Program General Terms
+        and Conditions, the SHARE Program Privacy Policy and the SHARE Program
+        Benefits Terms and Conditions (collectively referred to as
+        “SHARE Program Terms and Conditions”).
+      </p>
+
+      <p>
+        <strong>3.</strong>
+        These SHARE Program Terms and Conditions will prevail in the event
+        of any conflict or inconsistency with any other communications sent
+        to you by us, including advertising or promotional materials.
+        Prize redemption instructions are deemed to form part of the SHARE
+        Program Terms and Conditions and by entering this Promotion all SHARE
+        Participants will be deemed to have accepted, and shall be bound by,
+        the Terms and Conditions. This version of the SHARE Program Terms and
+        Conditions applies to SHARE Participants (defined below) in the Arab
+        Republic of Egypt.
+      </p>
+
+      <p>
+        <strong>4.</strong>
+        Participation in the SHARE Program is at your absolute option and risk,
+        and in no event shall Shell be liable for any loss or damages including
+        without limitations, loss of income, profits or goodwill, direct or
+        indirect, incidental, consequential, exemplary, punitive or special
+        damages of any party including third parties howsoever arising whether
+        in contract, tort, negligence or otherwise, in connection with the SHARE
+        Program, even if Shell has been advised of the possibility of such damages
+        in advance, and all such damages are expressly excluded.
+      </p>
+
+      <p>
+        <strong>5.</strong>
+        The SHARE Program is open only to the following categories of persons
+        in the Arab Republic of Egypt who shall be collectively referred to as
+        eligible SHARE Participants:
+      </p>
+
+      <ol type="a">
+        <li>
+          all participating Shell B2B and B2C Distributors;
+        </li>
+
+        <li>
+          all IWS; Shell Branded IWS and Shell Branded Container Customers
+          who buy selected genuine Shell Lubricants products by Shell;
+        </li>
+
+        <li>
+          Participating Agri customers who buy selected genuine Shell products
+          from Shell participating Shell Distributors.
+        </li>
+      </ol>
+
+      <p>
+        <strong>6.</strong>
+        SHARE Participants who are corporations, partnerships, enterprises and
+        sole proprietors must be lawfully incorporated in accordance with the
+        Egyptian laws.
+      </p>
+
+      <p>
+        <strong>7.</strong>
+        SHARE Participants, who are individuals, must not be less than
+        21 years old at the time of registration and sign-up for the SHARE Program.
+      </p>
+
+      <p>
+        <strong>8.</strong>
+        To participate in the SHARE Program and enjoy the SHARE Benefits under
+        the SHARE Program Benefits Terms and Conditions, eligible SHARE
+        Participants must:
+      </p>
+
+      <ol type="a">
+        <li>
+          successfully register themselves under the relevant SHARE Profile
+          via the SHARE Program Website or SHARE Program Mobile Application
+          using an Egyptian mobile phone number; and
+        </li>
+
+        <li>
+          fulfil the relevant stated criteria to enjoy the corresponding
+          relevant stated SHARE Benefit as stated in the SHARE Program
+          Benefits Terms and Conditions.
+        </li>
+      </ol>
+
+      <p>
+        <strong>9.</strong>
+        By registering and signing up for the SHARE Program with the relevant
+        SHARE Profile, accessing the SHARE Program Website and/or downloading/
+        using the SHARE Mobile Application, the SHARE Participants expressly
+        agree and consent to participate in the SHARE Program and be bound by
+        the SHARE Program Terms and Conditions including Shell Privacy notice
+        for Shell APP users and to be bound by all Shell’s decisions in relation
+        to the SHARE Program.
+      </p>
+
+      <p>
+        <strong>10.</strong>
+        All Shell’s decisions on all matters including but not limited to the
+        eligibility of the SHARE Participants, the mechanics for the SHARE
+        Benefits or in the event of any dispute shall be final and binding
+        and no correspondence or appeals shall be entertained.
+      </p>
+
+      <p>
+        <strong>11.</strong>
+        By taking part in this SHARE Program, SHARE Participants hereby warrant
+        that all information submitted to Shell is true, current and complete.
+      </p>
+
+      <p>
+        <strong>12.</strong>
+        Shell may decline to award a prize or benefit in terms of the SHARE
+        Program if there is a reasonable suspicion of any irregularities or
+        fraudulent activities.
+      </p>
+
+      <p>
+        <strong>13.</strong>
+        As far as the law allows, all warranties and representations in relation
+        to the SHARE Program which are not set out in these SHARE Program Terms
+        and Conditions (whether express, implied or tacit) are hereby excluded.
+      </p>
+
+      <p>
+        <strong>14.</strong>
+        Shell reserves the right to cancel, terminate or suspend the SHARE
+        Program with or without any prior notice. For the avoidance of doubt,
+        cancellation, termination or suspension by Shell of the SHARE Program
+        shall not entitle any party to any claim or compensation against Shell
+        for any and all losses or damage suffered or incurred by any party as
+        a direct or indirect result of the act of cancellation, termination
+        or suspension.
+      </p>
+
+      <p>
+        <strong>15.</strong>
+        To the maximum extent permitted by law, Shell shall only be responsible
+        for those costs which these SHARE Program Terms and Conditions expressly
+        say that Shell will pay. All SHARE Participants shall be personally
+        responsible for all taxes, rates, government fees or any other charges
+        that may be levied against them under applicable laws, if any, in relation
+        to the SHARE Program.
+      </p>
+
+      <p>
+        <strong>16.</strong>
+        To the maximum extent permitted by law, Shell, its associated companies
+        (directors, officers and employees), agents and suppliers, shall not be
+        responsible for a SHARE Participant's failure to access the SHARE Program
+        for any reason whatsoever including, by way of example only, as a
+        consequence of communications or network failures.
+      </p>
+
+      <p>
+        <strong>17.</strong>
+        No responsibility will be accepted by Shell, its associated companies
+        (directors, officers and employees), agents and suppliers, for any prizes
+        or benefits which are lost, delayed, corrupted, damaged, misdirected or
+        incomplete or cannot be redeemed for any technical reason, delivery or
+        other reasons.
+      </p>
+
+      <p>
+        <strong>18.</strong>
+        All SHARE Participants shall indemnify Shell, its associated companies
+        (directors, officers and employees), agents and suppliers, against any
+        claims for any loss or damages, whether direct, indirect, consequential
+        or otherwise, arising from any cause whatsoever connected to their
+        participation in this SHARE Program and/or any receipt of and/or use
+        of a prize.
+      </p>
+
+      <p>
+        <strong>19.</strong>
+        These SHARE Program Terms and Conditions shall be governed by the laws
+        of Egypt.
+      </p>
+
+      <p>
+        <strong>20.</strong>
+        If any provision of these SHARE Program Terms and Conditions is found
+        to be invalid or unenforceable by any court of competent jurisdiction,
+        then that provision shall be severed from these SHARE Program Terms and
+        Conditions and shall not affect the validity or enforceability of any
+        remaining provisions.
+      </p>
+
+      <p>
+        <strong>21.</strong>
+        Shell reserves the right at its absolute discretion to amend, delete
+        or add to any of the SHARE Program Terms and Conditions from time to
+        time without prior notice.
+      </p>
+
+      <p>
+        <strong>22.</strong>
+        The SHARE Program Terms and Conditions, as the same may be amended from
+        time to time, shall prevail over any provisions or representations
+        contained in any other promotional material advertising the SHARE Program.
+      </p>
+
+    `
+
+  },
+
+  ar: {
+
+    check_product: "التحقق من صحة المنتج",
+
+    product_verification: "التحقق من المنتج",
+
+    product_verification_heading: "التحقق من المنتج",
+
+    connect_with_us: "Connect with us",
+
+    terms: "Terms & Conditions",
+
+    privacy: "Privacy Policy",
+
+    cookie: "Cookie Policy",
+
+    modify_cookies: "Modify Cookie Preferences",
+
+    help_title: "هل تحتاج إلى مساعدة في العثور على رمز المنتج؟",
+
+    help_question: "؟",
+
+    help_button: "اضغط هنا لمعرفة المزيد",
+
+    required_fields: "حقول مطلوبة",
+
+    product_code_label: "رمز المنتج؟",
+
+    product_code_placeholder: "أدخل الرمز هنا",
+
+    clear_button: "مسح",
+
+    register_button: "سجل",
+
+    invalid_code: "كود غير صحيح، بالرجاء الرجوع للتاجر",
+
+    privacy_title: "سياسة الخصوصية",
+
+    cookie_title: "سياسة ملفات تعريف الارتباط",
+
+    terms_title: "الشروط والأحكام",
+
+    back_to_verification: "‹ العودة إلى التحقق من المنتج",
+
+    privacy_html: `
+
+      <h3>
+        إشعار - السائقون، عملاء الولاء أو الطاقة،
+        مستخدمو تطبيق شل وزوار مواقعنا الإلكترونية
+      </h3>
+
+      <h4>
+        ماذا تغطي سياسة الخصوصية هذه؟
+      </h4>
+
+      <p>
+        توفر سياسة الخصوصية هذه معلومات حول معالجة بياناتك الشخصية
+        عند استخدام الخدمات و/أو شراء المنتجات من أو نيابة عن شركة
+        أو شركات تابعة لمجموعة شركات شل ("شل" أو "نحن")، سواء كنت:
+      </p>
+
+      <p>
+        (i) عميل تجزئة، طاقة أو تنقل كهربائي؛<br>
+        (ii) عضو في برنامج ولاء شل مثل Club Smart،
+        Shell Go +، برنامج SHARE أو ما يعادله في موقعك؛<br>
+        (iii) زائر لموقع شل الإلكتروني؛ و/أو<br>
+        (iv) مستخدم لتطبيق شل أو تطبيقات شل الأخرى.
+      </p>
+
+      <p>
+        بالإضافة إلى سياسة الخصوصية هذه، قد تحتوي إشعارات الخصوصية
+        المخصصة والبيانات التكميلية على مزيد من المعلومات حول كيفية
+        معالجة شل لبياناتك الشخصية. قد يكون هذا هو الحال على سبيل
+        المثال إذا كنت عميلاً للطاقة أو التنقل الكهربائي. في هذه
+        الحالات، سيتم إبلاغك بهذه الإشعارات بشكل منفصل.
+      </p>
+
+      <p>
+        تشرح سياسة الخصوصية هذه البيانات الشخصية التي تتم معالجتها عنك؛
+        ولماذا نقوم بمعالجة بياناتك الشخصية ولأي أغراض؛ ومدة احتفاظنا
+        ببياناتك الشخصية؛ وكيفية الوصول إلى بياناتك الشخصية وتحديثها،
+        بالإضافة إلى الخيارات المتاحة لك بشأن بياناتك الشخصية وأين
+        يمكنك الحصول على مزيد من المعلومات.
+      </p>
+
+      <p class="special-notice">
+        إشعار خاص - إذا كنت تحت 21 عامًا. معالجة البيانات الشخصية للأطفال
+      </p>
+
+      <p>
+        باستثناء الحالات التي تنظم فيها شل فعاليات تعليمية مصممة خصيصًا
+        للأطفال، فإننا لا نجمع عمدًا البيانات الشخصية للأفراد الذين تقل
+        أعمارهم عن 21 عامًا. إذا كنت دون 21 عامًا (أو سنًا مختلفًا
+        يعكس المتطلبات القانونية المحلية كما هو موضح على موقع شل في
+        منطقتك)، فيرجى عدم إرسال بياناتك الشخصية إلينا، على سبيل المثال
+        اسمك وعنوانك وبريدك الإلكتروني. إذا كنت ترغب في الاتصال بشل
+        بطريقة تتطلب منك تقديم بياناتك الشخصية (مثل الأحداث التعليمية
+        أو الابتكارية)، فيرجى أن يقوم والدك أو ولي أمرك بذلك نيابة عنك.
+      </p>
+
+      <h3>
+        ما هي البيانات الشخصية التي نعالجها عنك؟ جمع المعلومات
+      </h3>
+
+      <p>
+        نجمع المعلومات، بما في ذلك البيانات الشخصية عنك، كعميل لشل،
+        ومستخدم لتطبيقات شل و/أو زائر لموقع شل أو صفحة وسائل التواصل
+        الاجتماعي التي تديرها شل ("صفحة شل على وسائل التواصل الاجتماعي").
+        قد تكون هذه المعلومات إما:
+      </p>
+
+      <ul>
+        <li>
+          <strong>المعلومات التي تقدمها لنا</strong> -
+          عند إنشاء ملف تعريف لحساب شل، سنطلب اسمك وعنوان بريدك الإلكتروني
+          وجنسك (حتى نتمكن من مخاطبتك بشكل مناسب ولكن ليس من الضروري
+          تزويدنا بهذه المعلومات)، وتفضيلات الاتصال الخاصة بك والمعلومات
+          اللازمة للإجابة على أي أسئلة أمنية. إذا قررت أن تصبح عضوًا في
+          برنامج ولاء شل، أو مستخدمًا لتطبيقات شل، أو خدمات شل درايف أو
+          خدمات الدفع عبر الهاتف المحمول، فقد نطلب منك تقديم بيانات شخصية
+          إضافية ضرورية لأداء هذه الخدمات و/أو المصادقة مثل نوع المركبة،
+          نمط السائق، تاريخ الميلاد (إذا تم جمعه)، تفضيلات الاتصال ورقم
+          الهاتف المحمول؛
+        </li>
+        <li>
+          <strong>المعلومات التي نحصل عليها من خلال استخدامك لخدمات شل</strong>
+          - سنقوم أيضًا بجمع معلومات حول كيف وأين تستخدم أو تشتري خدمات
+          ومنتجات شل. قد تتضمن هذه المعلومات معلومات جهاز إلكتروني، عناوين
+          IP، معلومات السجل، نوع المتصفح والتفضيلات، معلومات الموقع، معرفات
+          عبر الإنترنت لتمكين "ملفات تعريف الارتباط" والتقنيات المماثلة.
+          يشمل سجل مشترياتك بيانات تتعلق (i) بالمنتجات المحددة التي تشتريها،
+          (ii) المبلغ الإجمالي لمشترياتك لكل معاملة، (iii) وقت ومكان
+          المشتريات التي تقوم بها و (iv) طريقة الدفع التي تستخدمها، بما في
+          ذلك طرق الدفع المضمنة في تطبيقات شل (مثل خيار الدفع عبر الهاتف
+          المحمول)؛
+        </li>
+        <li>
+          <strong>إذا كنت عضوًا في برنامج ولاء شل</strong> -
+          سنقوم بجمع معلومات حول مشاركتك في هذه البرامج؛ تشمل هذه البيانات
+          (i) نوع الجائزة التي اخترتها ووصفها، (ii) الجوائز التي اخترتها،
+          (iii) عدد النقاط التي استرددتها، (iv) تكرار ووقت استرداد نقاطك و
+          (v) طريقة التسليم المستخدمة لتزويدك بجائزتك (إن وجدت). إذا كنت
+          مستخدمًا لخدمة شل درايف، فسنجمع رحلاتك المسجلة، بما في ذلك إحداثيات
+          مركبتك وسرعتها وتسارعها، ومقارنة ذلك بالمستخدمين الآخرين (إذا كنت
+          قد وافقت على جمع هذه المعلومات بما في ذلك موقعك)؛
+        </li>
+        <li>
+          <strong>المعلومات التي تم جمعها من خلال مصادر خارجية</strong> -
+          للتأكد من أن لدينا أحدث المعلومات عنك لتزويدك بمنتجات أفضل وخدمات
+          أكثر تخصيصًا، سنقوم بدمج المعلومات التي لدينا عنك مع معلومات إضافية
+          متاحة للجمهور أو تم الحصول عليها من خلال أطراف ثالثة مفوضة (مثل
+          Experian أو Acxiom). يتضمن ذلك معلومات حول عادات التسوق الخاصة بك
+          والمنتجات أو الخدمات ذات الصلة التي قد تستخدمها، مثل عدد سيارات
+          الأسرة التي تمتلكها أو أنواع السيارات التي تهتم بها؛ أو
+        </li>
+        <li>
+          <strong>المعلومات التي تم جمعها من خلال صفحات التواصل الاجتماعي</strong>
+          - عند التواصل معنا من خلال صفحة شل على وسائل التواصل الاجتماعي
+          (على سبيل المثال، عند التعليق أو المشاركة أو التفاعل مع منشور،
+          أو تحميل وسائط، أو إرسال رسالة شخصية، أو الاشتراك في صفحة شل على
+          وسائل التواصل الاجتماعي)، قد نتلقى بيانات شخصية عنك مثل اسم
+          المستخدم الخاص بك، صورة الملف الشخصي، مسقط رأسك، عنوان البريد
+          الإلكتروني وجنسك. سنستخدم أي بيانات شخصية نتلقاها من وسائل
+          التواصل الاجتماعي وفقًا لسياسة الخصوصية هذه.
+        </li>
+      </ul>
+
+      <h3>
+        رؤية العميل
+      </h3>
+
+      <p>
+        بهدف ضمان تجربة سلسة لك مع مجموعة شل، واعتمادًا على طبيعة تعاملك
+        مع شل، نقوم بدمج المعلومات التي تم جمعها من المصادر المشار إليها
+        أعلاه لإنشاء ملف تعريف شخصي لك. هذا يتيح لك التفاعل مع شركات شل
+        المختلفة بسهولة أكبر ويضمن أن لدينا أحدث المعلومات عنك من أجل
+        تطوير الخدمات والمنتجات بشكل أفضل وتخصيص العروض ذات الصلة
+        باهتماماتك الخاصة.
+      </p>
+
+      <p>
+        يرجى ملاحظة أن لديك القدرة على التحكم في كيفية استخدام شل لهذه
+        المعلومات. يمكنك إلغاء الاشتراك في دمج بياناتك الشخصية بهذه
+        الطريقة - يرجى الاطلاع على القسم أدناه "حقوقك فيما يتعلق ببياناتك
+        الشخصية".
+      </p>
+
+      <h3>
+        لماذا نعالج بياناتك الشخصية؟
+      </h3>
+
+      <p>
+        لا تتم معالجة بياناتك الشخصية المشمولة بسياسة الخصوصية هذه إلا:
+      </p>
+
+      <ul>
+        <li>بموافقتك الصريحة؛</li>
+        <li>عندما يكون ذلك ضروريًا لإتمام معاملة معك (مثل معلومات الدفع)؛</li>
+        <li>عندما يكون ذلك ضروريًا لأغراض المصالح المشروعة التي تسعى إليها شركة/شركات شل ذات الصلة، باستثناء الحالات التي تتعارض فيها هذه المصالح مع مصالحك أو حقوقك وحرياتك الأساسية؛ أو</li>
+        <li>عندما يكون ذلك ضروريًا لامتثال شل لالتزام قانوني.</li>
+      </ul>
+
+      <p>
+        حيث تعتمد المعالجة على الموافقة، يحق لك سحب موافقتك في أي وقت.
+        لن يؤثر ذلك على صحة المعالجة قبل سحب الموافقة.
+      </p>
+
+      <h3>
+        ما هي عواقب عدم تزويدك ببياناتك الشخصية؟
+      </h3>
+
+      <p>
+        عندما تختار عدم تزويدنا بالمعلومات المذكورة أعلاه لأغراض استخدام
+        تطبيق شل أو المشاركة في برنامج ولاء شل، فإن النتيجة الوحيدة هي
+        أنها ستؤثر على قدرتك على التفاعل بشكل كامل مع تطبيق شل و/أو
+        المشاركة في برنامج ولاء شل.
+      </p>
+
+      <h3>
+        من المسؤول عن أي بيانات شخصية يتم جمعها؟
+      </h3>
+
+      <p>
+        شركة شل للزيوت مصر، وعنوانها Business View،
+        79 شارع التسعين الجنوبي، القاهرة الجديدة، مصر،
+        ستكون مسؤولة عن معالجة بياناتك الشخصية، سواء بشكل منفرد أو بالاشتراك
+        مع الشركات التابعة لها ضمن مجموعة شركات شل.
+      </p>
+
+      <h3>
+        لأي أغراض نعالج بياناتك الشخصية؟
+      </h3>
+
+      <p>نحن نعالج بياناتك الشخصية للأغراض التالية:</p>
+
+      <ul>
+        <li>توفير منتجاتنا وتقديم خدماتنا لك؛</li>
+        <li>إدارة العلاقات والتسويق مثل الحفاظ على الاتصال بك وتعزيزه؛</li>
+        <li>إدارة الحساب بما في ذلك التحقق من الحساب (أي التأكد من أنك فقط أو شخص مفوض من قبلك يمكنه الوصول إلى حسابك ومعلوماتك)؛</li>
+        <li>خدمة العملاء وتطوير منتجاتنا وخدماتنا؛</li>
+        <li>إجراء وتحليل الدراسات الاستقصائية واستراتيجيات التسويق؛</li>
+        <li>العروض الترويجية والمسابقات المقدمة لعملاء شل، بما في ذلك تقديم مكافآت رقمية لك للاعتراف بك كعميل قيم؛ أو</li>
+        <li>الكشف عن الاحتيال أو منعه إذا كنت تستخدم وظيفة الدفع عبر الهاتف المحمول لشراء منتجات شل (إذا كانت متوفرة في السوق الخاص بك).</li>
+      </ul>
+
+      <p>
+        قد نقوم أيضًا بمعالجة بياناتك الشخصية لغرض ثانوي عندما يكون مرتبطًا
+        ارتباطًا وثيقًا، مثل:
+      </p>
+
+      <ul>
+        <li>تخزين أو حذف أو إخفاء هوية بياناتك الشخصية؛</li>
+        <li>أغراض التدقيق أو التحقيقات أو تسوية النزاعات أو التأمين، أو التقاضي أو الدفاع عن المطالبات؛</li>
+        <li>البحوث الإحصائية أو التاريخية أو العلمية؛ أو</li>
+        <li>الامتثال القانوني و/أو التنظيمي.</li>
+      </ul>
+
+      <h3>
+        الاتصال والتسويق - اختياراتك
+      </h3>
+
+      <p>
+        إذا كنت قد وافقت على تلقي اتصالات من شل (أو إذا كنت قد اشتريت
+        سابقًا سلعًا و/أو خدمات منا ويسمح بذلك القانون المحلي)، فقد تتلقى
+        عروضًا مصممة وفقًا لتفضيلاتك بناءً على المعلومات التي تم جمعها عنك
+        من المصادر المختلفة الموضحة أعلاه من أجل تزويدك بمنتجات أفضل
+        وخدمات أكثر تخصيصًا.
+      </p>
+
+      <p>
+        قد نرسل لك تحديثات الخدمة والإشعارات دون موافقتك المسبقة فقط في
+        الحالات التي تكون فيها هذه التحديثات و/أو الإشعارات ضرورية للتشغيل
+        السليم لتطبيقات شل أو الخدمات الأخرى التي تستخدمها.
+      </p>
+
+      <p>
+        قد تتلقى عروضًا واتصالات ذات صلة عبر قنوات مختلفة، ويمكنك تحديث
+        تفضيلات اشتراكك في أي وقت عبر إعدادات ملفك الشخصي أو استخدام وظيفة
+        إلغاء الاشتراك للقنوات الرقمية المختلفة.
+      </p>
+
+      <h3>
+        أمان المعاملات ومنع الاحتيال واكتشافه والتحقيق فيه
+      </h3>
+
+      <p>
+        عند استخدام تطبيق دفع عبر الهاتف المحمول لشراء منتجات شل (إذا كان
+        متاحًا في السوق الخاص بك)، قد يُطلب منك تقديم تفاصيل شخصية إضافية
+        لإكمال المعاملة. قد نستخدم البيانات الشخصية التي تقدمها لمنع
+        الاحتيال واكتشافه والتحقيق فيه ولإنفاذ شروط وأحكام تطبيق الدفع
+        عبر الهاتف المحمول.
+      </p>
+
+      <p>
+        قد نشارك بعض المعلومات مع مقدمي الخدمات المشاركين في الدفع عبر
+        الهاتف المحمول (مثل PayPal)، بما في ذلك على سبيل المثال لا الحصر
+        عنوان IP الخاص بك، ومعرف الجهاز أو المعرف الفريد، ورقم بطاقة
+        الولاء للأغراض المفصلة أعلاه وكذلك لأغراض جمع النقاط، ونوع الجهاز،
+        ومعلومات الموقع الجغرافي، ومعلومات الاتصال (مثل wi-fi) ومعلومات
+        الشبكة المحمولة.
+      </p>
+
+      <h3>
+        حقوقك فيما يتعلق ببياناتك الشخصية
+      </h3>
+
+      <p>
+        نهدف إلى الحفاظ على دقة معلوماتنا قدر الإمكان. يمكنك طلب:
+      </p>
+
+      <ul>
+        <li>الوصول إلى بياناتك الشخصية؛</li>
+        <li>تصحيح أو حذف بياناتك الشخصية (ولكن فقط عندما لا تكون مطلوبة بعد لغرض تجاري مشروع مثل إكمال معاملة بيع بالتجزئة)؛</li>
+        <li>عدم تلقي اتصالات تسويقية؛</li>
+        <li>تقييد معالجة بياناتك الشخصية؛</li>
+        <li>عدم دمج بياناتك الشخصية من مصادر مختلفة لإنشاء ملف تعريف شخصي؛ و/أو</li>
+        <li>أن تتلقى بياناتك الشخصية التي قدمتها إلى شل، في شكل منظم ورقمي ليتم نقلها إلى طرف آخر، إذا كان ذلك ممكنًا تقنيًا.</li>
+      </ul>
+
+      <p>
+        لتقديم أي من هذه الطلبات، يرجى الانتقال إلى ملف تعريف حسابك في شل
+        أو الاتصال بنا على
+        <a href="mailto:SITI-MLM-Support@shell.com">
+          SITI-MLM-Support@shell.com
+        </a>
+        في هذا الصدد.
+      </p>
+
+      <h3>
+        بمن يمكنك الاتصال إذا كان لديك استفسار أو مخاوف أو شكوى بشأن
+        بياناتك الشخصية؟
+      </h3>
+
+      <p>
+        إذا كانت لديك أي مشكلات أو استفسارات أو شكاوى بخصوص معالجة
+        بياناتك الشخصية، فيرجى الاتصال بنا على
+        <a href="mailto:SITI-MLM-Support@shell.com">
+          SITI-MLM-Support@shell.com
+        </a>
+        و
+        <a href="mailto:Walaa.salem@shell.com">
+          Walaa.salem@shell.com
+        </a>
+        للحصول على مزيد من المعلومات أو لتقديم مثل هذه الطلبات.
+      </p>
+
+      <p>
+        يمكنك أيضًا الاتصال بمكتب شل الرئيسي للخصوصية في
+        Shell International B.V. لاهاي، هولندا - السجل التجاري رقم 27155369
+        المراسلات: ص.ب. 162، 2501 أن، لاهاي، على
+        <a href="mailto:privacy-office-SI@shell.com">
+          privacy-office-SI@shell.com
+        </a>.
+      </p>
+
+      <p>
+        إذا كنت غير راضٍ عن معالجة شل لبياناتك الشخصية، فلديك الحق في
+        تقديم شكوى إلى هيئة حماية البيانات الهولندية، وعنوانها
+        Autoriteit Persoonsgegevens ص.ب. 93374 2509 أج لاهاي، هولندا.
+        يرجى زيارة
+        <a href="https://autoriteitpersoonsgegevens.nl/en" target="_blank">
+          https://autoriteitpersoonsgegevens.nl/en
+        </a>
+        لمزيد من المعلومات.
+      </p>
+
+      <h3>
+        ملفات تعريف الارتباط والتقنيات المماثلة
+      </h3>
+
+      <p>
+        تستخدم شل ملفات تعريف الارتباط والتقنيات المماثلة التي تجمع وتخزن
+        المعلومات عند زيارتك لموقع شل أو استخدام تطبيق شل. هذا لتمكين شل
+        من التعرف على متصفح الإنترنت الخاص بك وجمع البيانات حول استخدامك
+        لموقعنا، والصفحات التي تزورها، ومدة زياراتك وتحديدها عند عودتك
+        حتى نتمكن من تحسين تجربتك عند زيارة موقعنا. يمكنك التحكم وإدارة
+        تفضيلات ملفات تعريف الارتباط الخاصة بك عن طريق ضبط إعدادات المتصفح
+        الخاص بك أو استخدام أداة تفضيلات ملفات تعريف الارتباط الخاصة بشل
+        على مواقع شل – لمزيد من المعلومات، يرجى الرجوع إلى سياسة ملفات
+        تعريف الارتباط الخاصة بشل على
+        <a href="https://www.shell.ae/en_ae/cookie-policy.html" target="_blank">
+          https://www.shell.ae/en_ae/cookie-policy.html
+        </a>.
+      </p>
+
+      <h3>
+        أمان بياناتك الشخصية
+      </h3>
+
+      <p>
+        قمنا بتنفيذ التكنولوجيا والسياسات بهدف حماية خصوصيتك من الوصول غير
+        المصرح به والاستخدام غير السليم. على وجه الخصوص، قد نستخدم التشفير
+        لبعض خدماتنا، ونطبق عملية المصادقة والتحقق للوصول إلى خدمات شل،
+        ونختبر ونقيم ونقيم فعالية إجراءاتنا الأمنية بانتظام.
+      </p>
+
+      <h3>
+        مع من سنشارك بياناتك الشخصية؟
+      </h3>
+
+      <p>
+        تتم معالجة بياناتك الشخصية حصريًا للأغراض المشار إليها أعلاه،
+        ولن يتم مشاركتها إلا على أساس الحاجة إلى المعرفة مع:
+      </p>
+
+      <ul>
+        <li>الشركات الأخرى ضمن مجموعة شركات شل، بما في ذلك تلك التي قد تكون موجودة خارج موقعك؛</li>
+        <li>بموافقتك، شركات الطرف الثالث المفوضة بالتعاون مع شل التي قد تقدم منتجات و/أو خدمات لمستخدمي تطبيقات شل وبرامج ولاء شل؛</li>
+        <li>مقدمو الخدمات المعتمدون المشاركون في الدفع عبر الهاتف المحمول (مثل PayPal و Apple Wallet و Android Pay)؛</li>
+        <li>الوكلاء المعتمدون والمرخصون ومقدمو الخدمات والمدققون الخارجيون و/أو المقاولون من الباطن لشل؛</li>
+        <li>سلطة عامة مختصة أو حكومية أو تنظيمية أو إشرافية أو تحقيقية أو مالية حيث يكون ذلك ضروريًا للامتثال لالتزام قانوني أو تنظيمي تخضع له شركة/شركات شل ذات الصلة أو حسبما يسمح به القانون المعمول به؛ أو</li>
+        <li>أي شخص تعتزم شل نقل أي من حقوقها و/أو واجباتها إليه.</li>
+      </ul>
+
+      <h3>
+        نقل بياناتك الشخصية إلى دول أخرى
+      </h3>
+
+      <p>
+        حيث تم نقل بياناتك الشخصية إلى شركات داخل مجموعة شل و/أو إلى أطراف
+        ثالثة مفوضة تقع خارج بلدك، نتخذ تدابير تنظيمية وتعاقدية وقانونية
+        لضمان معالجة بياناتك الشخصية حصريًا للأغراض المذكورة أعلاه، وأنه
+        تم تنفيذ مستويات كافية من الحماية لحماية بياناتك الشخصية. تتضمن
+        هذه التدابير القواعد الملزمة للشركات لنقل البيانات بين مجموعة شل
+        ولشركات شل في الاتحاد الأوروبي، وآليات النقل المعتمدة من قبل
+        المفوضية الأوروبية لنقل البيانات إلى أطراف ثالثة، بالإضافة إلى أي
+        متطلبات قانونية محلية إضافية. يمكنك العثور على نسخة من القواعد
+        الملزمة للشركات الخاصة بشل على
+        <a href="https://www.shell.ae/en_ae/privacy.html" target="_blank">
+          https://www.shell.ae/en_ae/privacy.html
+        </a>
+        أو عن طريق الاتصال بـ
+        <a href="mailto:privacy-office-SI@shell.com">
+          privacy-office-SI@shell.com
+        </a>.
+      </p>
+
+      <h3>
+        التواصل مع شل عبر وسائل التواصل الاجتماعي
+      </h3>
+
+      <p>
+        إذا اخترت التفاعل مع شل عبر وسائل التواصل الاجتماعي على صفحة تديرها
+        شل ("صفحة شل على وسائل التواصل الاجتماعي") مثل Facebook أو Instagram
+        أو Twitter أو LinkedIn، فستكون بياناتك الشخصية (مثل اسمك وصورة ملفك
+        الشخصي وحقيقة أنك مهتم بشل) مرئية لجميع زوار صفحتك الشخصية وفقًا
+        لإعدادات الخصوصية الخاصة بك على منصة التواصل الاجتماعي ذات الصلة،
+        وستكون مرئية أيضًا لشل. يمكنك حذف أي معلومات تشاركها على هذه
+        المواقع في أي وقت من خلال حسابك على منصة التواصل الاجتماعي ذات
+        الصلة. لا تتعقب شل نشاطك عبر مواقع التواصل الاجتماعي المختلفة
+        التي تستخدمها. إذا أرسلت رسالة إلى شل عبر أي خدمة مراسلة على منصة
+        تواصل اجتماعي، يتم الاحتفاظ بهذه الرسائل لمدة لا تزيد عن شهر واحد
+        بعد الاستلام. يرجى الاتصال بشل إذا كنت ترغب في تقديم طلب لا يمكنك
+        تنفيذه بنفسك ويتعلق بصفحة شل على وسائل التواصل الاجتماعي - انظر
+        القسم أدناه "حقوقك فيما يتعلق ببياناتك الشخصية".
+      </p>
+
+      <p>
+        بالإضافة إلى ذلك، وإلى الحد الذي تكون فيه شل مسؤولة بشكل مشترك
+        مع منصة تواصل اجتماعي لصفحة شل على وسائل التواصل الاجتماعي، سيكون
+        لدى شل إمكانية الوصول عبر منصة التواصل الاجتماعي إلى البيانات
+        المجمعة التي توفر إحصائيات ورؤى تساعد في فهم أنواع الإجراءات التي
+        تتخذها على صفحات شل على وسائل التواصل الاجتماعي. لمزيد من المعلومات
+        حول كيفية معالجة بياناتك الشخصية على منصات التواصل الاجتماعي هذه،
+        بما في ذلك أي إعلانات مستهدفة قد تتلقاها، يرجى الرجوع إلى إعدادات
+        الخصوصية الخاصة بك التي يمكن الوصول إليها من خلال حسابك على منصة
+        التواصل الاجتماعي ذات الصلة.
+      </p>
+
+      <h3>
+        كم من الوقت نحتفظ ببياناتك الشخصية؟
+      </h3>
+
+      <p>
+        سيتم حذف البيانات الشخصية التي تعالجها شل وفقًا لسياسة الخصوصية
+        هذه أو جعلها مجهولة المصدر (بحيث لا يكون من الممكن بعد الآن تحديد
+        هويتك)؛
+      </p>
+
+      <ul>
+        <li>كل 5 سنوات إذا بقيت عميلاً خلال هذه الفترة؛</li>
+        <li>دون تأخير غير مبرر عند طلبك حذف ملف تعريف حسابك في شل أو إيقاف مشاركتك في برنامج ولاء شل؛ أو</li>
+        <li>بعد 3 سنوات لجميع الخدمات المشترك فيها من آخر تفاعل لنا معك (أي إذا لم تستخدم خدماتنا لمدة 3 سنوات).</li>
+      </ul>
+
+      <p>
+        فيما يتعلق بالمعاملات المالية (بما في ذلك تلك التي تتم من خلال تطبيق
+        شل)، سيتم الاحتفاظ ببياناتك الشخصية لمدة 10 سنوات من تاريخ المعاملة.
+      </p>
+
+      <p>
+        في جميع الحالات، قد يتم الاحتفاظ بالمعلومات (أ) لفترة أطول من الوقت
+        إذا كان هناك سبب قانوني أو تنظيمي للقيام بذلك (وفي هذه الحالة سيتم
+        حذفها بمجرد عدم الحاجة إليها للغرض القانوني أو التنظيمي) أو (ب) لفترة
+        أقصر إذا اعترض الفرد على معالجة بياناته الشخصية ولم يعد هناك غرض
+        تجاري مشروع للاحتفاظ بها.
+      </p>
+
+      <h3>
+        التغييرات في سياسة الخصوصية هذه
+      </h3>
+
+      <p>
+        قد يتم تغيير سياسة الخصوصية هذه بمرور الوقت. ننصحك بمراجعة سياسة
+        الخصوصية هذه بانتظام للاطلاع على التغييرات المحتملة. تم تحديث
+        سياسة الخصوصية هذه آخر مرة في أكتوبر 2023.
+      </p>
+
+    `,
+
+    terms_html: `
+
+      <h1>
+        شروط وأحكام مزايا برنامج Shell Advantage Rewards ("برنامج SHARE")
+      </h1>
+
+      <h2>
+        الشروط والأحكام العامة لبرنامج Shell Advantage Rewards ("برنامج SHARE")
+      </h2>
+
+      <p>
+        <strong>1.</strong>
+        برنامج Shell Advantage Rewards ("برنامج SHARE") الذي تنظمه
+        Shell Lubricants Egypt، وعنوانها Business View،
+        79 South Teseen Street, New Cairo, Egypt،
+        (ويشار إليها باسم "Shell") متاح لك، حسب اختيارك،
+        وفقًا للشروط والأحكام العامة لبرنامج SHARE الموضحة أدناه.
+      </p>
+
+      <p>
+        <strong>2.</strong>
+        دون تحديد، فإن التسجيل والاشتراك في برنامج SHARE باستخدام
+        ملف SHARE Profile ذي الصلة، والوصول إلى موقع برنامج SHARE
+        و/أو تنزيل/استخدام تطبيق SHARE للهاتف المحمول، يعني قرارك
+        بـ "OPT-IN" وقبول الشروط والأحكام العامة لبرنامج SHARE،
+        وسياسة الخصوصية لبرنامج SHARE، وشروط وأحكام مزايا برنامج SHARE،
+        والتي يشار إليها مجتمعة باسم "شروط وأحكام برنامج SHARE".
+      </p>
+
+      <p>
+        <strong>3.</strong>
+        تسود شروط وأحكام برنامج SHARE هذه في حالة وجود أي تعارض
+        أو عدم اتساق مع أي اتصالات أخرى يتم إرسالها إليك من جانبنا،
+        بما في ذلك المواد الإعلانية أو الترويجية. وتعتبر تعليمات
+        استرداد الجوائز جزءًا من شروط وأحكام برنامج SHARE، وبالدخول
+        في هذا العرض، يعتبر جميع المشاركين في SHARE قد قبلوا الشروط
+        والأحكام والتزموا بها. وتسري هذه النسخة من شروط وأحكام برنامج
+        SHARE على المشاركين في SHARE في جمهورية مصر العربية.
+      </p>
+
+      <p>
+        <strong>4.</strong>
+        المشاركة في برنامج SHARE تكون وفقًا لاختيارك ومسؤوليتك الكاملة،
+        ولن تكون Shell بأي حال من الأحوال مسؤولة عن أي خسارة أو أضرار،
+        بما في ذلك على سبيل المثال لا الحصر خسارة الدخل أو الأرباح أو
+        السمعة، سواء كانت مباشرة أو غير مباشرة أو عرضية أو تبعية أو
+        تأديبية أو خاصة، لأي طرف بما في ذلك الأطراف الثالثة، مهما كان
+        سبب نشوئها، سواء بموجب عقد أو ضرر أو إهمال أو غير ذلك، فيما
+        يتعلق ببرنامج SHARE، حتى لو تم إخطار Shell مسبقًا بإمكانية
+        حدوث هذه الأضرار، وجميع هذه الأضرار مستثناة صراحةً.
+      </p>
+
+      <p>
+        <strong>5.</strong>
+        برنامج SHARE مفتوح فقط للفئات التالية من الأشخاص في جمهورية
+        مصر العربية، والذين سيشار إليهم مجتمعين باسم المشاركين المؤهلين
+        في SHARE:
+      </p>
+
+      <ol type="a">
+        <li>
+          جميع موزعي Shell المشاركين من فئة B2B وB2C.
+        </li>
+
+        <li>
+          جميع IWS؛ وعملاء IWS ذوي العلامة التجارية Shell وعملاء الحاويات
+          ذوي العلامة التجارية Shell الذين يشترون منتجات زيوت Shell
+          الأصلية المختارة من Shell.
+        </li>
+
+        <li>
+          عملاء الزراعة المشاركون الذين يشترون منتجات Shell الأصلية
+          المختارة من موزعي Shell المشاركين.
+        </li>
+      </ol>
+
+      <p>
+        <strong>6.</strong>
+        يجب أن يكون المشاركون في SHARE من الشركات والشراكات والمؤسسات
+        والمالكين الفرديين مؤسسين بشكل قانوني وفقًا للقوانين المصرية.
+      </p>
+
+      <p>
+        <strong>7.</strong>
+        يجب ألا يقل عمر المشاركين في SHARE من الأفراد عن 21 عامًا
+        وقت التسجيل والاشتراك في برنامج SHARE.
+      </p>
+
+      <p>
+        <strong>8.</strong>
+        للمشاركة في برنامج SHARE والاستمتاع بمزايا SHARE بموجب
+        شروط وأحكام مزايا برنامج SHARE، يجب على المشاركين المؤهلين:
+      </p>
+
+      <ol type="a">
+        <li>
+          التسجيل بنجاح ضمن ملف SHARE Profile ذي الصلة عبر موقع برنامج
+          SHARE أو تطبيق SHARE للهاتف المحمول باستخدام رقم هاتف محمول مصري؛
+        </li>
+
+        <li>
+          استيفاء المعايير المحددة ذات الصلة للاستمتاع بمزية SHARE
+          المقابلة كما هو موضح في شروط وأحكام مزايا برنامج SHARE.
+        </li>
+      </ol>
+
+      <p>
+        <strong>9.</strong>
+        من خلال التسجيل والاشتراك في برنامج SHARE باستخدام ملف SHARE
+        Profile ذي الصلة، والوصول إلى موقع برنامج SHARE و/أو تنزيل/
+        استخدام تطبيق SHARE للهاتف المحمول، يوافق المشاركون في SHARE
+        ويوافقون صراحةً على المشاركة في برنامج SHARE والالتزام بشروط
+        وأحكام برنامج SHARE، بما في ذلك إشعار الخصوصية الخاص بـ Shell
+        لمستخدمي تطبيق Shell، والالتزام بجميع قرارات Shell المتعلقة
+        ببرنامج SHARE.
+      </p>
+
+      <p>
+        <strong>10.</strong>
+        جميع قرارات Shell في جميع المسائل، بما في ذلك على سبيل المثال
+        لا الحصر أهلية المشاركين في SHARE وآلية مزايا SHARE أو في حالة
+        وجود أي نزاع، تكون نهائية وملزمة، ولن يتم قبول أي مراسلات أو
+        استئنافات.
+      </p>
+
+      <p>
+        <strong>11.</strong>
+        بالمشاركة في برنامج SHARE، يضمن المشاركون في SHARE أن جميع
+        المعلومات المقدمة إلى Shell صحيحة وحديثة وكاملة.
+      </p>
+
+      <p>
+        <strong>12.</strong>
+        يجوز لـ Shell رفض منح جائزة أو ميزة بموجب برنامج SHARE إذا
+        كان هناك اشتباه معقول في وجود أي مخالفات أو أنشطة احتيالية.
+      </p>
+
+      <p>
+        <strong>13.</strong>
+        إلى الحد الذي يسمح به القانون، يتم استبعاد جميع الضمانات
+        والتعهدات المتعلقة ببرنامج SHARE التي لم يتم النص عليها في
+        شروط وأحكام برنامج SHARE هذه، سواء كانت صريحة أو ضمنية أو
+        مفترضة.
+      </p>
+
+      <p>
+        <strong>14.</strong>
+        تحتفظ Shell بالحق في إلغاء أو إنهاء أو تعليق برنامج SHARE
+        مع أو بدون إشعار مسبق. ولتجنب الشك، فإن إلغاء أو إنهاء أو
+        تعليق برنامج SHARE من قبل Shell لا يمنح أي طرف الحق في تقديم
+        أي مطالبة أو طلب تعويض ضد Shell عن أي خسائر أو أضرار تكبدها
+        أو تحملها أي طرف كنتيجة مباشرة أو غير مباشرة لعملية الإلغاء
+        أو الإنهاء أو التعليق.
+      </p>
+
+      <p>
+        <strong>15.</strong>
+        إلى أقصى حد يسمح به القانون، تكون Shell مسؤولة فقط عن التكاليف
+        التي تنص شروط وأحكام برنامج SHARE هذه صراحةً على أن Shell ستدفعها.
+        ويتحمل جميع المشاركين في SHARE شخصيًا مسؤولية جميع الضرائب والرسوم
+        والرسوم الحكومية أو أي رسوم أخرى قد تفرض عليهم بموجب القوانين
+        المعمول بها، إن وجدت، فيما يتعلق ببرنامج SHARE.
+      </p>
+
+      <p>
+        <strong>16.</strong>
+        إلى أقصى حد يسمح به القانون، لن تكون Shell أو شركاتها المرتبطة
+        (المديرون والمسؤولون والموظفون) أو الوكلاء أو الموردون مسؤولين
+        عن فشل أي مشارك في SHARE في الوصول إلى برنامج SHARE لأي سبب كان،
+        بما في ذلك، على سبيل المثال فقط، نتيجة لفشل الاتصالات أو الشبكة.
+      </p>
+
+      <p>
+        <strong>17.</strong>
+        لن تتحمل Shell أو شركاتها المرتبطة (المديرون والمسؤولون والموظفون)
+        أو الوكلاء أو الموردون أي مسؤولية عن أي جوائز أو مزايا مفقودة
+        أو متأخرة أو تالفة أو مشوهة أو موجهة بشكل خاطئ أو غير مكتملة،
+        أو لا يمكن استردادها لأي سبب تقني أو لأسباب تتعلق بالتسليم أو
+        لأسباب أخرى.
+      </p>
+
+      <p>
+        <strong>18.</strong>
+        يتعين على جميع المشاركين في SHARE تعويض Shell وشركاتها المرتبطة
+        (المديرون والمسؤولون والموظفون) والوكلاء والموردين عن أي مطالبات
+        بشأن أي خسائر أو أضرار، سواء كانت مباشرة أو غير مباشرة أو تبعية
+        أو غير ذلك، ناشئة عن أي سبب كان مرتبطًا بمشاركتهم في برنامج SHARE
+        و/أو استلام و/أو استخدام جائزة.
+      </p>
+
+      <p>
+        <strong>19.</strong>
+        تخضع شروط وأحكام برنامج SHARE هذه لقوانين مصر.
+      </p>
+
+      <p>
+        <strong>20.</strong>
+        إذا تبين أن أي حكم من أحكام شروط وأحكام برنامج SHARE هذه غير صالح
+        أو غير قابل للتنفيذ من قبل أي محكمة ذات اختصاص قضائي، فسيتم فصل
+        هذا الحكم عن شروط وأحكام برنامج SHARE هذه ولن يؤثر ذلك على صلاحية
+        أو قابلية تنفيذ أي من الأحكام المتبقية.
+      </p>
+
+      <p>
+        <strong>21.</strong>
+        تحتفظ Shell بالحق، وفقًا لتقديرها المطلق، في تعديل أو حذف أو إضافة
+        أي من شروط وأحكام برنامج SHARE من وقت لآخر دون إشعار مسبق.
+      </p>
+
+      <p>
+        <strong>22.</strong>
+        تسود شروط وأحكام برنامج SHARE، بصيغتها المعدلة من وقت لآخر،
+        على أي أحكام أو إقرارات واردة في أي مواد ترويجية أخرى تعلن عن
+        برنامج SHARE.
+      </p>
+
+    `
+
+  }
+
+};
+
+/* ============================================================
+   STATE
+============================================================ */
+
+let currentLang = 'ar';
+
+let currentPage = 'verification';
+
+/* ============================================================
+   HELPERS
+============================================================ */
+
+function getText(key) {
+  return translations[currentLang]?.[key] || key;
+}
+
+function getPrivacyHTML() {
+  return translations[currentLang]?.privacy_html || translations.en.privacy_html;
+}
+
+function getTermsHTML() {
+  return translations[currentLang]?.terms_html || translations.en.terms_html;
+}
+
+/* ============================================================
+   UPDATE UI
+============================================================ */
+
+function updateUI() {
+
+  const toggleBtn = document.getElementById('langToggleBtn');
+  if (toggleBtn) {
+    toggleBtn.textContent = currentLang === 'ar' ? 'EN' : 'عربي';
+  }
+
+  const mobileLangBtn = document.getElementById('mobileLanguageBtn');
+  if (mobileLangBtn) {
+    mobileLangBtn.textContent = currentLang === 'ar' ? 'EN' : 'عربي';
+  }
+
+  // تحديث النصوص
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const text = getText(key);
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+      el.placeholder = text;
+    } else {
+      el.textContent = text;
+    }
+  });
+
+  const inputPlaceholder = document.querySelector('[data-i18n-placeholder]');
+  if (inputPlaceholder) {
+    const key = inputPlaceholder.getAttribute('data-i18n-placeholder');
+    inputPlaceholder.placeholder = getText(key);
+  }
+
+  // حقن محتوى السياسات
+  const privacyContainer = document.getElementById('privacyTextContainer');
+  if (privacyContainer) {
+    privacyContainer.innerHTML = getPrivacyHTML();
+  }
+
+  const termsContainer = document.getElementById('termsTextContainer');
+  if (termsContainer) {
+    termsContainer.innerHTML = getTermsHTML();
+  }
+
+  // اتجاه الصفحة
+  const html = document.documentElement;
+  if (currentLang === 'ar') {
+    html.setAttribute('dir', 'rtl');
+    html.setAttribute('lang', 'ar');
+    document.body.classList.add('lang-ar');
+    document.body.classList.remove('lang-en');
+  } else {
+    html.setAttribute('dir', 'ltr');
+    html.setAttribute('lang', 'en');
+    document.body.classList.add('lang-en');
+    document.body.classList.remove('lang-ar');
+  }
+
+  // تحديث شريط التنقل
+  const breadcrumbCurrent = document.getElementById('breadcrumbCurrent');
+  if (breadcrumbCurrent) {
+    if (currentPage === 'verification') {
+      breadcrumbCurrent.textContent = getText('product_verification');
+    } else if (currentPage === 'privacy') {
+      breadcrumbCurrent.textContent = getText('privacy');
+    } else if (currentPage === 'cookie') {
+      breadcrumbCurrent.textContent = getText('cookie');
+    } else if (currentPage === 'terms') {
+      breadcrumbCurrent.textContent = getText('terms');
+    }
+  }
+
+  // إظهار/إخفاء الأقسام
+  const verificationSection = document.getElementById('verificationSection');
+  const privacyDiv = document.getElementById('privacyContent');
+  const cookieDiv = document.getElementById('cookieContent');
+  const termsDiv = document.getElementById('termsContent');
+
+  // إخفاء الكل
+  if (verificationSection) verificationSection.style.display = 'none';
+  privacyDiv.classList.remove('active');
+  cookieDiv.classList.remove('active');
+  termsDiv.classList.remove('active');
+
+  // إظهار القسم المناسب
+  if (currentPage === 'verification') {
+    if (verificationSection) verificationSection.style.display = '';
+  } else if (currentPage === 'privacy') {
+    privacyDiv.classList.add('active');
+  } else if (currentPage === 'cookie') {
+    cookieDiv.classList.add('active');
+  } else if (currentPage === 'terms') {
+    termsDiv.classList.add('active');
+  }
+
+  // حفظ اللغة
+  localStorage.setItem('shell_lang', currentLang);
+}
+
+/* ============================================================
+   LANGUAGE
+============================================================ */
+
+function setLanguage(lang) {
+  if (lang !== 'ar' && lang !== 'en') return;
+  if (lang === currentLang) {
+    closeDrawer();
+    return;
+  }
+  currentLang = lang;
+  updateUI();
+  closeDrawer();
+}
+
+function toggleLanguage() {
+  const nextLang = currentLang === 'ar' ? 'en' : 'ar';
+  setLanguage(nextLang);
+}
+
+/* ============================================================
+   DRAWER
+============================================================ */
+
+function openDrawer() {
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+  document.getElementById('burgerBtn').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+  document.getElementById('burgerBtn').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+/* ============================================================
+   PAGE NAVIGATION
+============================================================ */
+
+function showVerification(event) {
+  if (event) event.preventDefault();
+  currentPage = 'verification';
+  updateUI();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  closeDrawer();
+}
+
+function goToVerification(event) {
+  if (event) event.preventDefault();
+  showVerification(event);
+}
+
+function showPrivacy(event) {
+  if (event) event.preventDefault();
+  currentPage = 'privacy';
+  updateUI();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  closeDrawer();
+}
+
+function showCookie(event) {
+  if (event) event.preventDefault();
+  currentPage = 'cookie';
+  updateUI();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  closeDrawer();
+}
+
+function showTerms(event) {
+  if (event) event.preventDefault();
+  currentPage = 'terms';
+  updateUI();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  closeDrawer();
+}
+
+/* ============================================================
+   MOBILE FOOTER ACCORDIONS
+============================================================ */
+
+function toggleMobileSection(sectionId) {
+  const section = document.getElementById(sectionId);
+  if (!section) return;
+  const isOpen = section.classList.contains('open');
+
+  document.querySelectorAll('.mobile-footer-content').forEach(item => {
+    item.classList.remove('open');
+  });
+  document.querySelectorAll('.mobile-footer-arrow').forEach(arrow => {
+    arrow.classList.remove('open');
+  });
+
+  if (!isOpen) {
+    section.classList.add('open');
+    if (sectionId === 'socialSection') {
+      const arrow = document.getElementById('socialArrow');
+      if (arrow) arrow.classList.add('open');
+    }
+    if (sectionId === 'siteInfoSection') {
+      const arrow = document.getElementById('siteInfoArrow');
+      if (arrow) arrow.classList.add('open');
+    }
+  }
+}
+
+/* ============================================================
+   FOOTER ACTIVE LINK
+============================================================ */
+
+function setActiveFooterLink(link) {
+  document.querySelectorAll('.footer-bottom a, .mobile-social-links a').forEach(item => {
+    item.classList.remove('active-link');
+  });
+  if (link) {
+    link.classList.add('active-link');
+  }
+}
+
+function activateFooterLink(event) {
+  if (event) event.preventDefault();
+  setActiveFooterLink(event.currentTarget);
+}
+
+/* ============================================================
+   PRODUCT VERIFICATION FUNCTIONS
+============================================================ */
 
 function clearProductCode() {
   document.getElementById("productCode").value = "";
 }
 
 function registerProduct() {
-
-  const code =
-    document.getElementById("productCode").value.trim();
-
+  const code = document.getElementById("productCode").value.trim();
   if (code === "") {
-    alert("برجاء إدخال رمز المنتج");
+    alert(currentLang === 'ar' ? 'برجاء إدخال رمز المنتج' : 'Please enter the product code');
     return;
   }
-
-  alert("تم إدخال رمز المنتج: " + code);
+  alert(currentLang === 'ar' ? 'تم إدخال رمز المنتج: ' + code : 'Product code entered: ' + code);
 }
 
 function showHelp() {
-  alert("يمكنك العثور على رمز المنتج على عبوة المنتج.");
+  alert(currentLang === 'ar'
+    ? 'يمكنك العثور على رمز المنتج على عبوة المنتج.'
+    : 'You can find the product code on the product packaging.');
 }
+
+/* ============================================================
+   EVENT LISTENERS
+============================================================ */
+
+document.getElementById('burgerBtn').addEventListener('click', openDrawer);
+document.getElementById('drawerOverlay').addEventListener('click', closeDrawer);
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeDrawer();
+});
+
+/* ============================================================
+   INITIALIZATION
+============================================================ */
+
+const savedLang = localStorage.getItem('shell_lang');
+if (savedLang && (savedLang === 'ar' || savedLang === 'en')) {
+  currentLang = savedLang;
+}
+
+updateUI();
 
 </script>
 

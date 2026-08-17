@@ -185,47 +185,56 @@
     /* ================= BURGER ================= */
 
     .burger-menu {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
-      width: 40px;
-      height: 40px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 8px;
-      border-radius: 6px;
-      transition: 0.3s;
-    }
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  position: relative;
+}
 
-    .burger-menu:hover {
-      background: #f0f0f0;
-    }
+.burger-menu span {
+  position: absolute;
+  width: 24px;
+  height: 2.5px;
+  background: #1a1a1a;
+  border-radius: 4px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
 
-    .burger-menu span {
-      display: block;
-      width: 24px;
-      height: 2.5px;
-      background: #1a1a1a;
-      border-radius: 4px;
-      transition: 0.3s;
-      transform-origin: center;
-    }
+/* الخط الأول */
+.burger-menu span:nth-child(1) {
+  transform: translateY(-4px);
+}
 
-    .burger-menu.active span:nth-child(1) {
-      transform: translateY(7.5px) rotate(45deg);
-    }
+/* الخط الثاني */
+.burger-menu span:nth-child(2) {
+  transform: translateY(4px);
+}
 
-    .burger-menu.active span:nth-child(2) {
-      opacity: 0;
-    }
+/* =========================
+   عند فتح القائمة = X
+========================= */
 
-    .burger-menu.active span:nth-child(3) {
-      transform: translateY(-7.5px) rotate(-45deg);
-    }
+.burger-menu.active span:nth-child(1) {
+  transform: rotate(45deg);
+}
 
+.burger-menu.active span:nth-child(2) {
+  transform: rotate(-45deg);
+}
+.burger-menu:hover {
+  background: #ffd900 !important;
+}
+
+.burger-menu:hover span {
+  background: #1a1a1a;
+}
     /* ================= DRAWER ================= */
 
     .drawer-overlay {
@@ -1423,6 +1432,7 @@
   }
 
 }
+
   </style>
 </head>
 
@@ -1454,7 +1464,6 @@
 
         <button class="burger-menu" id="burgerBtn" type="button" aria-label="Menu">
 
-          <span></span>
           <span></span>
           <span></span>
 

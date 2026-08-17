@@ -32,6 +32,9 @@
 
 </button>
 <style>
+
+
+
 * {
   margin: 0;
   padding: 0;
@@ -43,7 +46,9 @@
   position: fixed;
   right: 24px;
   bottom: 24px;
-
+ opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   width: 65px;
   height: 65px;
 
@@ -105,7 +110,11 @@ body {
   background: #fff;
   transition: all 0.3s ease;
 }
-
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 a {
   text-decoration: none;
   color: inherit;
@@ -188,10 +197,8 @@ a {
 /* ---------- Burger ---------- */
 .burger-menu {
   display: none;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
   width: 40px;
   height: 40px;
   background: none;
@@ -199,35 +206,46 @@ a {
   cursor: pointer;
   padding: 8px;
   border-radius: 6px;
-  transition: 0.3s;
-}
-
-.burger-menu:hover {
-  background: #f0f0f0;
+  position: relative;
 }
 
 .burger-menu span {
-  display: block;
+  position: absolute;
   width: 24px;
   height: 2.5px;
   background: #1a1a1a;
   border-radius: 4px;
-  transition: 0.3s;
-  transform-origin: center;
+  transition: transform 0.25s ease, opacity 0.2s ease;
 }
 
+/* الخط الأول */
+.burger-menu span:nth-child(1) {
+  transform: translateY(-4px);
+}
+
+/* الخط الثاني */
+.burger-menu span:nth-child(2) {
+  transform: translateY(4px);
+}
+
+/* =========================
+   عند فتح القائمة = X
+========================= */
+
 .burger-menu.active span:nth-child(1) {
-  transform: translateY(7.5px) rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .burger-menu.active span:nth-child(2) {
-  opacity: 0;
+  transform: rotate(-45deg);
+}
+.burger-menu:hover {
+  background: #ffd900 !important;
 }
 
-.burger-menu.active span:nth-child(3) {
-  transform: translateY(-7.5px) rotate(-45deg);
+.burger-menu:hover span {
+  background: #1a1a1a;
 }
-
 /* ---------- Mobile Drawer ---------- */
 .drawer-overlay {
   position: fixed;
@@ -296,7 +314,21 @@ a {
   color: #666;
   padding: 0 8px;
 }
+@media (max-width: 768px) {
 
+  .back-to-top {
+    width: 66px;
+    height: 66px;
+    right: 15px;
+    bottom: 15px;
+  }
+
+  .back-to-top svg {
+    width: 20px;
+    height: 20px;
+  }
+
+}
 .drawer-nav {
   display: flex;
   flex-direction: column;
@@ -434,7 +466,7 @@ a {
 }
 
 .breadcrumb-inner .shell-brand {
-  color: #003b5c;
+  color: #444;
   font-weight: 600;
   cursor: pointer;
 }
@@ -471,7 +503,16 @@ a {
 .terms-content.active {
   display: block;
 }
+/* ================= MOBILE FOOTER LINKS BOLD ================= */
 
+@media (max-width: 768px) {
+
+  .mobile-footer-content .social-icons a,
+  .mobile-footer-content .footer-bottom a {
+    font-weight: 750 !important;
+  }
+
+}
 /* ---------- Verification ---------- */
 .page-heading {
   display: inline-block;
@@ -1212,20 +1253,35 @@ body.lang-ar .page-heading::after {
   .verification-content {
     width: 100%;
   }
+@media (max-width: 768px) {
 
   .page-heading {
-  font-size: 22px;
+    position: relative !important;
+    top: 20px !important;
+  }
+
+  .page-heading h1 {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+  }
+
+}
+.page-heading {
+  font-size: 20px;
   line-height: 26px;
   font-weight: 800;
   padding-bottom: 5px;
-  margin-top: 20px;
+  margin-top: 40px;
   margin-bottom: 64px;
   border-bottom: 3px solid #DD1D21;
   letter-spacing: .3px;
 }
-  body.lang-ar .page-heading::after {
-    display: none;
-  }
+ body.lang-ar .page-heading::after {
+  display: block;
+  width: 270%;
+  height: 12px;
+  bottom: -20px;
+}
 
   .status-icon {
     width: 150px;
@@ -1248,6 +1304,15 @@ body.lang-ar .page-heading::after {
   /* BOTTOM YELLOW LINE */
 
   .bottom-line {
+  width: 100%;
+  height: 4px;
+  max-width: none;
+  margin: 0;
+  background: #FFC72C;
+}
+@media (max-width: 768px) {
+
+  .bottom-line {
     width: 100%;
     height: 2px;
     max-width: none;
@@ -1255,7 +1320,11 @@ body.lang-ar .page-heading::after {
     background: #FFC72C;
   }
 
+  body.lang-ar .bottom-line {
+    height: 11px;
+  }
 
+}
   /* MOBILE FOOTER */
 
   .desktop-footer {
@@ -1519,6 +1588,114 @@ body.lang-ar .page-heading::after {
     background: transparent !important;
   }
 }
+
+
+
+
+/* =========================================================
+   ARABIC MOBILE - LOGO AT EXTREME RIGHT
+========================================================= */
+
+@media (max-width: 768px) {
+
+  html[dir="rtl"] .topbar-inner .logo {
+    position: absolute;
+    right: 0;
+    left: auto;
+
+    display: flex;
+    flex-direction: row-reverse;
+
+    align-items: center;
+    justify-content: flex-start;
+
+    padding: 0;
+    margin: 0;
+    gap: 9px;
+  }
+
+  html[dir="rtl"] .topbar-inner .logo img {
+    order: 1;
+    flex-shrink: 0;
+  }
+
+  html[dir="rtl"] .topbar-inner .logo .logo-text {
+    order: 2;
+    white-space: nowrap;
+  }
+
+}
+/* =========================================================
+   MOBILE HEADER - EXACT LANGUAGE POSITION
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .topbar-inner {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* ================= ENGLISH ================= */
+
+  html[dir="ltr"] .topbar-inner .logo {
+    position: absolute;
+    left: 0;
+    right: auto;
+
+    padding-left: 13px;
+    padding-right: 0;
+
+    margin: 0;
+  }
+
+  html[dir="ltr"] .topbar-inner .topbar-right {
+    position: absolute;
+    right: 0;
+    left: auto;
+
+    margin: 0;
+  }
+
+
+  /* ================= ARABIC ================= */
+
+  html[dir="rtl"] .topbar-inner .logo {
+    position: absolute;
+    right: 0;
+    left: auto;
+
+    padding-right: 0;
+    padding-left: 0;
+
+    margin: 0;
+  }
+
+  html[dir="rtl"] .topbar-inner .topbar-right {
+    position: absolute;
+    left: 0;
+    right: auto;
+
+    margin: 0;
+  }
+
+
+  /* ================= BURGER ================= */
+
+  html[dir="ltr"] .burger-menu {
+    border-left: 1px solid #ddd;
+    border-right: none;
+  }
+
+  html[dir="rtl"] .burger-menu {
+    border-right: 1px solid #ddd;
+    border-left: none;
+  }
+
+}
 </style>
 </head>
 
@@ -1552,7 +1729,6 @@ body.lang-ar .page-heading::after {
         type="button"
         aria-label="Menu">
 
-        <span></span>
         <span></span>
         <span></span>
 
@@ -1694,7 +1870,7 @@ body.lang-ar .page-heading::after {
     <p
       class="result-message"
       data-i18n="invalid_code">
-      كود غير صحيح، بالرجاء الرجوع للتاجر
+       شكرا لشراء منتجات شيل 
     </p>
 
   </div>
@@ -2030,7 +2206,7 @@ const translations = {
       "PRODUCT VERIFICATION",
 
     invalid_code:
-      "كود غير صحيح، بالرجاء الرجوع للتاجر",
+      "شكرا لشراء منتجات  شيل",
 
     connect_with_us:
       "Connect with us",
@@ -2458,7 +2634,7 @@ const translations = {
       "التحقق من المنتج",
 
     invalid_code:
-      "كود غير صحيح، بالرجاء الرجوع للتاجر",
+      "شكرا لشراء منتجات شيل",
 
     connect_with_us:
       "Connect with us",
@@ -3318,10 +3494,17 @@ function closeDrawer() {
 
 document
   .getElementById('burgerBtn')
-  .addEventListener(
-    'click',
-    openDrawer
-  );
+  .addEventListener('click', function () {
+
+    const drawer = document.getElementById('drawer');
+
+    if (drawer.classList.contains('open')) {
+      closeDrawer();
+    } else {
+      openDrawer();
+    }
+
+  });
 
 
 
@@ -3410,6 +3593,19 @@ function toggleMobileSection(sectionId) {
   }
 
 }
+/* ============================================================
+   BACK TO TOP
+============================================================ */
+
+const backToTopBtn = document.getElementById('backToTopBtn');
+
+window.addEventListener('scroll', function () {
+  if (window.scrollY > 100) {
+    backToTopBtn.classList.add('show');
+  } else {
+    backToTopBtn.classList.remove('show');
+  }
+});
 /* ============================================================
    INITIALIZATION
 ============================================================ */

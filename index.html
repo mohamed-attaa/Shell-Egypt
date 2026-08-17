@@ -3620,31 +3620,34 @@ function toggleMobileSection(sectionId) {
 
 
 /* ============================================================
-   BACK TO TOP
+   BACK TO TOP - FIXED
 ============================================================ */
 
-
-;
-/* ============================================================
-   INITIALIZATION
-============================================================ */
-
-/* ============================================================
-   INITIALIZATION
-============================================================ */
-
-updateUI();
-
-// ===== BACK TO TOP (تم نقله جوه الـ script) =====
-const backToTopBtn = document.getElementById('backToTopBtn');
-
-window.addEventListener('scroll', function () {
-  if (window.scrollY > 50) {
-    backToTopBtn.classList.add('show');
-  } else {
-    backToTopBtn.classList.remove('show');
+(function() {
+  const backToTopBtn = document.getElementById('backToTopBtn');
+  
+  if (!backToTopBtn) {
+    console.warn('Back to top button not found!');
+    return;
   }
-});
+
+  // التأكد إن الزر يظهر من أول تمريرة بسيطة
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 30) {
+      backToTopBtn.classList.add('show');
+    } else {
+      backToTopBtn.classList.remove('show');
+    }
+  });
+
+  // لو الصفحة مشغلة وتم التمرير بالفعل، نتحقق
+  if (window.scrollY > 30) {
+    backToTopBtn.classList.add('show');
+  }
+
+  console.log('Back to Top button initialized ✅');
+})();
+
 </script>
 
 </body>

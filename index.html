@@ -1660,14 +1660,12 @@ body.lang-ar .page-heading::after {
 
 /* ====== التحكم في الظهور والإخفاء ====== */
 .back-to-top {
-  opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .back-to-top.show {
-  opacity: 1;
   visibility: visible;
   pointer-events: auto;
 }
@@ -3568,7 +3566,7 @@ updateUI();
 const backToTopBtn = document.getElementById("backToTopBtn");
 
 window.addEventListener("scroll", function () {
-  if (window.scrollY > 200) {
+  if (window.scrollY > 50) {
     backToTopBtn.classList.add("show");
   } else {
     backToTopBtn.classList.remove("show");

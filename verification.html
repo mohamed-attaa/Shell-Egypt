@@ -1433,6 +1433,44 @@
 
 }
 
+
+
+
+
+
+
+
+
+
+/* ================= BACK TO TOP - MOBILE FIX ================= */
+
+@media (max-width: 768px) {
+
+  .back-to-top {
+    width: 65px;
+    height: 65px;
+    right: 15px;
+    bottom: 15px;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .back-to-top svg {
+    width: 22px;
+    height: 22px;
+  }
+
+}
   </style>
 </head>
 

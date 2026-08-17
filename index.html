@@ -3591,21 +3591,13 @@ function toggleMobileSection(sectionId) {
   }
 
 
-/* ============================================================
-   BACK TO TOP
-============================================================ */
 
-
-;
-/* ============================================================
-   INITIALIZATION
-============================================================ */
 
 updateUI();
 const backToTopBtn = document.getElementById("backToTopBtn");
 
 window.addEventListener("scroll", function () {
-  if (window.scrollY > 200) {
+  if (window.scrollY > 50) {
     backToTopBtn.classList.add("show");
   } else {
     backToTopBtn.classList.remove("show");

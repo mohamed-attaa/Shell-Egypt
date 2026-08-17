@@ -3629,11 +3629,17 @@ function toggleMobileSection(sectionId) {
    INITIALIZATION
 ============================================================ */
 
+/* ============================================================
+   INITIALIZATION
+============================================================ */
+
 updateUI();
+
+// ===== BACK TO TOP (تم نقله جوه الـ script) =====
 const backToTopBtn = document.getElementById('backToTopBtn');
 
 window.addEventListener('scroll', function () {
-  if (window.scrollY > 100) {
+  if (window.scrollY > 50) {
     backToTopBtn.classList.add('show');
   } else {
     backToTopBtn.classList.remove('show');

@@ -1455,14 +1455,9 @@
     <div class="topbar-inner">
 
       <a href="verification.html" class="logo">
-
-        <img src="./img/shell-logo.png" alt="Shell" width="70" height="70">
-
-        <span class="logo-text">
-          Shell Advantage Rewards
-        </span>
-
-      </a>
+  <img src="./img/shell-logo.png" alt="Shell" width="70" height="70">
+  <span class="logo-text">Shell Advantage Rewards</span>
+</a>
 
       <div class="topbar-right">
 
@@ -1639,17 +1634,15 @@
 
           <div class="form-buttons">
 
-            <button class="form-button" type="button" onclick="clearProductCode()" data-i18n="clear_button">
+          <!-- زر مسح -->
+<button class="form-button" type="button" onclick="window.location.href='index.html'">
+  مسح
+</button>
 
-              مسح
-
-            </button>
-
-            <button class="form-button" type="button" onclick="registerProduct()" data-i18n="register_button">
-
-              سجل
-
-            </button>
+<!-- زر سجل -->
+<button class="form-button" type="button" onclick="window.location.href='index.html'">
+  سجل
+</button>
 
           </div>
 
@@ -3670,29 +3663,19 @@
     ============================================================ */
 
     function toggleMobileSection(sectionId) {
-      const section = document.getElementById(sectionId);
-      if (!section) return;
-      const isOpen = section.classList.contains('open');
+  const section = document.getElementById(sectionId);
+  if (!section) return;
 
-      document.querySelectorAll('.mobile-footer-content').forEach(item => {
-        item.classList.remove('open');
-      });
-      document.querySelectorAll('.mobile-footer-arrow').forEach(arrow => {
-        arrow.classList.remove('open');
-      });
+  // 🔵 بدل ما نقفل الكل، نشغل/نطفى القسم المطلوب بس
+  section.classList.toggle('open');
 
-      if (!isOpen) {
-        section.classList.add('open');
-        if (sectionId === 'socialSection') {
-          const arrow = document.getElementById('socialArrow');
-          if (arrow) arrow.classList.add('open');
-        }
-        if (sectionId === 'siteInfoSection') {
-          const arrow = document.getElementById('siteInfoArrow');
-          if (arrow) arrow.classList.add('open');
-        }
-      }
-    }
+  // 🔵 نشغل/نطفى السهم بتاع القسم المطلوب
+  const arrowId = sectionId === 'socialSection' ? 'socialArrow' : 'siteInfoArrow';
+  const arrow = document.getElementById(arrowId);
+  if (arrow) {
+    arrow.classList.toggle('open');
+  }
+}
 
     /* ============================================================
        FOOTER ACTIVE LINK

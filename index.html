@@ -1765,11 +1765,9 @@ body.lang-ar .page-heading::after {
   <ul class="drawer-nav">
 
     <li>
-      <a href="verification.html" onclick="showVerification(event)">
-        <span data-i18n="check_product">
-          Check Product Authenticity
-        </span>
-      </a>
+    <a href="verification.html" id="drawerVerifyLink">
+  <span data-i18n="check_product">Check Product Authenticity</span>
+</a>
     </li>
 
   </ul>
@@ -1793,12 +1791,13 @@ body.lang-ar .page-heading::after {
 ========================================================= -->
 
 <div class="title-bar">
-
   <div class="title-bar-inner">
 
-    <h1 data-i18n="check_product">
-      التحقق من صحة المنتج
-    </h1>
+    <a href="verification.html" class="title-link">
+      <h1 data-i18n="check_product">
+        التحقق من صحة المنتج
+      </h1>
+    </a>
 
   </div>
 
@@ -1879,7 +1878,7 @@ body.lang-ar .page-heading::after {
     <p
       class="result-message"
       data-i18n="invalid_code">
-       شكرا لشراء منتجات شيل 
+      منتج اصلي.شكرا لشراء منتجات شل الاصلية 
     </p>
 
   </div>
@@ -2215,7 +2214,7 @@ const translations = {
       "PRODUCT VERIFICATION",
 
     invalid_code:
-      "شكرا لشراء منتجات  شيل",
+      "منتج اصلي.شكرا لشراء منتجات شيل الاصليه     ",
 
     connect_with_us:
       "Connect with us",
@@ -2643,7 +2642,7 @@ const translations = {
       "التحقق من المنتج",
 
     invalid_code:
-      "شكرا لشراء منتجات شيل",
+      "منتج اصلي.شكرا لشراء منتجات شيل الاصلية",
 
     connect_with_us:
       "Connect with us",
@@ -3519,6 +3518,15 @@ document
 
 
 
+
+
+
+
+
+
+  
+
+
 document
   .getElementById('drawerOverlay')
   .addEventListener(
@@ -3544,6 +3552,10 @@ document.addEventListener(
    MOBILE FOOTER ACCORDIONS
 ============================================================ */
 
+/* ============================================================
+   MOBILE FOOTER ACCORDIONS - تسمح بفتح أكثر من قائمة
+============================================================ */
+
 function toggleMobileSection(sectionId) {
 
   const section = document.getElementById(sectionId);
@@ -3552,23 +3564,25 @@ function toggleMobileSection(sectionId) {
     return;
   }
 
-  const isOpen = section.classList.contains('open');
+  // 🔵 عكس حالة القسم (تفتح لو مقفلة، تقفل لو مفتوحة)
+  section.classList.toggle('open');
 
-  /*
-   * Close both sections first
-   */
-  document
-    .querySelectorAll('.mobile-footer-content')
-    .forEach(sectionItem => {
-      sectionItem.classList.remove('open');
-    });
+  // 🔵 عكس حالة السهم
+  let arrowId;
+  if (sectionId === 'socialSection') {
+    arrowId = 'socialArrow';
+  } else if (sectionId === 'siteInfoSection') {
+    arrowId = 'siteInfoArrow';
+  }
 
-  document
-    .querySelectorAll('.mobile-footer-arrow')
-    .forEach(arrow => {
-      arrow.classList.remove('open');
-    });
+  if (arrowId) {
+    const arrow = document.getElementById(arrowId);
+    if (arrow) {
+      arrow.classList.toggle('open');
+    }
+  }
 
+}
 
   /*
    * Open selected section
@@ -3601,7 +3615,7 @@ function toggleMobileSection(sectionId) {
 
   }
 
-}
+
 /* ============================================================
    BACK TO TOP
 ============================================================ */

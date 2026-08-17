@@ -3522,27 +3522,16 @@ document.addEventListener(
 
   }
 );
-
 /* ============================================================
    MOBILE FOOTER ACCORDIONS
 ============================================================ */
 
-/* ============================================================
-   MOBILE FOOTER ACCORDIONS - تسمح بفتح أكثر من قائمة
-============================================================ */
-
 function toggleMobileSection(sectionId) {
-
   const section = document.getElementById(sectionId);
+  if (!section) return;
 
-  if (!section) {
-    return;
-  }
-
-  // 🔵 عكس حالة القسم (تفتح لو مقفلة، تقفل لو مفتوحة)
   section.classList.toggle('open');
 
-  // 🔵 عكس حالة السهم
   let arrowId;
   if (sectionId === 'socialSection') {
     arrowId = 'socialArrow';
@@ -3556,48 +3545,18 @@ function toggleMobileSection(sectionId) {
       arrow.classList.toggle('open');
     }
   }
-
 }
 
-  /*
-   * Open selected section
-   */
-  if (!isOpen) {
-
-    section.classList.add('open');
-
-    if (sectionId === 'socialSection') {
-
-      const arrow =
-        document.getElementById('socialArrow');
-
-      if (arrow) {
-        arrow.classList.add('open');
-      }
-
-    }
-
-    if (sectionId === 'siteInfoSection') {
-
-      const arrow =
-        document.getElementById('siteInfoArrow');
-
-      if (arrow) {
-        arrow.classList.add('open');
-      }
-
-    }
-
-  }
-
-
-
+/* ============================================================
+   BACK TO TOP
+============================================================ */
 
 updateUI();
+
 const backToTopBtn = document.getElementById("backToTopBtn");
 
 window.addEventListener("scroll", function () {
-  if (window.scrollY > 300) {
+  if (window.scrollY > 30) {
     backToTopBtn.classList.add("show");
   } else {
     backToTopBtn.classList.remove("show");

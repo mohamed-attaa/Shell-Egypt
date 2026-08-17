@@ -3522,16 +3522,27 @@ document.addEventListener(
 
   }
 );
+
 /* ============================================================
    MOBILE FOOTER ACCORDIONS
 ============================================================ */
 
-function toggleMobileSection(sectionId) {
-  const section = document.getElementById(sectionId);
-  if (!section) return;
+/* ============================================================
+   MOBILE FOOTER ACCORDIONS - تسمح بفتح أكثر من قائمة
+============================================================ */
 
+function toggleMobileSection(sectionId) {
+
+  const section = document.getElementById(sectionId);
+
+  if (!section) {
+    return;
+  }
+
+  // 🔵 عكس حالة القسم (تفتح لو مقفلة، تقفل لو مفتوحة)
   section.classList.toggle('open');
 
+  // 🔵 عكس حالة السهم
   let arrowId;
   if (sectionId === 'socialSection') {
     arrowId = 'socialArrow';
@@ -3545,26 +3556,26 @@ function toggleMobileSection(sectionId) {
       arrow.classList.toggle('open');
     }
   }
+
 }
 
-/* ============================================================
-   BACK TO TOP
-============================================================ */
+  
+
+
+
 
 updateUI();
-
 const backToTopBtn = document.getElementById("backToTopBtn");
 
 window.addEventListener("scroll", function () {
-  if (window.scrollY > 30) {
+  if (window.scrollY > 200) {
     backToTopBtn.classList.add("show");
   } else {
     backToTopBtn.classList.remove("show");
   }
 });
-
 </script>
-/* ===============
+
 </body>
 </html>
 

@@ -91,7 +91,33 @@
 
 
 
+@media (max-width: 768px) {
+  .back-to-top {
+    width: 66px;
+    height: 66px;
+    right: 15px;
+    bottom: 15px;
 
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+      opacity 0.25s ease,
+      visibility 0.25s ease;
+  }
+
+  .back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .back-to-top svg {
+    width: 20px;
+    height: 20px;
+  }
+}
 body {
   font-family: Arial, Helvetica, sans-serif;
   color: #333;
@@ -3611,6 +3637,13 @@ function toggleMobileSection(sectionId) {
    BACK TO TOP
 ============================================================ */
 
+
+;
+/* ============================================================
+   INITIALIZATION
+============================================================ */
+
+updateUI();
 const backToTopBtn = document.getElementById('backToTopBtn');
 
 window.addEventListener('scroll', function () {
@@ -3620,12 +3653,6 @@ window.addEventListener('scroll', function () {
     backToTopBtn.classList.remove('show');
   }
 });
-/* ============================================================
-   INITIALIZATION
-============================================================ */
-
-updateUI();
-
 </script>
 
 </body>

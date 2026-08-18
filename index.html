@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr"></html>
 <head>
@@ -449,14 +448,22 @@ body.lang-ar .page-heading::after {
 }
 
 .status-icon {
-  width: 170px;
-  height: 170px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
-  background: #008f3c;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 18px;
+  margin: 35px auto 15px;
+  background: transparent;
+}
+
+.status-icon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .status-icon svg {
@@ -913,17 +920,28 @@ body.lang-ar .page-heading::after {
   display: block;
 }
 
-.mobile-language-link {
-  border: 0;
-  background: none;
-  padding: 0;
-  margin: 0;
-  color: #444;
-  font-size: 13px;
-  font-family: Arial, Helvetica, sans-serif;
-  cursor: pointer;
-}
+@media (max-width: 768px) {
 
+  .mobile-language-link {
+    display: block;
+    width: 100%;
+    height: 45px;
+
+    border: 0;
+    background: transparent;
+
+    padding: 0;
+    margin: 0;
+
+    color: #555;
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+
+    cursor: pointer;
+    text-align: left;
+  }
+
+}
 
 /* ================= MOBILE ================= */
 
@@ -1181,15 +1199,15 @@ body.lang-ar .page-heading::after {
 }
 
 .status-icon {
-  width: 150px;
-  height: 150px;
+  width: 165px;
+  height: 165px;
   margin: 45px auto 14px;   /* ← زودت الرقم الأول عشان تنزل */
 }
 
-  .status-icon svg {
-    width: 31px;
-    height: 73px;
-  }
+ .status-icon svg {
+  width: 20px;
+  height: 90px;
+}
 
   .result-message {
     font-size: 15px;
@@ -1656,14 +1674,15 @@ body.lang-ar .page-heading::after {
     width: 65px;
     height: 65px;
     right: 15px;
-    bottom: 15px;
+    bottom: 80px;
   }
+}
 
   .back-to-top svg {
     width: 22px;
     height: 22px;
   }
-}
+
 
 /* ====== التحكم في الظهور والإخفاء ====== */
 .back-to-top {
@@ -1676,36 +1695,83 @@ body.lang-ar .page-heading::after {
   visibility: visible;
   pointer-events: auto;
 }
+
+
+
+.site-footer {
+  width: 100%;
+  margin-top: 20px;
+  padding-bottom: 0;
+  background: #fff;
+  position: relative;
+}
+
+.mobile-footer-row {
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+}
+
 @media (max-width: 768px) {
+
   .site-footer {
-    margin-top: 60px;
+    width: 100%;
+    margin-top: 20px;
+    padding-bottom: 230px;
+    position: relative;
+    background: #fff;
+    border-bottom: none;
+  }
+
+  .site-footer::after {
+    content: "";
+    position: absolute;
+    left: 1px;
+    right: 1px;
+    bottom: 70px;
+    height: 2px;
+    background: #0c0b0bbd;
+  }
+
+  /* المساحة الموجودة تحت الخط */
+  .site-footer::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 70px;
+    background: #fff;
+    transition: background-color 0.2s ease;
+  }
+
+  /* عند لمس المساحة */
+  .site-footer:active::before {
+    background: #ffd900;
   }
 }
 
-
-
-
-
-
-
 /* =========================================================
    FLOATING NOTIFICATION
+========================================================= */
+/* =========================================================
+   NOTIFICATION BELL
 ========================================================= */
 
 .notification-btn {
   position: fixed;
 
-  /* على الشمال */
   left: 18px;
   bottom: 24px;
 
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
 
   border: none;
   border-radius: 50%;
 
-  background: #dd1d21;
+  background: #b4000b;
 
   display: flex;
   align-items: center;
@@ -1715,26 +1781,31 @@ body.lang-ar .page-heading::after {
 
   z-index: 99998;
 
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.22);
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.45);
 
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  padding: 0;
+
+  transition: transform 0.2s ease;
 }
 
 .notification-btn:hover {
-  transform: scale(1.05);
-
-  box-shadow:
-    0 7px 20px rgba(0, 0, 0, 0.28);
+  transform: scale(1.03);
 }
 
-.notification-btn svg {
-  width: 23px;
-  height: 25px;
+.notification-btn:active {
+  transform: scale(0.98);
 }
 
-
+/* ====== تعديل حجم الجرس وتوسيطه ====== */
+/* ====== تعديل حجم الجرس مع ميلان ====== */
+.notification-btn .bell-icon {
+  width: 33px !important;
+  height: 33px !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+  transform: rotate(15deg); /* ميلان لليمين */
+}
 /* الرقم الصغير */
 
 .notification-badge {
@@ -1921,11 +1992,13 @@ body.lang-ar .page-heading::after {
 
   .notification-btn {
     left: 15px;
-    bottom: 15px;
+    bottom: 20px;
 
-    width: 43px;
-    height: 43px;
+    width: 48px;
+    height: 48px;
   }
+
+ 
 
   .notification-panel {
     left: 15px;
@@ -1937,6 +2010,47 @@ body.lang-ar .page-heading::after {
     height: 190px;
   }
 
+}
+
+
+
+
+
+
+
+
+.footer-column h3 {
+    transform: translateY(-15px);
+}
+
+.footer-columns {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 35px;
+}
+
+
+
+
+
+.notification-image {
+  position: fixed;
+  left: 18px;
+  bottom: 24px;
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 99998;
+}
+
+
+/* تكبير دائرة التحقق - Desktop فقط */
+@media (min-width: 769px) {
+  .status-icon {
+    width: 150px !important;
+    height: 150px !important;
+  }
 }
 </style>
 </head>
@@ -1954,32 +2068,11 @@ body.lang-ar .page-heading::after {
 </button>
 <!-- ================= FLOATING NOTIFICATION ================= -->
 
-<button
-  type="button"
-  id="notificationBtn"
-  class="notification-btn"
-  aria-label="Notifications"
+<img
+  src="./img/555555.jpg"
+  class="notification-image"
+  alt="Notifications"
   onclick="toggleNotifications()">
-
-  <svg viewBox="0 0 24 24" width="19" height="19" fill="none">
-    <g transform="rotate(15 12 12)">
-      <path
-        d="M18 9.5C18 6.2 15.8 4 12 4C8.2 4 6 6.2 6 9.5V14L4 17H20L18 14V9.5Z"
-        fill="#B8860B"
-        stroke="#B8860B"
-        stroke-width="1.3"
-        stroke-linejoin="round"/>
-
-      <path
-        d="M10 20C10.5 21 11.2 21.5 12 21.5C12.8 21.5 13.5 21 14 20"
-        stroke="#B8860B"
-        stroke-width="1.5"
-        stroke-linecap="round"/>
-    </g>
-  </svg>
-
-</button>
-
 
 <!-- ================= NOTIFICATION PANEL ================= -->
 
@@ -2177,29 +2270,15 @@ body.lang-ar .page-heading::after {
 </div>
 
    <div class="status-icon success-icon">
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg">
-
-    <path
-      d="M5 12.5L10 17.5L19.5 7"
-      stroke="#ffffff"
-      stroke-width="2.8"
-      stroke-linecap="round"
-      stroke-linejoin="round"/>
-      
-  </svg>
+  <img src="./img/999999999999999.jpg" alt="Product Verification">
 </div>
-
-      </svg>
-
-    </div>
 
     <p
       class="result-message"
       data-i18n="invalid_code">
-      منتج اصلي.شكرا لشراء منتجات شل الاصلية 
+      منتج اصلي،شكرا لشراء منتجات شل الأصلية
+
+
     </p>
 
   </div>
@@ -2439,7 +2518,6 @@ body.lang-ar .page-heading::after {
 
   </div>
 
-
   <!-- DESKTOP FOOTER -->
   <div class="desktop-footer">
 
@@ -2535,7 +2613,7 @@ const translations = {
       "PRODUCT VERIFICATION",
 
     invalid_code:
-      "منتج اصلي.شكرا لشراء منتجات شيل الاصليه     ",
+      "منتج اصلي،شكرا لشراء منتجات شل الأصلية  ",
 
     connect_with_us:
       "Connect with us",
@@ -2963,7 +3041,7 @@ const translations = {
       "التحقق من المنتج",
 
     invalid_code:
-      "منتج اصلي.شكرا لشراء منتجات شيل الاصلية",
+      "منتج اصلي،شكرا لشراء منتجات شل الأصلية",
 
     connect_with_us:
       "Connect with us",
@@ -3842,8 +3920,8 @@ document
 
 
 
-
   
+
 
 
 document
@@ -3907,7 +3985,6 @@ function toggleMobileSection(sectionId) {
 
 
 
-
 updateUI();
 const backToTopBtn = document.getElementById("backToTopBtn");
 
@@ -3918,8 +3995,6 @@ window.addEventListener("scroll", function () {
     backToTopBtn.classList.remove("show");
   }
 });
-
-
 
 
 
@@ -3950,4 +4025,3 @@ function toggleNotifications() {
 
 </body>
 </html>
-

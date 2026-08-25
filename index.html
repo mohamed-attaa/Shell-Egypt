@@ -1231,7 +1231,7 @@ body.lang-ar .page-heading::after {
   width: 100%;
   height: 2px;
   max-width: none;
-  margin-top: 60px;        /* ← أضفت مسافة عشان ينزل */
+  margin-top: 120px;        /* ← أضفت مسافة عشان ينزل */
   background: #FFC72C;
 }
 
@@ -2172,33 +2172,35 @@ body.lang-ar .page-heading::after {
      MOBILE DRAWER
 ========================================================= -->
 
-<div class="drawer-overlay" id="drawerOverlay"></div>
-
 <div class="drawer" id="drawer">
 
   <ul class="drawer-nav">
 
+    <!-- رابط التحقق -->
     <li>
-    <a href="verification.html" id="drawerVerifyLink">
-  <span data-i18n="check_product">Check Product Authenticity</span>
-</a>
+      <a href="verification.html" onclick="showVerification(event)">
+        <span data-i18n="check_product">Check Product Authenticity</span>
+      </a>
+    </li>
+
+    <!-- زر اللغة - أصبح داخل القائمة مباشرة أسفل الرابط -->
+    <li>
+      <button 
+        class="mobile-language-link" 
+        type="button" 
+        id="mobileLanguageBtn" 
+        onclick="toggleLanguage()"
+        style="display: block; width: 100%; padding: 22px 40px; border: none; background: transparent; font-size: 13px; color: #444; font-family: Arial, Helvetica, sans-serif; cursor: pointer; text-align: inherit;">
+        عربي
+      </button>
     </li>
 
   </ul>
 
-  <div class="drawer-lang-section">
-
-    <button
-      class="mobile-language-link"
-      type="button"
-      id="mobileLanguageBtn"
-      onclick="toggleLanguage()">
-      عربي
-    </button>
-
-  </div>
+  <!-- تم حذف drawer-lang-section لأن الزر أصبح داخل القائمة -->
 
 </div>
+
 
 <!-- =========================================================
      TITLE BAR

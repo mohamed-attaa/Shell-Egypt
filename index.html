@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr"></html>
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -238,7 +238,7 @@ a {
   display: block;
   padding: 14px 12px;
   font-size: 15px;
-  color: #1a1a1a;
+  color: #070707;
   border-radius: 8px;
   transition: 0.2s;
   font-weight: 500;
@@ -1067,13 +1067,13 @@ body.lang-ar .page-heading::after {
   }
 
   .drawer-nav li a {
-    display: block;
-    padding: 22px 40px;
-    border-radius: 0;
-    font-size: 13px;
-    color: #444;
-    font-weight: 400;
-  }
+  display: block;
+  padding: 22px 40px;
+  border-radius: 0;
+  font-size: 15px;
+  color: #050505 !important;
+  font-weight: 700;
+}
 
   .drawer-nav li a:hover {
     background: transparent;
@@ -2165,8 +2165,11 @@ body.lang-ar .page-heading::after {
 
 
 <!-- =========================================================
-     MOBILE DRAWER
+     DRAWER OVERLAY  (كان ناقص وده كان سبب تعطل باقي الكود)
 ========================================================= -->
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+
 
 <!-- =========================================================
      MOBILE DRAWER
@@ -2177,11 +2180,11 @@ body.lang-ar .page-heading::after {
   <ul class="drawer-nav">
 
     <!-- رابط التحقق -->
-    <li>
-      <a href="verification.html" onclick="showVerification(event)">
-        <span data-i18n="check_product">Check Product Authenticity</span>
-      </a>
-    </li>
+  <li>
+  <a href="verification.html">
+    <span data-i18n="check_product">Check Product Authenticity</span>
+  </a>
+</li>
 
     <!-- زر اللغة - أصبح داخل القائمة مباشرة أسفل الرابط -->
     <li>
@@ -2267,7 +2270,8 @@ body.lang-ar .page-heading::after {
 
     <div class="page-heading-wrapper">
   <h2 class="page-heading" data-i18n="product_verification_heading">
-    التحقق من المنتج
+       Product Verification
+
   </h2>
 </div>
 
@@ -2374,8 +2378,6 @@ body.lang-ar .page-heading::after {
 <div class="bottom-line"></div>
 
 
-<!-- =========================================================
-     FOOTER
 <!-- =========================================================
      FOOTER
 ========================================================= -->
@@ -3863,9 +3865,10 @@ function openDrawer() {
     .getElementById('drawer')
     .classList.add('open');
 
-  document
-    .getElementById('drawerOverlay')
-    .classList.add('open');
+  const overlay = document.getElementById('drawerOverlay');
+  if (overlay) {
+    overlay.classList.add('open');
+  }
 
   document
     .getElementById('burgerBtn')
@@ -3882,9 +3885,10 @@ function closeDrawer() {
     .getElementById('drawer')
     .classList.remove('open');
 
-  document
-    .getElementById('drawerOverlay')
-    .classList.remove('open');
+  const overlay = document.getElementById('drawerOverlay');
+  if (overlay) {
+    overlay.classList.remove('open');
+  }
 
   document
     .getElementById('burgerBtn')
@@ -3914,24 +3918,10 @@ document
   });
 
 
-
-
-
-
-
-
-
-
-  
-
-
-
-document
-  .getElementById('drawerOverlay')
-  .addEventListener(
-    'click',
-    closeDrawer
-  );
+const drawerOverlayEl = document.getElementById('drawerOverlay');
+if (drawerOverlayEl) {
+  drawerOverlayEl.addEventListener('click', closeDrawer);
+}
 
 
 document.addEventListener(
